@@ -19,6 +19,7 @@ settings:
           items:
             - Bold
             - Italic
+            - Underline
         -
           name: Linking
           items:
@@ -37,11 +38,29 @@ settings:
         -
           name: 'Block Formatting'
           items:
+            - Styles
             - Format
         -
           name: Tools
           items:
             - Source
+        -
+          name: Align
+          items:
+            - JustifyLeft
+            - JustifyCenter
+            - JustifyRight
+            - JustifyBlock
+        -
+          name: Indent
+          items:
+            - Indent
+            - Outdent
+        -
+          name: Undo
+          items:
+            - Undo
+            - Redo
   plugins:
     language:
       language_list: un
