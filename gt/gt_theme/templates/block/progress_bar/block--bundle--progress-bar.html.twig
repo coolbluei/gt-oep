@@ -1,0 +1,71 @@
+{# Progrss Bar #}
+
+{# Attach the library. #}
+{{ attach_library('gt/progress-bar') }}
+
+{# Set ID #}
+{% set link_id = 'progress-bar' %}
+
+{# Set Preprocess Fields #}
+{% set custom_color = (content.field_custom_color.0) %}
+{% set height = (content.field_height.0) %}
+{% set percentage = (content.field_percentage.0) %}
+{% set text = content.field_percentage.0|render ~ '%' %}
+{% set role = 'role=progressbar' %}
+{% set aria  = 'aria-valuenow=' ~ percentage|render ~ ''  ~ ' ' ~ 'aria-valuemin=' ~ '0' ~ '' ~ '' ~ ' ' ~ 'aria-valuemax=' ~ '100' ~ '' %}
+
+{# Set CSS Classes #}
+{% set classes = [
+  'block',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+  background_class
+] %}
+
+{# Set Title CSS classes #}
+{% set title_classes = [
+  'mt-4',
+  'mb-2',
+] %}
+
+{# Set Progress CSS classes #}
+{% set progress_classes = [
+  'progress'
+] %}
+
+{# Progress Bar Color #}
+{% set button_style = content.field_button_style[0]['#taxonomy_term'].getName()|clean_class|replace({' ': '-'}) %}
+
+{# Set Progress Bar CSS classes #}
+{% set bar_classes = [
+  'progress-bar',
+  'progress-bar-striped',
+  button_style
+] %}
+
+{# Set background - width - height logic #}
+{% if custom_color is not empty and percentage is not empty %}
+  {% set background  = 'style="background-color: ' ~ '#' ~ custom_color|render  ~ ';' ~ ' ' ~ 'width:' ~ percentage|render ~ '%'~';'~'"' %}
+{% endif %}
+{% if custom_color is empty and percentage is not empty %}
+  {% set width = 'style="width:' ~ percentage|render ~ '%' ~ '"' %}
+{% endif %}
+{% if height is not empty %}
+  {% set height  = 'style="height:' ~ height|render ~ 'px'~';' %}
+{% endif %}
+
+{# Content #}
+<div{{ attributes.setAttribute('id', link_id) }}>
+  {# Title #}
+  {{ title_prefix }}
+  {% if label %}
+    <h4 class="{{ title_classes|join(' ') }}">{{ label }}</h4>
+  {% endif %}
+  {{ title_suffix }}
+  {% block content %}
+  {# Progress bar  #}
+  <div class="{{ progress_classes|join(' ')|trim }}" {{ height|raw }}">
+     <div class="{{ bar_classes|join(' ') }}" {{ role }} {{ background|raw }} {{ width|raw }} {{ aria }}>{{ text }}</div>
+   </div>
+{% endblock %}
+</div>

@@ -1,0 +1,22 @@
+uuid: a8796274-4275-4456-9426-d7f9ec8a3995
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.accordion
+    - field.storage.block_content.body
+  module:
+    - text
+id: block_content.accordion.body
+field_name: body
+entity_type: block_content
+bundle: accordion
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary

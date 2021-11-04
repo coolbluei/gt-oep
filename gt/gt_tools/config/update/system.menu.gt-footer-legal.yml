@@ -1,0 +1,8 @@
+uuid: c0c62656-09b9-11ec-9a03-0242ac130003
+langcode: en
+status: true
+dependencies: {  }
+id: gt-footer-legal
+label: 'GT official links: legal (required)'
+description: 'GT official links: legal (required)'
+locked: true

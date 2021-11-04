@@ -1,0 +1,22 @@
+uuid: fae0c315-9df9-4ae0-ac8f-f76029dc396a
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - trans_gt
+_core:
+  default_config_hash: ud6UEfIf9lp1r2TfsSktD6_MJ4OjMa12x03DSyuDfc8
+id: trans_gt_help
+theme: trans_gt
+region: help
+weight: -5
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,18 @@
+uuid: c2805de6-050d-11ec-9a03-0242ac130003
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: gt_footer_contact
+theme: gt
+region: footer_05
+weight: 0
+provider: null
+plugin: gt_footer_contact_block
+settings:
+  id: gt_footer_contact_block
+  label: 'GT gold footer: address, contact and map (required)'
+  provider: gt_tools
+  label_display: '0'
+visibility: {  }

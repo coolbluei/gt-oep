@@ -1,0 +1,45 @@
+uuid: d1743ee7-7f9c-4753-9186-8b65127e7213
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - options
+id: block_content.field_alert_style
+field_name: field_alert_style
+entity_type: block_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: primary
+      label: primary
+    -
+      value: secondary
+      label: secondary
+    -
+      value: success
+      label: success
+    -
+      value: danger
+      label: danger
+    -
+      value: warning
+      label: warning
+    -
+      value: info
+      label: info
+    -
+      value: light
+      label: light
+    -
+      value: dark
+      label: dark
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

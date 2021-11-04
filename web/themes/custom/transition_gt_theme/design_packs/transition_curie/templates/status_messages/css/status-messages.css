@@ -1,0 +1,24 @@
+/* Status Message Style Sheet */
+.status-message {
+  margin-bottom: 30px;
+  padding: 15px 15px 15px 60px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-position: 20px center;
+  /*background-color: #EEE;*/
+}
+
+.status-message.status-message--error  {
+  background-image: url("sad.svg");
+  background-color: #FFB3B3;
+}
+
+.status-message.status-message--status  {
+  background-image: url("smile.svg");
+  background-color: #E0FFB3;
+}
+
+.status-message.status-message--warning {
+  background-image: url("meh.svg");
+  background-color: #FFF3B3;
+}

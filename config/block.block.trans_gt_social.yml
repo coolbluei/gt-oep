@@ -1,0 +1,25 @@
+uuid: 67bedad0-294b-4ecc-a3e7-b31605bc308c
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.social
+  module:
+    - system
+  theme:
+    - trans_gt
+id: trans_gt_social
+theme: trans_gt
+region: navigation
+weight: -7
+provider: null
+plugin: 'system_menu_block:social'
+settings:
+  id: 'system_menu_block:social'
+  label: Social
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

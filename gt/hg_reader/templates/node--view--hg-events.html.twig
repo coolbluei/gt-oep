@@ -85,7 +85,7 @@
       {% else %}
         {# Multi #}
         <div class="d-flex justify-content-center time-multi my-4">
-          {{ node.field_hg_event_time.start_date|date('g:iA', 'UTC')  ~ ' - ' ~ node.field_hg_event_time.end_date|date('g:iA', 'UTC') }}
+          {{ node.field_hg_event_time.start_date|date('g:iA', false)  ~ ' - ' ~ node.field_hg_event_time.end_date|date('g:iA', false) }}
         </div>
       {% endif %}
     </div> <!-- end date-wrapper -->
@@ -96,7 +96,7 @@
     {# Title #}
     {% if node.title.value is not empty %}
       <div class="hg-title">
-        <a href="{{ path('entity.node.canonical', {'node': node.id}) }}"><h2>{{ node.title.value }}</h2></a>
+        <a href="{{ path('entity.node.canonical', {'node': node.id}) }}"><h3>{{ node.title.value }}</h3></a>
       </div>
     {% endif %}
     {# Summary Sentence #}

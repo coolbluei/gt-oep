@@ -1,0 +1,23 @@
+uuid: 417e9a50-92e3-44ac-a267-7b249c3e79db
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - trans_curie
+_core:
+  default_config_hash: LstDdAk1yrcY-LnU61zpBqePUClybZgTDvGsgnW-AWU
+id: trans_curie_search
+theme: trans_curie
+region: search
+weight: -6
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: visible
+  page_id: ''
+visibility: {  }

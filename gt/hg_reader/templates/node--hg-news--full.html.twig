@@ -1,0 +1,111 @@
+{# HG Mercury News Template #}
+
+{# Attached Style Sheet #}
+{{ attach_library('hg_reader/hg_reader') }}
+
+{# Content #}
+
+{# Set Div Wrapper ID #}
+<div id="mercury" class="row mb-5 clearfix">
+
+    {# Set Main Container #}
+    <div class="col-md-8 col-sm-12">
+
+        {# Images #}
+        {% if content.field_hg_images|render is not empty %}
+            <div class="image">
+                {{ content.field_hg_images[0] }}
+            </div>
+        {% endif %}
+
+        {# Dateline #}
+        {% if content.field_hg_dateline|render is not empty or content.field_hg_location|render is not empty %}
+
+            {# Content #}
+            <div class="dateline">
+                {{ node.field_hg_dateline.value|date('M d, Y') }} &mdash; {{ content.field_hg_location[0] }}
+            </div>
+        {% endif %}
+
+        {# Body #}
+        {% if content.body|render is not empty %}
+            <div class="description">
+                {{ content.body[0] }}
+            </div>
+        {% endif %}
+
+        {# Render remaining Images #}
+        {% for key, item in content.field_hg_images if key > 0 %}
+            <div class="mt-3">{{ item }}</div>
+        {% endfor %}
+
+    </div>
+    {# End Main Container #}
+
+    {# Sidebar Right #}
+    <div class="col-md-4 col-sm-12 mt-3 sidebar sidebar-right">
+
+        {% if content.field_hg_sidebar|render is not empty %}
+            <div class="sidebar-content">
+                {{ content.field_hg_sidebar }}
+            </div>
+        {% endif %}
+
+        {# Contact #}
+        {% if content.field_hg_contact|render is not empty %}
+            <div class="card bg-light contact rounded border-0 p-3">
+                {{ content.field_hg_contact }}
+            </div>
+        {% endif %}
+
+        {# Email #}
+        {% if content.field_hg_email|render is not empty %}
+            <div class="card bg-light email rounded border-0 p-3">
+                {{ content.field_hg_email }}
+            </div>
+        {% endif %}
+
+        {# Related Files #}
+        {% if content.field_hg_related_files|render is not empty %}
+            <div class="card related-files rounded border-0 p-3">
+                {{ content.field_hg_related_files }}
+            </div>
+        {% endif %}
+
+        {# Related Links #}
+        {% if content.field_hg_related_links|render is not empty %}
+            <div class="card related-links rounded border-0 p-3">
+                {{ content.field_hg_related_links }}
+            </div>
+        {% endif %}
+
+        {# Categories #}
+        {% if content.field_hg_categories|render is not empty %}
+            <div class="card categories rounded border-0 p-3">
+                {{ content.field_hg_categories }}
+            </div>
+        {% endif %}
+
+        {# Core research areas #}
+        {% if content.field_hg_core_research_areas|render is not empty %}
+            <div class="card core_research_areas rounded border-0 p-3">
+                {{ content.field_hg_core_research_areas }}
+            </div>
+        {% endif %}
+
+        {# News Rooms Topics #}
+        {% if content.field_hg_news_room_topics|render is not empty %}
+            <div class="card news-room-topics rounded border-0 p-3">
+                {{ content.field_hg_news_room_topics }}
+            </div>
+        {% endif %}
+
+        {# Keywords #}
+        {% if content.field_hg_keywords|render is not empty %}
+            <div class="card keywords rounded border-0 p-3">
+                {{ content.field_hg_keywords }}
+            </div>
+        {% endif %}
+
+    </div>
+</div>

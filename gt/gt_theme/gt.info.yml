@@ -1,29 +1,43 @@
-core_version_requirement: ^8 || ^9
+# METADATA
+name: 'GT'
 type: theme
-# base theme: bootstrap
-
-name: 'GT Theme 8.x-1.0'
-description: 'Main GT theme'
-package: 'GT'
+description: 'GT Bootstrap 4 theme for Drupal 9.'
+core_version_requirement: ^8.8 || ^9
+base theme: stable
 
 regions:
+  alert: 'Alert'
+  header: 'Header'
   navigation: 'Navigation'
-  navigation_collapsible: 'Navigation (Collapsible)'
-  top_navigation: 'Top Navigation'
-  header: 'Top Bar'
+  utility_navigation: 'Utility navigation'
+  search: 'Search'
+  banner: 'Banner'
   highlighted: 'Highlighted'
   help: 'Help'
+  breadcrumbs: 'Page title / breadcrumbs'
+  before_content: 'Before content'
+  full_width_before_content: 'Full width before content'
   content: 'Content'
-  sidebar_first: 'Primary'
-  sidebar_second: 'Secondary'
-  superfooter_1: 'Superfooter (Column 1)'
-  superfooter_2: 'Superfooter (Column 2)'
-  superfooter_3: 'Superfooter (Column 3)'
-  superfooter_4: 'Superfooter (Column 4)'
-  footer: 'Footer'
-  footer_right: 'Footer Right'
+  full_width_after_content: 'Full width after content'
+  after_content: 'After content'
+  full_width_content: 'After full width content / with border'
+  full_width_content_two: 'After full width content / without border'
+  sidebar_first: 'Sidebar left'
+  sidebar_second: 'Sidebar right'
+  before_footer: 'Footer top / Must be utilized with the superfooter option'
+  footer_01: 'Footer first'
+  footer_02: 'Footer second'
+  footer_03: 'Footer third'
+  footer_04: 'Footer fourth'
+  footer_05: 'Footer fifth'
+  footer_06: 'Footer sixth'
+  footer_07: 'Footer seventh'
+  footer_08: 'Footer eighth'
   page_top: 'Page top'
   page_bottom: 'Page bottom'
+  other: 'Other / Placeholder region'
 
-# libraries:
-#   - 'gt/global-styling'
+libraries:
+  - 'gt/global-styling'
+  - 'gt/fonts'
+  - 'gt/bootstrap_cdn'

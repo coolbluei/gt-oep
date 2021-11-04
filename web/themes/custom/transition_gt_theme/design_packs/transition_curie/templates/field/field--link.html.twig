@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Theme override for a field.
+ *
+ * Add bootstrap button style to a link field
+ */
+#}
+{% for item in items %}
+    {%
+        set link_classes = [
+        'm-1',
+        'btn',
+        (loop.index0 == 0) ? 'btn-primary' : 'btn-primary'
+    ]
+    %}
+    {% set content = item.content %}
+    {% set content = content|merge({ '#attributes': { class: link_classes } }) %}
+    {{ content }}
+{% endfor %}

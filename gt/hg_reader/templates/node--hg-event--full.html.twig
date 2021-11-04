@@ -1,0 +1,189 @@
+{# HG Mercury Event Template #}
+
+{# Attached Style Sheet #}
+{{ attach_library('hg_reader/hg_reader') }}
+
+{# Content Start #}
+<div id="mercury" class="row mb-5">
+
+    {# Set Sidebar Container #}
+    <div class="col-md-4 col-sm-12 mt-3 sidebar sidebar-left">
+        {# Date Wrapper #}
+        <div class="date-wrapper p-0 w-100">
+            {# Day #}
+            {% if node.field_hg_event_time.start_date|date('l') is not empty and node.field_hg_event_time.start_date|date('l') is same as(node.field_hg_event_time.end_date|date('l')) %}
+                <div class="col day">
+                    {{ node.field_hg_event_time.start_date|date('l') }}
+                </div>
+            {% else %}
+                {# Multi #}
+                <div class="col day-multi">
+                    {{ node.field_hg_event_time.start_date|date('l')  ~ ' - ' ~ node.field_hg_event_time.end_date|date('l') }}
+                </div>
+            {% endif %}
+
+            {# Month #}
+            {% if node.field_hg_event_time.start_date|date('M') is not empty and node.field_hg_event_time.start_date|date('M') is same as(node.field_hg_event_time.end_date|date('M')) %}
+                <div class="col month">
+                    {{ node.field_hg_event_time.start_date|date('M') }}
+                </div>
+            {% else %}
+                {# Multi #}
+                <div class="col month-multi">
+                    {{ node.field_hg_event_time.start_date|date('M')  ~ ' - ' ~ node.field_hg_event_time.end_date|date('M') }}
+                </div>
+            {% endif %}
+
+            {# Date #}
+            {% if node.field_hg_event_time.start_date|date('j') is not empty and node.field_hg_event_time.start_date|date('j') is same as(node.field_hg_event_time.end_date|date('j')) %}
+                <div class="col date">
+                    {{ node.field_hg_event_time.start_date|date('j') }}
+                </div>
+            {% else %}
+                {# Multi #}
+                <div class="col date-multi">
+                    {{ node.field_hg_event_time.start_date|date('j')  ~ ' - ' ~ node.field_hg_event_time.end_date|date('j') }}
+                </div>
+            {% endif %}
+
+            {# Year #}
+            {% if node.field_hg_event_time.start_date|date('Y') is not empty and node.field_hg_event_time.start_date|date('Y') is same as(node.field_hg_event_time.end_date|date('Y')) %}
+                <div class="col year">
+                    {{ node.field_hg_event_time.start_date|date('Y') }}
+                </div>
+            {% else %}
+                {# Multi #}
+                <div class="col year-multi">
+                    {{ node.field_hg_event_time.start_date|date('Y')  ~ ' - ' ~ node.field_hg_event_time.end_date|date('Y') }}
+                </div>
+            {% endif %}
+
+            {# Time #}
+            {% if node.field_hg_event_time.start_date|date('g:iA', UTC) is not empty and node.field_hg_event_time.start_date|date('g:iA', 'UTC') is same as(node.field_hg_event_time.end_date|date('g:iA', 'UTC')) %}
+                <div class="d-flex justify-content-center time my-4">
+                    All day
+                </div>
+            {% else %}
+                {# Multi #}
+                <div class="d-flex justify-content-center time-multi my-4">
+                    {{ node.field_hg_event_time.start_date|date('g:iA', false)  ~ ' - ' ~ node.field_hg_event_time.end_date|date('g:iA', false) }}
+                </div>
+            {% endif %}
+
+        </div> <!-- end date-wrapper -->
+
+        {# Sidebar #}
+        {% if content.field_hg_sidebar|render is not empty %}
+            <div class="sidebar sidebar-left my-4 mx-2">
+                {{ content.field_hg_sidebar }}
+            </div>
+        {% endif %}
+
+        <div class="card bg-light border rounded mt-4 p-4">
+            {# Contact #}
+            {% if content.field_hg_contact|render is not empty %}
+                <div class="contact">
+                    {{ content.field_hg_contact }}
+                </div>
+            {% endif %}
+
+            {# Location #}
+            {% if content.field_hg_location|render %}
+                <div class="location">
+                    {{ content.field_hg_location }}
+                </div>
+            {% endif %}
+
+            {# Location Phone #}
+            {% if content.field_hg_location_phone|render is not empty %}
+                <div class="location-phone hidden">
+                    {{ content.field_hg_location_phone }}
+                </div>
+            {% endif %}
+
+            {# Location Email #}
+            {% if content.field_hg_location_email|render is not empty %}
+                <div class="location-email hidden">
+                    {{ content.field_hg_location_email }}
+                </div>
+            {% endif %}
+
+            {# Location Link #}
+            {% if content.field_hg_location_url|render is not empty %}
+                <div class="location-link hidden">
+                    {{ content.field_hg_location_url }}
+                </div>
+            {% endif %}
+
+            {# Fee and Extra #}
+            {% if content.field_hg_fee|render is not empty and content.field_hg_extras|render is empty %}
+                {# Fee #}
+                <div class="fee-wrapper fee p-0 my-4">
+                    {{ content.field_hg_fee }}
+                </div>
+            {% else %}
+                {# Fee and Extras #}
+                {% if content.field_hg_fee|render is not empty and content.field_hg_extras|render is not empty %}
+                    <div class="fee-wrapper fee extras p-0 my-4">
+                        {{ content.field_hg_fee }} {{ content.field_hg_extras }}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            {# Related Link #}
+            {% if content.field_hg_related_links|render is not empty %}
+                <div class="card related-links rounded border-0 p-3">
+                    {{ content.field_hg_related_links }}
+                </div>
+            {% endif %}
+
+            {# Related Files #}
+            {% if content.field_hg_related_files|render is not empty %}
+                <div class="card related-files rounded border-0 p-3">
+                    {{ content.field_hg_related_files }}
+                </div>
+            {% endif %}
+
+            {# Event Categories #}
+            {% if content.field_hg_event_categories|render is not empty %}
+                <div class="card event-categories rounded border-0 p-3">
+                    {{ content.field_hg_event_categories }}
+                </div>
+            {% endif %}
+
+            {# Keywords #}
+            {% if content.field_hg_keywords|render is not empty %}
+                <div class="card keywords rounded border-0 p-3">
+                    {{ content.field_hg_keywords }}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>{# End Sidebar #}
+
+    {# Main Content  #}
+    <div class="col-md-8 col-sm-12">
+
+        {# Images #}
+        {% if content.field_hg_images|render is not empty %}
+            <picture>
+                {{ content.field_hg_images[0] }}
+            </picture>
+        {% endif %}
+
+        {# Body  #}
+        {% if content.body|render is not empty %}
+            <div class="description my-2">
+                {{ content.body[0] }}
+            </div>
+        {% endif %}
+
+        {# Render remaining Images #}
+        {% for key, item in content.field_hg_images if key > 0 %}
+            <div class="mt-3">{{ item }}</div>
+        {% endfor %}
+
+    </div>
+
+</div>
+{# End Mercury Event Template #}

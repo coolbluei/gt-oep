@@ -1,0 +1,25 @@
+uuid: 19a63ae3-618a-40e4-9184-4708234a9f6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.social
+  module:
+    - system
+  theme:
+    - trans_curie
+id: trans_curie_social
+theme: trans_curie
+region: after_content
+weight: -7
+provider: null
+plugin: 'system_menu_block:social'
+settings:
+  id: 'system_menu_block:social'
+  label: Social
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

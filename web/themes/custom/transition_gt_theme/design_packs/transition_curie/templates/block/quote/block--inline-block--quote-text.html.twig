@@ -1,0 +1,23 @@
+{# Block Quote Template #}
+
+{# Add CSS Classes #}
+{% set classes = [
+  'block',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+]
+%}
+
+{# Preprocess #}
+{% set quote = (content.field_quote) %}
+
+<div{{ attributes.addClass('my-3') }}>
+  {{ title_prefix }}
+    {% if label %}
+      <h4{{ title_attributes }}>{{ label }}</h4>
+    {% endif %}
+  {{ title_suffix }}
+    {% if quote is not empty %}
+      <blockquote>{{ quote }}</blockquote>
+    {% endif %}
+</div>

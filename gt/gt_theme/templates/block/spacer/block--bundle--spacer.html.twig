@@ -1,0 +1,13 @@
+{# Spacer #}
+
+{# Attach the library #}
+{{ attach_library('gt/gt-spacer') }}
+
+{# Content #}
+<div{{ attributes }}>
+  <div id="spacer" class="{{ content.field_size.0 }}">
+    {{ title_prefix }}
+    <div class="spacer-title align-middle text-center"> Blank Space ({{ content.field_size.0 }})<br>(text and background only visible when logged in)</div>
+    {{ title_suffix }}
+  </div>
+</div>

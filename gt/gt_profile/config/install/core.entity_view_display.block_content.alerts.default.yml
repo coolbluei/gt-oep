@@ -1,0 +1,45 @@
+uuid: b390d326-cbc6-462d-91b9-64aed0339493
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alerts
+    - field.field.block_content.alerts.body
+    - field.field.block_content.alerts.field_alert_style
+    - field.field.block_content.alerts.field_link
+  module:
+    - link
+    - options
+    - text
+id: block_content.alerts.default
+targetEntityType: block_content
+bundle: alerts
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_alert_style:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: list_key
+    region: content
+  field_link:
+    weight: 2
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+hidden: {  }

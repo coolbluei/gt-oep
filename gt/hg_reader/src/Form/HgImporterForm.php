@@ -5,6 +5,7 @@ namespace Drupal\hg_reader\Form;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 
 /**
  * Form controller for the hg_reader entity edit forms.
@@ -12,7 +13,6 @@ use Drupal\Core\Form\FormStateInterface;
  * @ingroup hg_reader
  */
 class HgImporterForm extends ContentEntityForm {
-
   /**
    * {@inheritdoc}
    */
@@ -38,9 +38,9 @@ class HgImporterForm extends ContentEntityForm {
 
     $entity = $this->entity;
     if ($status == SAVED_UPDATED) {
-      drupal_set_message($this->t('The importer %importer has been updated.', ['%importer' => $entity->toLink()->toString()]));
+      \Drupal::messenger()->addMessage($this->t('The importer %importer has been updated.', ['%importer' => $entity->toLink()->toString()]));
     } else {
-      drupal_set_message($this->t('The importer %importer has been added.', ['%importer' => $entity->toLink()->toString()]));
+      \Drupal::messenger()->addMessage($this->t('The importer %importer has been added.', ['%importer' => $entity->toLink()->toString()]));
     }
 
     $form_state->setRedirectUrl($this->entity->toUrl('collection'));

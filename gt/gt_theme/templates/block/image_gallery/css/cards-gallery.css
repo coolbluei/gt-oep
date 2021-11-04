@@ -1,0 +1,82 @@
+/* Cards Gallery CSS */
+.gallery-block{
+  padding-bottom: 60px;
+  padding-top: 60px;
+}
+
+.gallery-block .heading{
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.gallery-block .heading h2{
+  font-weight: bold;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+.gallery-block.cards-gallery h6 {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.gallery-block.cards-gallery .card{
+  transition: 0.4s ease;
+}
+
+.gallery-block.cards-gallery .card img {
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-block.cards-gallery .card-body {
+  text-align: center;
+}
+
+.gallery-block.cards-gallery .card-body p {
+  font-size: 15px;
+}
+
+.gallery-block.cards-gallery a {
+  color: var(--gt-black);
+}
+
+.gallery-block.cards-gallery a:hover {
+  text-decoration: none;
+}
+
+.gallery-block.cards-gallery .card {
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.main-container .gallery-block.cards-gallery .card-body h1 a,
+.main-container .gallery-block.cards-gallery .card-body h2 a,
+.main-container .gallery-block.cards-gallery .card-body h3 a,
+.main-container .gallery-block.cards-gallery .card-body h4 a,
+.main-container .gallery-block.cards-gallery .card-body h5 a,
+.main-container .gallery-block.cards-gallery .card-body h6 a {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--gt-md-gold);
+  border: 0;
+  text-decoration: none !important;
+}
+
+.main-container .gallery-block.cards-gallery .card-body h1 a:hover,
+.main-container .gallery-block.cards-gallery .card-body h2 a:hover,
+.main-container .gallery-block.cards-gallery .card-body h3 a:hover,
+.main-container .gallery-block.cards-gallery .card-body h4 a:hover,
+.main-container .gallery-block.cards-gallery .card-body h5 a:hover,
+.main-container .gallery-block.cards-gallery .card-body h6 a:hover {
+  color: var(--gt-md-grey);
+  border: 0;
+  background: transparent;
+}
+
+@media (min-width: 576px) {
+
+  .gallery-block .transform-on-hover:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15) !important;
+  }
+}

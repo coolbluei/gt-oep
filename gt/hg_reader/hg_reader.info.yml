@@ -2,18 +2,19 @@ name: Mercury Reader
 description: Client-side integration for Mercury
 package: GT
 type: module
-core_version_requirement: ^8.8.0
-version: "8.x-1.6"
+core_version_requirement: ^8.8 || ^9
+version: "2.4"
 project: 'hg_reader'
 project status url: http://repo.drupal.gatech.edu/release_history/hg_reader/8.x
 configure: hg_reader.settings
 dependencies:
-  - drupal:field
   - drupal:datetime
   - drupal:datetime_range
-  - drupal:telephone
+  - drupal:field
   - drupal:field_group
+  - drupal:video_embed_field
   - drupal:taxonomy
+  - drupal:telephone
 datestamp: 1607029556
 
 libraries:

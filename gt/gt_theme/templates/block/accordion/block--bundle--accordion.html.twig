@@ -1,0 +1,36 @@
+{# GT Accordion #}
+
+{# Attach the library #}
+{{ attach_library('gt/gt-accordion') }}
+
+{# Preprocess #}
+{% set accordion = (content.field_accordion_field) %}
+{% set quote = (content.field_quote) %}
+{% set body = (content.body) %}
+
+{# Set CSS Classes #}
+{%
+  set classes = [
+  'm-4',
+  'block',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+]
+%}
+{# Content #}
+<div{{ attributes.addClass(classes|join(' ')) }}>
+  {# title #}
+  {{ title_prefix }}
+    {% if label %}
+      <h2 class={{ title_attributes }}>{{ label }}</h2>
+    {% endif %}
+  {{ title_suffix }}
+  {# body #}
+  {% if body %}
+    {{ body }}
+  {% endif %}
+  {# Q and A #}
+  {% block content %}
+    {{ accordion }}
+  {% endblock %}
+</div>

@@ -1,0 +1,8 @@
+uuid: ac3e326e-09b9-11ec-9a03-0242ac130003
+langcode: en
+status: true
+dependencies: {  }
+id: gt-footer-general
+label: 'GT official links: general (required)'
+description: 'GT official links: general (required)'
+locked: true

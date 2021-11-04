@@ -1,0 +1,23 @@
+uuid: 0bac703c-08ea-4820-b1cb-6f8f797cabae
+langcode: en
+status: true
+dependencies:
+  theme:
+    - trans_curie
+_core:
+  default_config_hash: 1e6cA1DngrtddMBko_PbFhU7HjbDvC3t-uI0JrBwDHA
+id: trans_curie_gtfootermenu3
+theme: trans_curie
+region: footer_four
+weight: 0
+provider: null
+plugin: 'system_menu_block:gt_footer_menu_3'
+settings:
+  id: 'system_menu_block:gt_footer_menu_3'
+  label: 'GT Footer menu 3'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

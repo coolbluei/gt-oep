@@ -1,0 +1,46 @@
+
+{# Superfooter #}
+<div class="collapse dont-collapse-sm" id="collapseFooter">
+  <div class="well">
+    {# Superfooter Content #}
+    <div id="gt-superfooter" class="{{ super_footer_hide }} container-fluid gt-black-wrapper">
+      {# After Content #}
+      {% if page.before_footer %}
+        {% block before_footer %}
+          <div id="gt-before-footer" class="container pt-3">
+            {{ page.before_footer }}
+          </div>
+        {% endblock %}
+      {% endif %}
+      {# Super-footer #}
+      <div class="container pt-4 pb-4">
+        <div class="row center-block">
+          {% if page.footer_01 %}
+            <div
+              class="footer-first col-lg-{{ footer_01_size }} col-md-{{ footer_01_size }} col-sm-12 col-xs-12 column">
+              {{ page.footer_01 }}
+            </div>
+          {% endif %}
+          {% if page.footer_02 %}
+            <div
+              class="footer-second col-lg-{{ footer_02_size }} col-md-{{ footer_02_size }} col-sm-12 col-xs-12 column">
+              {{ page.footer_02 }}
+            </div>
+          {% endif %}
+          {% if page.footer_03 %}
+            <div
+              class="footer-third col-lg-{{ footer_03_size }} col-md-{{ footer_03_size }} col-sm-12 col-xs-12 column">
+              {{ page.footer_03 }}
+            </div>
+          {% endif %}
+          {% if page.footer_04 %}
+            <div
+              class="footer-four col-lg-{{ footer_04_size }} col-md-{{ footer_04_size }} col-sm-12 col-xs-12 column">
+              {{ page.footer_04 }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

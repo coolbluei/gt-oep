@@ -1,6 +1,6 @@
 core_version_requirement: ^8.7.7 || ^9
 type: theme
-base theme: curie
+base theme: trans_curie
 
 name: 'GT Subtheme'
 description: 'All the features of Babbage plus templates for Layout Builder'
@@ -34,7 +34,7 @@ regions:
   other: 'Other / Placeholder Region'
 
 libraries-override:
-  curie/fonts:
+  trans_curie/fonts:
     css:
       theme:
         //stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css: false

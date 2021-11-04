@@ -1,0 +1,112 @@
+uuid: da26f73f-8861-4aef-941d-a35b53c6c36e
+langcode: en
+status: true
+dependencies:
+  module:
+    - social_media_links
+  theme:
+    - gt
+id: socialmedialinks
+theme: gt
+region: footer_five
+weight: -100
+provider: null
+plugin: social_media_links_block
+settings:
+  id: social_media_links_block
+  label: 'Social Media'
+  provider: social_media_links
+  label_display: '0'
+  platforms:
+    behance:
+      value: ''
+      description: ''
+      weight: '-10'
+    bitbucket:
+      value: ''
+      description: ''
+      weight: '-9'
+    contact:
+      value: ''
+      description: ''
+      weight: '-8'
+    drupal:
+      value: ''
+      description: ''
+      weight: '-7'
+    email:
+      value: ''
+      description: ''
+      weight: '-6'
+    facebook:
+      value: 'georgiatech'
+      description: ''
+      weight: '-5'
+    flickr:
+      value: ''
+      description: ''
+      weight: '-4'
+    github:
+      value: ''
+      description: ''
+      weight: '-3'
+    googleplus:
+      value: ''
+      description: ''
+      weight: '-2'
+    instagram:
+      value: 'georgiatech'
+      description: ''
+      weight: '-1'
+    linkedin:
+      value: 'edu/school?id=18158&trk=tyah'
+      description: ''
+      weight: '0'
+    pinterest:
+      value: ''
+      description: ''
+      weight: '1'
+    rss:
+      value: ''
+      description: ''
+      weight: '2'
+    slideshare:
+      value: ''
+      description: ''
+      weight: '3'
+    tumblr:
+      value: ''
+      description: ''
+      weight: '4'
+    twitter:
+      value: 'georgiatech'
+      description: ''
+      weight: '5'
+    vkontakte:
+      value: ''
+      description: ''
+      weight: '6'
+    vimeo:
+      value: ''
+      description: ''
+      weight: '7'
+    youtube:
+      value: ''
+      description: ''
+      weight: '8'
+    youtube_channel:
+      value: 'UCFkaWOGpyFBVRf5jEeD_wrA'
+      description: ''
+      weight: '9'
+  appearance:
+    orientation: h
+    show_name: 0
+  link_attributes:
+    target: '<none>'
+    rel: '<none>'
+  iconset:
+    style: 'fontawesome:2x'
+    installed_iconsets:
+      fontawesome:
+        examples: ''
+visibility: {  }

@@ -1,0 +1,22 @@
+uuid: b7b470ae-a143-493a-9447-e96aa59f07ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.accordion
+    - field.storage.block_content.field_accordion_field
+  module:
+    - faqfield
+id: block_content.accordion.field_accordion_field
+field_name: field_accordion_field
+entity_type: block_content
+bundle: accordion
+label: 'Accordion Field'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  default_format: plain_text
+field_type: faqfield

@@ -1,0 +1,22 @@
+uuid: 758b4179-ff42-4469-ab88-ec1552b4539e
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - trans_gt
+_core:
+  default_config_hash: ouT9JUpTxacX0Z3swXP42FXYTUQotuqXubEof9EAk9s
+id: trans_gt_breadcrumbs
+theme: trans_gt
+region: navigation
+weight: -5
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility: {  }

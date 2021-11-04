@@ -1,0 +1,188 @@
+/********* GT Official Web Button Colors *********/
+/* Basic
+a.nav-link {
+  background: inherit;
+  border: none;
+  color: inherit;
+  margin: 5px 5px 5px 0;
+}
+*/
+
+/* Master */
+ul#custom-links {
+  list-style: none;
+}
+
+#custom-links a.nav-link {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav {
+  border-radius: 2rem;
+}
+
+.main-container .gt-main-content #custom-links li.nav-item {
+	margin-bottom: 0;
+}
+
+/* nav tabs */
+#custom-links .nav-tabs {
+    border-bottom: 0;
+}
+
+#custom-links .nav-tabs .nav-item {
+	margin-bottom: 0;
+}
+
+#custom-links .nav-tabs .nav-link {
+	border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
+}
+
+/* vertical */
+#custom-links .flex-column .nav-item a {
+	margin-right: 0 !important;
+}
+
+/* transparent */
+.transparent .nav-item,
+.transparent a.nav-link {
+	margin-bottom: 0 !important;
+}
+
+.transparent a.nav-link,
+.transparent a.nav-link:visited {
+  background-color: transparent;
+  border: 0;
+  color: var(--gt-black);
+  margin-bottom: 0;
+}
+
+.transparent a.nav-link:hover,
+.transparent a.nav-link:focus {
+  background-color: rgba(242,243,241, .5);
+  color: var(--gt-black);
+}
+
+.transparent .nav-item:last-child a.nav-link{
+	border-bottom: 0;
+}
+
+/* transparent horizontal */
+.transparent a.nav-link,
+.transparent a.nav-link:visited {
+  border-right: 1px solid var(--gt-warm-gray);
+}
+
+.transparent .nav-item:last-child a.nav-link{
+	border-right: 0;
+}
+
+/* transparent vertical */
+.transparent.flex-column a.nav-link, 
+.transparent.flex-column a.nav-link:visited {
+	border: 0;
+  border-bottom: 1px solid var(--gt-warm-gray);
+}
+
+.transparent.flex-column .nav-item:last-child a.nav-link{
+	border-bottom: 0;
+}
+
+/* white */
+.white a.nav-link,
+.white a.nav-link:visited {
+  background-color: var(--gt-white);
+  border: 0;
+  color: var(--gt-black);
+}
+
+.white a.nav-link:hover,
+.white a.nav-link:focus {
+  background-color: var(--gt-pimile-light);
+  border-color: var(--gt-pimile-light);
+  color: var(--gt-black);
+}
+
+/* white horizontal */
+.white a.nav-link,
+.white a.nav-link:visited {
+  border: 0;
+  border-right: 1px solid var(--gt-warm-gray);
+}
+
+.white .nav-item:last-child a.nav-link{
+	border-bottom: 0;
+}
+
+/* white vertical */
+.white.flex-column a.nav-link,
+.white.flex-column a.nav-link:visited {
+	border: 0;
+  border-bottom: 1px solid var(--gt-warm-gray);
+}
+
+.white.flex-column .nav-item:last-child a.nav-link{
+	border-bottom: 0;
+}
+
+/* blue */
+.blue a.nav-link,
+.blue a.nav-link:visited {
+  background-color: var(--gt-navy);
+  border-color: var(--gt-navy);
+  color: var(--gt-white);
+}
+
+.blue a.nav-link:hover,
+.blue a.nav-link:focus {
+  background-color: var(--gt-blue);
+  border-color: var(--gt-blue);
+  color: var(--gt-white);
+}
+
+/* black */
+.black a.nav-link,
+.black a.nav-link:visited {
+  background-color: var(--gt-black);
+  border-color: var(--gt-black);
+  color: var(--gt-white);
+}
+
+.black a.nav-link:hover,
+.black a.nav-link:focus {
+  background-color: var(--gt-dark-gray);
+  border-color: var(--gt-dark-gray);
+  color: var(--gt-white);
+}
+
+/* gold */
+.gold a.nav-link,
+.gold a.nav-link:visited {
+  background-color: var(--gt-gold);
+  border-color: var(--gt-gold);
+  color: var(--gt-black);
+}
+
+.gold a.nav-link:hover,
+.gold a.nav-link:focus {
+  background-color: var(--gt-tech-light-gold);
+  border-color: var(--gt-tech-light-gold);
+  color: var(--gt-black);
+}
+
+/* Warm Gray -- Also known as "Pi Mile" */
+.warm-gray a.nav-link,
+.warm-gray a.nav-link:visited {
+  background-color: var(--gt-warm-gray);
+  border-color: var(--gt-warm-gray);
+  color: var(--gt-black);
+}
+
+.warm-gray a.nav-link:hover,
+.warm-gray a.nav-link:focus {
+  background-color: var(--gt-warm-gray-medium);
+  border-color: var(--gt-warm-gray-medium);
+  color: var(--gt-black);
+}

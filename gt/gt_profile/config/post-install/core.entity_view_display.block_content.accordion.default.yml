@@ -1,0 +1,38 @@
+uuid: d6f4da30-c248-4e39-99b8-ebd99707fa7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.accordion
+    - field.field.block_content.accordion.body
+    - field.field.block_content.accordion.field_accordion_field
+  module:
+    - faqfield
+    - text
+id: block_content.accordion.default
+targetEntityType: block_content
+bundle: accordion
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_accordion_field:
+    weight: 1
+    label: hidden
+    settings:
+      active: 0
+      heightStyle: auto
+      collapsible: false
+      event: click
+      animate:
+        easing: linear
+        duration: 200
+    third_party_settings: {  }
+    type: faqfield_accordion
+    region: content
+hidden: {  }

@@ -1,4 +1,1 @@
-services:
-  hg_reader.service:
-    class: \Drupal\hg_reader\Controller\HgImporterController
-    arguments: ['@messenger']
+

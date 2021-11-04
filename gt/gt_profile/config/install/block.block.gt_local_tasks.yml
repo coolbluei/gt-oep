@@ -1,0 +1,22 @@
+uuid: eb503545-260e-4f5b-90df-0392f2265452
+langcode: en
+status: true
+dependencies:
+  theme:
+    - gt
+_core:
+  default_config_hash: X9I1OB0W3WlWtrK-CNcg6hNWwa8wficanpH8pYnDZDE
+id: gt_local_tasks
+theme: gt
+region: help
+weight: -6
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }

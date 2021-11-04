@@ -1,0 +1,73 @@
+{#
+/**
+ * @file
+ * Theme override for a branding block.
+ *
+ * Each branding element variable (logo, name, slogan) is only available if
+ * enabled in the block configuration.
+ *
+ * Available variables:
+ * - site_logo: Logo for site as defined in Appearance or theme settings.
+ * - site_name: Name for site as defined in Site information settings.
+ * - site_slogan: Slogan for site as defined in Site information settings.
+ */
+#}
+
+ {# Both titles and links are active #}
+ {% if title_one_url and site_name and title_two_url and site_slogan %}
+     <div class="site-title-multiple">
+         <a href="{{ title_one_url }}" title="{{ site_name }}">
+             <h2 class="site-name">{{ site_name }}</h2>
+         </a>
+         <a href="{{ title_two_url }}" title="{{ site_slogan }}">
+             <h3 class="site-slogan">{{ site_slogan }}</h3>
+         </a>
+     </div>
+     {# Both titles and only site title active #}
+ {% elseif title_one_url and site_name and site_slogan %}
+     <div class="site-title-multiple">
+         <a href="{{ title_one_url }}" title="{{ site_name }}">
+             <h2 class="site-name">{{ site_name }}</h2>
+         </a>
+         <h3 class="site-slogan">{{ site_slogan }}</h3>
+     </div>
+     {# Both titles and active and site slogan is active #}
+ {% elseif title_two_url and site_name and site_slogan %}
+     <div class="site-title-multiple">
+         <h2 class="site-name">{{ site_name }}</h2>
+         <a href="{{ title_two_url }}" title="{{ site_slogan }}">
+             <h3 class="site-slogan">{{ site_slogan }}</h3>
+         </a>
+     </div>
+     {# Site title and slogan active but both links null #}
+ {% elseif site_name and site_slogan %}
+     <div class="site-title-multiple">
+         <h2 class="site-name" title="{{ site_name }}">{{ site_name }}</h2>
+         <h3 class="site-slogan" title="{{ site_slogan }}">{{ site_slogan }}</h3>
+     </div>
+     {# Site title and slogan active with only site slogan link active #}
+ {% elseif site_name is not empty and site_slogan is not empty and title_two_url is not empty %}
+     <div class="site-title-multiple">
+         <h2 class="site-name" title="{{ site_name }}">{{ site_name }}</h2>
+         <a href="{{ title_two_url }}" title="{{ site_slogan }}">
+             <h3 class="site-slogan">{{ site_slogan }}</h3>
+         </a>
+     </div>
+     {# Site name and link active and site slogan and link null#}
+ {% elseif title_one_url %}
+     <div class="site-title-single">
+         <a href="{{ title_one_url }}" title="{{ site_name }}">
+             <h2 class="site-name">{{ site_name }}</h2>
+         </a>
+     </div>
+     {# Site title active but link null and slogan text null but slogan link active #}
+ {% elseif site_name is not empty and title_one_url is empty and site_slogan is empty and title_two_url is not empty %}
+     <div class="site-title-single">
+         <h2 class="site-name" title="{{ site_name }}">{{ site_name }}</h2>
+     </div>
+     {# Site slogan null and links null #}
+ {% else %}
+     <div class="site-title-single">
+         <h2 class="site-name">{{ site_name }}</h2>
+     </div>
+ {% endif %}

@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.hg_news.field_hg_subtitle
     - field.field.node.hg_news.field_hg_summary
     - field.field.node.hg_news.field_hg_summary_sentence
+    - field.field.node.hg_news.field_hg_youtube_video
     - node.type.hg_news
   module:
     - datetime
@@ -199,4 +200,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_hg_youtube_video: true

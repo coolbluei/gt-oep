@@ -29,7 +29,7 @@
     {# Title #}
     {% if node.title.value is not empty %}
       <div class="hg-title">
-        <a href="{{ path('entity.node.canonical', {'node': node.id}) }}"><h2>{{ node.title.value }}</h2></a>
+        <a href="{{ path('entity.node.canonical', {'node': node.id}) }}"><h3>{{ node.title.value }}</h3></a>
       </div>
     {% endif %}
 
@@ -48,7 +48,7 @@
 
     {# Link to Content #}
     <div class="mx-1 my-4">
-      <a class="btn btn-secondary float-right" href="{{ path('entity.node.canonical', {'node': node.id}) }}">{{ 'Read More'|t }}</a>
+      <a class="btn btn-secondary" aria-label="Read {{ node.title.value }}" href="{{ path('entity.node.canonical', {'node': node.id}) }}">{{ 'Read article'|t }}</a>
     </div>
 
   </div>

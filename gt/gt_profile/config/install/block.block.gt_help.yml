@@ -1,0 +1,22 @@
+uuid: 74a8f5f2-d463-4c6b-ae3f-93c2587c8ec3
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - gt
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: gt_help
+theme: gt
+region: help
+weight: -5
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,55 @@
+/* GT Modal */
+.scaled {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  padding: 1px;
+  margin: 1px;
+  overflow: hidden;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+#modal img {
+  width: 100% !important;
+}
+
+#modal img:hover {
+  opacity: 0.5;
+}
+
+
+#modal .card-title {
+  margin-bottom: .75rem;
+  color: var(--gt-white);
+  padding: 1rem;
+  position: absolute;
+  bottom: 1rem;
+}
+
+#modal.card,
+.modal.card {
+  padding: 0 !important;
+}
+
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+}
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-footer {
+  border-top: none;
+}

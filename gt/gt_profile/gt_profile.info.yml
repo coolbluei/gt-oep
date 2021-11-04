@@ -1,0 +1,50 @@
+name: Georgia Tech Profile
+type: profile
+description: 'Install with commonly used features pre-configured.'
+distribution:
+  - name: Georgia Tech Profile
+dependencies:
+  - node
+  - history
+  - block
+  - breakpoint
+  - ckeditor
+  - color
+  - comment
+  - config
+  - contextual
+  - contact
+  - menu_link_content
+  - datetime
+  - block_content
+  - block_region_permissions
+  - quickedit
+  - editor
+  - help
+  - image
+  - link
+  - menu_ui
+  - options
+  - path
+  - page_cache
+  - dynamic_page_cache
+  - taxonomy
+  - dblog
+  - search
+  - shortcut
+  - toolbar
+  - field_ui
+  - file
+  - rdf
+  - views
+  - views_ui
+  - tour
+  - automated_cron
+  - cas
+  - social_media_links
+themes:
+  - gt
+  - seven
+version: '3.0.0'
+project status url: http://repo.drupal.gatech.edu/release_history/gt_profile/3.x
+core_version_requirement: ^8.8 || ^9
