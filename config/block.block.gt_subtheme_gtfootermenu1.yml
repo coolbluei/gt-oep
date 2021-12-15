@@ -1,0 +1,27 @@
+uuid: 776af033-9372-47b5-b9a8-89d3e7b8f935
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.gt_footer_menu_1
+  module:
+    - system
+  theme:
+    - gt_subtheme
+_core:
+  default_config_hash: B2GWF47SeQoK1JeSseqtYqkUF4h1KtOW21Z1-kOZHyw
+id: gt_subtheme_gtfootermenu1
+theme: gt_subtheme
+region: footer_second
+weight: 0
+provider: null
+plugin: 'system_menu_block:gt_footer_menu_1'
+settings:
+  id: 'system_menu_block:gt_footer_menu_1'
+  label: 'GT Footer menu 1'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

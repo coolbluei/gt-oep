@@ -1,0 +1,22 @@
+uuid: 3fcf1b17-c2d6-40c2-b670-4155658d404a
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - curie
+_core:
+  default_config_hash: cFDg6mYTQiUuxRkBg-vsHtjNs0aBXJ1rucxGkOmT_p8
+id: curie_content
+theme: curie
+region: content
+weight: -6
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

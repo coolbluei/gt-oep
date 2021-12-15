@@ -1,0 +1,22 @@
+uuid: 8df0c426-5bf9-4b75-8528-400d30492fa7
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - gt
+_core:
+  default_config_hash: oXUb3JZR2WW5VOdw4HrhRicCsq51mCgLfRyvheG68ck
+id: gt_breadcrumbs
+theme: gt
+region: navigation
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility: {  }

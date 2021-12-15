@@ -1,0 +1,30 @@
+features:
+  node_user_picture: 1
+  favicon: 1
+logo:
+  use_default: 1
+favicon:
+  use_default: 1
+contact_title: ''
+contact_address: ''
+contact_address_2: ''
+contact_city: ''
+contact_state: ''
+contact_zip_code: ''
+contact_telephone: ''
+contact_map_url: 'https://goo.gl/maps/N61WfSyUdQyiQZjeA'
+cas_login: '0'
+sticky_menu: '0'
+sticky_header: '0'
+hide_breadcrumb: 0
+footer_fixed: ''
+footer_first_size: '3'
+footer_second_size: '3'
+footer_third_size: '3'
+footer_four_size: '3'
+super_footer: 1
+customize_css: ''
+title_one_url: ''
+title_two_url: ''
+_core:
+  default_config_hash: pKY4vxwhcXUJ8hr1anzR4yNRye5Hf6C0FOwgsr91OMc

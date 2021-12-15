@@ -1,0 +1,6 @@
+gt_tools.gt_footer_daemon:
+  title: 'GT footer daemon'
+  parent: gt_tools.gt_tools
+  description: 'Configure the GT footer daemon.'
+  route_name: gt_tools.gt_footer_daemon
+  weight: 1

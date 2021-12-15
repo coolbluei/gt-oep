@@ -1,0 +1,22 @@
+uuid: 8b91f86a-ec41-4ecd-b872-d8fb73b96b53
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - curie
+_core:
+  default_config_hash: ouT9JUpTxacX0Z3swXP42FXYTUQotuqXubEof9EAk9s
+id: curie_breadcrumbs
+theme: curie
+region: breadcrumbs
+weight: -5
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility: {  }

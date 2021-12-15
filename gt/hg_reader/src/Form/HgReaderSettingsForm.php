@@ -5,13 +5,11 @@ namespace Drupal\hg_reader\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\hg_reader\Entity\HgImporter;
-use Drupal\Core\Messenger\MessengerTrait;
 
 /**
  * Defines a form that configures forms module settings.
  */
 class HgReaderSettingsForm extends ConfigFormBase {
-  use MessengerTrait;
 
   /**
    * {@inheritdoc}
@@ -106,7 +104,7 @@ class HgReaderSettingsForm extends ConfigFormBase {
       sort($groups);
       return $groups;
     } else {
-      \Drupal::messenger()->addError($this->t('Mercury Reader failed to retrieve the groups list from Mercury. You may need to reinstall the module in order to avoid attenuated functionality.'));
+      \Drupal::messenger()->addError(t('Mercury Reader failed to retrieve the groups list from Mercury. You may need to reinstall the module in order to avoid attenuated functionality.'));
       return array();
     }
   }
@@ -132,7 +130,7 @@ class HgReaderSettingsForm extends ConfigFormBase {
       ->set('hg_text_format', $values['hg_text_format'])
       ->save();
 
-    \Drupal::messenger()->addMessage($this->t('Changes saved.'));
+    drupal_set_message($this->t('Changes saved.'));
   }
 
 }

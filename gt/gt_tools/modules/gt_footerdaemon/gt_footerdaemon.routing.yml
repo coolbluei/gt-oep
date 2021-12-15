@@ -1,0 +1,18 @@
+gt_tools.gt_footer_daemon:
+  path: '/admin/config/gt-tools/gt-footer-daemon'
+  defaults:
+    _form: 'Drupal\gt_footerdaemon\Form\GTFooterDaemonForm'
+    _title: 'Footer daemon settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+gt_tools.gt_footer_daemon.get_remote_data:
+  path: '/admin/config/gt-tools/gt-footer-daemon/get-remote-data'
+  defaults:
+    _controller: '\Drupal\gt_footerdaemon\Controller\GTFooterDaemonController::get_remote_data'
+    _title: 'Get remote data'
+  requirements:
+    _permission: 'administer site configuration'
+
+#imports:
+  #  - { resource: /sites/default/files/footer.routing.yml }

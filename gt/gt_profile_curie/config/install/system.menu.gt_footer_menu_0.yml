@@ -1,0 +1,8 @@
+uuid: cabd497a-2038-4bb1-ab30-f6095264372e
+langcode: en
+status: true
+dependencies: {  }
+id: gt_footer_menu_0
+label: 'GT Footer menu 0'
+description: 'Footer supermenu, automatically updated via the GT Footer Daemon module.'
+locked: false

@@ -2,10 +2,6 @@
     width: 100%;
 }
 
-.carousel li {
-  list-style: none;
-}
-
 .carousel .slides .paragraph--type--carousel-slide {
     height: 800px;
     background-size: cover;

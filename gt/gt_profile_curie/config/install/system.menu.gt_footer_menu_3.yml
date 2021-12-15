@@ -1,0 +1,8 @@
+uuid: 7c99bc0d-aed2-4e86-855a-16ec08d2cbb8
+langcode: en
+status: true
+dependencies: {  }
+id: gt_footer_menu_3
+label: 'GT Footer menu 3'
+description: 'Footer supermenu, automatically updated via the GT Footer Daemon module.'
+locked: false

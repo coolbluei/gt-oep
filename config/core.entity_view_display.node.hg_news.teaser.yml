@@ -23,7 +23,6 @@ dependencies:
     - field.field.node.hg_news.field_hg_subtitle
     - field.field.node.hg_news.field_hg_summary
     - field.field.node.hg_news.field_hg_summary_sentence
-    - field.field.node.hg_news.field_hg_youtube_video
     - node.type.hg_news
   module:
     - text
@@ -65,4 +64,3 @@ hidden:
   field_hg_subtitle: true
   field_hg_summary: true
   field_hg_summary_sentence: true
-  field_hg_youtube_video: true

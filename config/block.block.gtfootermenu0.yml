@@ -1,0 +1,27 @@
+uuid: b38bd20a-cb4a-4fa8-b281-6e23445daaac
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.gt_footer_menu_0
+  module:
+    - system
+  theme:
+    - curie
+_core:
+  default_config_hash: m_ji_PWXMySMdtUsD6KHpEhLw1UaaBfMxj_yexI1-Eg
+id: gtfootermenu0
+theme: curie
+region: footer_first
+weight: 1
+provider: null
+plugin: 'system_menu_block:gt_footer_menu_0'
+settings:
+  id: 'system_menu_block:gt_footer_menu_0'
+  label: 'Footer One'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

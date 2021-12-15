@@ -1,0 +1,10 @@
+uuid: b5636d84-8290-4211-a7ce-5f372e16338c
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: cnepeexAvPyK-mjkEHXeGg_BMqHoRGEsYHVdvEURnbc
+id: gt_footer_menu_2
+label: 'GT Footer menu 2'
+description: 'Footer supermenu, automatically updated via the GT Footer Daemon module.'
+locked: false

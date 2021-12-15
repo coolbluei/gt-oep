@@ -1,0 +1,20 @@
+uuid: 9bbe302c-8395-40c3-85e2-69d0cc68fd9b
+langcode: en
+status: true
+dependencies:
+  theme:
+    - curie
+_core:
+  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+id: curie_local_actions
+theme: curie
+region: utility_navigation
+weight: -5
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,40 @@
+{% include '@curie/parts/header.html.twig' %}
+<div class="container gt-404-page mb-5">
+  <div class="row m-4">
+    <h3 class="mb-2 mt-5 text-align-center w-100">Page Not Found</h3>
+    <p class="mb-1 text-align-center w-100">We’re sorry, we seem to have lost this page,
+    but we don’t want to lose you.</p>
+    {# Search #}
+  </div>
+  <div class="row m-5">
+    {% block search %}
+      {{ page.search }}
+    {% endblock %}
+  </div>
+</div>
+{# Footer #}
+<footer id="footer" class="gt-footer footer">
+  <div class="row">
+
+
+    <div class="col-md-12 order-md-12">
+      {# GT Footer #}
+      {% include '@curie/parts/footer.html.twig' %}
+    </div>
+
+    {% if super_footer %}
+      <div class="col-md-12 order-md-1">
+        {# Superfooter / Show - Hide #}
+        <div class="d-block d-md-none button-bar">
+          <button class="btn-footer w-100" type="button" data-toggle="collapse" data-target="#collapseFooter"
+                  aria-expanded="false" aria-controls="footercollapse">
+            Resources
+          </button>
+        </div>
+        {# Super-footer #}
+        {% include '@curie/parts/super-footer.html.twig' %}
+      </div>
+    {% endif %}
+
+  </div> {# End Main Row #}
+</footer> {# End Footer #}

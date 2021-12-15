@@ -1,0 +1,23 @@
+uuid: 17e3324c-8c5e-40bf-91ee-66fb0c8ffbac
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - curie
+_core:
+  default_config_hash: LstDdAk1yrcY-LnU61zpBqePUClybZgTDvGsgnW-AWU
+id: curie_search
+theme: curie
+region: search
+weight: -6
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: visible
+  page_id: ''
+visibility: {  }

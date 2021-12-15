@@ -1,0 +1,27 @@
+uuid: 6a554298-94be-44e5-9ce3-70565df9d94a
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - curie
+_core:
+  default_config_hash: 3kfbqmgLviXh35L7GY3r2rNSRcTaGP5JW_3G0jyJUyk
+id: curie_main_menu
+theme: curie
+region: navigation
+weight: -6
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: true
+visibility: {  }
