@@ -1,0 +1,23 @@
+uuid: 3121934b-afbe-42db-8be9-efd23391d1f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.gt-footer-legal
+  module:
+    - system
+id: gt_footer_legal
+theme: gt
+region: footer_07
+weight: 0
+provider: null
+plugin: 'system_menu_block:gt-footer-legal'
+settings:
+  id: 'system_menu_block:gt-footer-legal'
+  label: 'GT official links: legal (required)'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

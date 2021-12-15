@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * Default theme implementation.
+ *
+ *
+ * @see template_preprocess_footer_contact()
+ *
+ * @ingroup themeable
+ */
+#}
+  {# title #}
+  {% if contact_title is not empty %}
+    <h2>{{ contact_title }}</h2>
+    <h3>Georgia Institute of Technology</h3>
+  {% else %}
+    <h3>Georgia Institute of Technology</h3>
+  {% endif %}
+  {# Address #}
+  {% if contact_address or contact_city or contact_state or contact_zip_code %}
+    <p>
+      {{ contact_address }}
+      {% if contact_address_2 %}<br/>{{ contact_address_2 }}{% endif %}
+      <br/>{{ contact_city }}, {{ contact_state }} {{ contact_zip_code }}
+    </p>
+  {% else %}
+    <p>North Avenue<br/>Atlanta, GA 30332
+    {% endif %}
+    {# Telephone #}
+    {% if contact_telephone %}
+      <span itemprop="telephone">
+        <a class="gt-phone"
+          href="tel: +1{{ contact_telephone|replace({'.': s , '-': "" , ' ': "" , '(': "", ')': "" }) }}"
+          aria-label="telephone">
+          {{ contact_telephone }}
+        </a>
+      </span>
+    {% else %}
+      <span itemprop="telephone">
+        <a class="gt-phone" href="tel: +14048942000" aria-label="telephone">+1 404.894.2000</a>
+      </span>
+    {% endif %}
+    {# Map #}
+    {% if contact_map_url is not empty and contact_title is not empty %}
+      <a class="gt-campus-map" href="{{ contact_map_url }}" data-toggle="tooltip"
+        data-placement="top"
+        aria-label="{{ contact_title }}  map">{{ contact_title }} Map
+      </a>
+    {% endif %}
+    <a class="gt-campus-map" href="https://map.gatech.edu/" aria-label="Campus Map">Campus Map</a>
+  </p>

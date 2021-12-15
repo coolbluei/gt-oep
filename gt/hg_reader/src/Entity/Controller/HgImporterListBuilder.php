@@ -2,6 +2,7 @@
 
 namespace Drupal\hg_reader\Entity\Controller;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\Url;
@@ -24,7 +25,7 @@ class HgImporterListBuilder extends EntityListBuilder {
     $build['description'] = [
       '#markup' => $this->t('Every item imported using Mercury importers is tied to the importer that imported it, meaning if you delete the importer, the content will be deleted as well. You can manage the fields on Mercury importers on the <a href="@adminlink">Mercury importers admin page</a>.', array(
         '@adminlink' => \Drupal::urlGenerator()
-          ->generateFromRoute('entity.hg_reader_importer.settings'),
+          ->generateFromRoute('hg_reader.admin_settings'),
       )),
     ];
 
@@ -42,6 +43,8 @@ class HgImporterListBuilder extends EntityListBuilder {
     $header['id'] = $this->t('Importer ID');
     $header['name'] = $this->t('Name');
     $header['fid'] = $this->t('Feed ID');
+    $header['last_run'] = $this->t('Last pull');
+    $header['item_count'] = $this->t('# of items');
     return $header + parent::buildHeader();
   }
 
@@ -51,13 +54,21 @@ class HgImporterListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\hg_reader\Entity\HgImporter */
     $row['id'] = $entity->id();
-    $row['name'] = $entity->link();
+    $row['name'] = $entity->toLink()->toString();
     $fids_array = $entity->fid->getValue();
     $fids = [];
     foreach ($fids_array as $fid) {
       $fids[] = $fid['value'];
     }
     $row['fid'] = implode(', ', $fids);
+
+    $last_run = $entity->get('last_run')->getString();
+    if ($last_run) {
+      $row['last_run'] = DrupalDateTime::createFromTimestamp($entity->get('last_run')->getString())->format('D d M Y');
+    } else {
+      $row['last_run'] = 'n/a';
+    }
+    $row['item_count'] = $entity->countItems($entity->id());
     return $row + parent::buildRow($entity);
   }
 
@@ -83,4 +94,3 @@ class HgImporterListBuilder extends EntityListBuilder {
 
 
 }
-?>

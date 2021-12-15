@@ -1,0 +1,19 @@
+uuid: 63c74363-bafa-4fcd-ae18-15ec172550f2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - video_embed_field
+id: node.field_hg_youtube_video
+field_name: field_hg_youtube_video
+entity_type: node
+type: video_embed_field
+settings: {  }
+module: video_embed_field
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

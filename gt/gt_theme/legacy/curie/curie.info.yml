@@ -1,0 +1,6 @@
+# METADATA
+name: 'GT Curie'
+type: theme
+description: 'DO NOT INSTALL. This is a stub to ease transition away from individually named themes.'
+core_version_requirement: ^8.8 || ^9
+base theme: gt

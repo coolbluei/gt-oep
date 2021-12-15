@@ -1,5 +1,5 @@
 name: 'Safe Field Getter'
 type: module
 description: 'Provides SafeFieldGetter class'
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: 'Custom'

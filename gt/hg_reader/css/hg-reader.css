@@ -1,246 +1,18 @@
-/*
-This is an exact duplicate of this style sheet in the HR reader module //
-DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
- */
-/********* GT Official Web Colors *********/
-:root {
-
-  /*** Primary Colors ***/
-  --gt-black: #262626;
-  --gt-white: #fff;
-
-  /*** Tech Gold Colors ***/
-
-  /* Buzz Gold */
-  --gt-buzz-gold: #eeb211;
-
-  /* Tech Gold */
-  --gt-gold: #b3a369;
-  --gt-tech-gold: #b3a369;
-  --gt-gold-grad-1: #bfb37c;
-
-  /* Tech Light Gold */
-  --gt-tech-light-gold: #bfb37c;
-
-  /* Tech Medium Light Gold */
-  --gt-mdlt-gold: #ac9a58;
-
-  /* Tech Medium Gold */
-  --gt-md-gold: #a4925a;
-  --gt-tech-medium-gold: #a4925a;
-
-  /* Tech Dark Gold */
-  --gt-drk-gold: #857437;
-  --gt-tech-dark-gold: #857437;
-
-  /*** Secondary Colors ***/
-
-  /* Navy */
-  --gt-navy: #003057;
-
-  /* Link Blue */
-  --gt-blue: #004f9f;
-  --gt-link-blue: #004f9f;
-  --gt-blue-visited: #1879db;
-
-  /* Link Hover Blue */
-  --gt-blue-hover: #1879db;
-  --gt-link-hover-blue: #1879db;
-
-  /*** Grey Colors ***/
-
-  /* Text Black */
-  --gt-text-black: #262626;
-
-  /* Warm Gray -- Also known as "Pi Mile" */
-  --gt-warm-gray: #d6dbd4;
-  --gt-warm-grey: #d6dbd4;
-
-  /* Warm Gray Medium */
-  --gt-warm-gray-medium: #e5e7e4;
-  --gt-warm-grey-medium: #e5e7e4;
-
-  /* Light Gray */
-  --gt-light-gray: #ccc;
-  --gt-light-grey: #ccc;
-
-  /* Warm Gray Light */
-  --gt-warm-gray-light: #f2f3f1;
-  --gt-warm-grey-light: #f2f3f1;
-
-  /* Medium Gray */
-  --gt-md-grey: #545454;
-  --gt-medium-gray-light: #545454;
-  --gt-medium-grey-light: #545454;
-
-  /* Medium Dark Gray */
-  --gt-mddk-grey: #8a8a8a;
-
-  /* Dark Gray */
-  --gt-dark-gray: #3b3b3b;
-  --gt-dark-grey: #3b3b3b;
-  --gt-drk-grey: #3b3b3b;
-
-  /* Pimile Light */
-  --gt-pimile-light: #f2f3f1;
-
-  /* Horizon */
-  --gt-horizon: #f95e10;
-  /* Tech Gradient */
-
-  /* GT Gold Grad */
-  --gt-gold-grad: linear-gradient(to right, #bfb37c 0%, #b3a369 100%);
--moz-linear-gradient(left, #BFB37C 0 %, #B3A369 100 %);
--webkit-linear-gradient(left, #BFB37C 0 %, #B3A369 100 %);
-
-  /* GT Gold Grad Rev */
-  --gt-gold-grad-rev: linear-gradient(to right, #b3a369 0%, #bfb37c 100%);
--moz-linear-gradient(left, #B3A369 0 %, #BFB37C 100 %);
--webkit-linear-gradient(left, #B3A369 0 %, #BFB37C 100 %);
-
-  /* GT Gold Dark Half */
-  --gt-gold-drk-half: linear-gradient(to right, #ac9a58 0%, #ac9a58 50%, white 50%, white 100%);
--moz-linear-gradient(left, #AC9A58 0 %, #AC9A58 50 %, white 50 %, white 100 %);
--webkit-linear-gradient(left, #AC9A58 0 %, #AC9A58 50 %, white 50 %, white 100 %);
-
-  /* GT Gold Grad Shine */
-  --gt-gold-grad-shine: linear-gradient(60deg, #b3a369 0%, #bfb37c 40%, #bfb37c 60%, #b3a369 100%);
--moz-linear-gradient(60 deg, #b3a369 0 %, #bfb37c 40 %, #bfb37c 60 %, #b3a369 100 %);
--webkit-linear-gradient(60 deg, #b3a369 0 %, #bfb37c 40 %, #bfb37c 60 %, #b3a369 100 %);
-
-  /* Primary (tech gold) */
-  --gt-primary-gold: #b3a369;
-
-  /* Secondary (gt pimile) */
-  --gt-secondary: #d6dbd4;
-
-  /* Success  */
-  --gt-success: #349e08;
-
-  /* Danger (horizon) */
-  --gt-danger: #f95e10;
-
-  /* Warning */
-  --gt-warning: #ff0101;
-
-  /* Information (gt navy) */
-  --gt-info: #003057;
-
-  /* Light (gt pimile light) */
-  --gt-light: #f2f3f1;
-
-  /* Dark Grey */
-  --gt-dark: #3b3b3b;
-}
-/* -- END ROOT -- */
-
-/* Bootstrap Background Colors */
-
-/* White */
-.bg-primary {
-  background: var(--gt-white);
-}
-/* Primary */
-.bg-primary {
-  background: var(--gt-gold);
-}
-/* Secondary */
-.bg-secondary {
-  background: var(--gt-secondary);
-}
-/* Success */
-.bg-success {
-  background: var(--gt-success);
-}
-/* Danger */
-.bg-danger {
-  background: var(--gt-danger);
-}
-/* Warning */
-.bg-warning {
-  background: var(--gt-warning);
-}
-/* Information */
-.bg-info {
-  background: var(--gt-info);
-}
-/* Light */
-.bg-light {
-  background: var(--gt-light);
-}
-/* Dark */
-.bg-dark {
-  background: var(--gt-dark);
-}
-/**/
-
-/* Views Background Table Colors */
-
-.table-primary {
-  background: var(--gt-primary-gold);
-}
-.table-secondary {
-  background: var(--gt-secondary);
-}
-.table-success {
-  background: var(--gt-success);
-}
-.table-danger {
-  background: var(--gt-danger);
-}
-.table-warning {
-  background: var(--gt-warning);
-}
-.table-info {
-  background: var(--gt-info);
-}
-.table-light {
-  background: var(--gt-light);
-}
-.table-dark {
-  background: var(--gt-dark);
-}
-/* GT Background Colors  */
-
-/* GT Gold */
-.gt-gold,
-.bg-gold {
-  background: var(--gt-gold)
-}
-/* GT Medium Light Gold */
-.gt-mdlt-gold,
-.bg-mdlt-gold {
-  background: var(--gt-mdlt-gold)
-}
-/* GT Dark Gold */
-.gt-drk-gold,
-.bg-dark-gold {
-  background: var(--gt-drk-gold)
-}
-
-/* GT Official Fonts */
-:root {
-  --font-roboto: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  --font-roboto-condensed: "Roboto Condensed", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  --font-roboto-slab: "Roboto Slab", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  --font-abel: 'Abel', sans-serif;
-  --font-awesome: "Font Awesome\ 5 Free";
-  --font-awesome-old: "FontAwesome";
-}
-
-.pagination a,
-.pagination a:link {
+#mercury .pagination a,
+#mercury .pagination a:link {
 	text-decoration: none;
 }
-/********* H2 *********/
-.hg-title a,
-.hg-title a:link {
+
+#mercury .hg-title a,
+#mercury .hg-title a:link {
 	text-decoration: none !important;
 }
 
 #mercury h2:hover {
   color: var(--gt-black);
 }
+
+
 /********* Images *********/
 #mercury img {
   max-width: 100%;
@@ -251,12 +23,14 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
 #mercury .content {
   margin-bottom: 1.3rem;
 }
-/**/
+
+
 /********* Description/body text *********/
 #mercury .description {
   clear: both;
 }
-/**/
+
+
 /********* Labels *********/
 #mercury .label {
   font-family: var(--font-roboto-condensed);
@@ -269,82 +43,14 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   text-align: left;
   clear: both;
 }
-/**/
-/********* Bootstrap Pagination *********/
-.pagination {
-  margin-top: 1rem;
-}
 
-.page-item:first-child .page-link {
-  background: var(--gt-black);
-  color: var(--gt-gold);
-  font-size: .8rem;
-}
 
-.page-item:first-child .page-link:hover {
-  color: var(--gt-black) !important;
-  background-color: var(--gt-gold);
-  border-color: var(--gt-gold);
-}
-
-.page-item:last-child .page-link {
-  background: var(--gt-black) !important;
-  color: var(--gt-gold);
-  font-size: .8rem;
-}
-
-.page-item:last-child .page-link:hover {
-  color: var(--gt-black) !important;
-  background-color: var(--gt-gold) !important;
-  border-color: var(--gt-gold) !important;
-}
-
-.page-link {
-  background: var(--gt-black);
-  border: 1px solid var(--gt-gold);
-  color: var(--gt-gold) !important;
-  font-size: .8rem;
-  -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-}
-
-.page-link a {
-  color: var(--gt-gold);
-}
-
-.page-link:hover {
-  color: var(--gt-black) !important;
-  background-color: var(--gt-gold);
-  border-color: var(--gt-gold);
-}
-
-.page-item.active .page-link {
-  color: var(--gt-black) !important;
-  background-color: var(--gt-gold);
-  border-color: var(--gt-gold);
-}
-
-.pager ul li::before,
-.pagination li::before {
-  display: none;
-}
-
-.page-item:last-child .page-link {
-  border-top-right-radius: .25rem;
-  border-bottom-right-radius: .25rem;
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
-}
-/* css rules */
-
-/* Secondary Button */
+/********* Secondary Button *********/
 #mercury .btn-secondary {
   background-color: var(--gt-gold) !important;
   border-color: var(--gt-gold) !important;
   color: var(--gt-black) !important;
 }
-
 #mercury .btn-secondary:hover,
 #mercury .btn-secondary a:hover {
   background-color: var(--gt-black) !important;
@@ -352,7 +58,8 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   color: var(--gt-gold) !important;
   text-decoration: none;
 }
-/**/
+
+
 /********* Event Details Wrapper *********/
 #mercury .details-wrapper {
   padding: 0;
@@ -360,7 +67,8 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   text-align: left;
   margin-bottom: 1.3rem;
 }
-/**/
+
+
 /********* Event Date *********/
 #mercury .date-wrapper,
 #mercury .time-wrapper {
@@ -371,17 +79,14 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   margin: 0;
   padding: 0;
 }
-
 #mercury .time-wrapper {
   text-align: center;
   margin: 1rem 2rem .5rem 0;
 }
-
 #mercury .time-wrapper-event {
   text-align: left;
   margin: 0;
 }
-
 #mercury .date-wrapper {
   background: var(--gt-white);
   border: 1px solid var(--gt-light-grey);
@@ -390,7 +95,6 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
-
 #mercury .day,
 #mercury .day-multi {
   background: var(--gt-black);
@@ -408,7 +112,6 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   border-top-left-radius: 9px;
   border-top-right-radius: 9px;
 }
-
 #mercury .month,
 #mercury .month-multi {
   color: var(--gt-gold);
@@ -419,7 +122,6 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   text-align: center;
   text-transform: uppercase;
 }
-
 #mercury .date,
 #mercury .date-multi {
   color: var(--gt-gold);
@@ -429,7 +131,6 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   text-align: center;
   text-transform: uppercase;
 }
-
 #mercury .year,
 #mercury .year-multi {
   color: var(--gt-gold);
@@ -440,7 +141,6 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   text-align: center;
   text-transform: uppercase;
 }
-
 #mercury .time,
 #mercury .time-multi {
   display: inline;
@@ -455,20 +155,19 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   margin-right: .25rem;
   display: inline;
 }
-/**/
+
 
 /********* Location *********/
 #mercury .location-wrapper {
   margin-bottom: 1.3rem;
 }
-
 #mercury .location.content,
 #mercury .location-phone.content,
 #mercury .location-email.content {
   margin-bottom: 0;
 }
 
-/**/
+
 /********* Fee *********/
 #mercury .fee.label {
   font-family: var(--font-roboto);
@@ -478,16 +177,13 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   color: var(--gt-black);
   display: inline;
 }
-
 #mercury .fee.label:after {
   content: ':';
 }
-
 #mercury .fee.content {
   margin-bottom: 1rem;
   display: inline-block;
 }
-
 #mercury .fee.label:before {
   font-family: 'FontAwesome';
   font-weight: 900;
@@ -497,38 +193,33 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   display: inline;
 }
 
-/**/
+
 /********* Categories *********/
 #mercury .categories.content,
 #mercury .categories.content a {
   display: inline-block;
 }
-
 #mercury .categories.content a {
   margin-right: .25rem;
 }
 
-/**/
-/******News Research Areas *******/
+
+/****** News Research Areas *******/
 #mercury .core-research-areas.files {
   margin-bottom: 1.3rem;
 }
-
 #mercury .core-research-areas.content a,
 #mercury .core-research-areas.content {
   display: inline-block;
 }
-
 #mercury .core-research-areas.content a {
   margin-right: .25rem;
 }
-
 #mercury .published {
   color: var(--gt-gold);
   font-weight: 400;
 }
-/* Needs to be updated */
-/**/
+
 
 /********* Sidebar *********/
 #mercury .sidebar-right.content {
@@ -536,7 +227,7 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   border-left: 1px solid var(--gt-gold);
 }
 
-/**/
+
 /********* GT Video *********/
 #mercury .video-container {
   position: relative;
@@ -545,7 +236,6 @@ DO NOT DELETE OR MODIFY WITHOUT UPDATING BOTH STYLE SHEETS
   height: 0;
   overflow: hidden;
 }
-
 #mercury .video-container iframe,
 #mercury .video-container object,
 #mercury .video-container embed {

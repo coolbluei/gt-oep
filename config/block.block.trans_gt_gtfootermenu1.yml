@@ -1,0 +1,23 @@
+uuid: 627e2aa2-019f-4390-a606-a1bc2ed67a2a
+langcode: en
+status: true
+dependencies:
+  theme:
+    - trans_gt
+_core:
+  default_config_hash: B2GWF47SeQoK1JeSseqtYqkUF4h1KtOW21Z1-kOZHyw
+id: trans_gt_gtfootermenu1
+theme: trans_gt
+region: navigation
+weight: 0
+provider: null
+plugin: 'system_menu_block:gt_footer_menu_1'
+settings:
+  id: 'system_menu_block:gt_footer_menu_1'
+  label: 'GT Footer menu 1'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

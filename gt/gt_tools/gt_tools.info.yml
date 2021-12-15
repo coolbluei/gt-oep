@@ -1,15 +1,13 @@
 name: GT Tools
-description: Tired of doing things? Let the GT Tools module do things for you!
-  GT Tools does a little bit of this and a little bit of that. Should you need
-  neither of these things, worry not -- it also does a little of the other
-  thing. Oh, also it's mandatory.
+description: Miscellaneous functionality for GT sites
 package: GT
 type: module
 core_version_requirement: ^8 || ^9
-version: "8.x-1.1"
-project: "gt_tools"
-project status url: http://repo.drupal.gatech.edu/release_history/gt_tools/8.x
+version: "3.0.1"
+project: "GT Tools"
+project status url: http://repo.drupal.gatech.edu/release_history/gt_tools/3.x
 dependencies:
-  - search
+  - block
   - field_group
-datestamp: 1606231803
+  - node
+  - search

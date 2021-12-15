@@ -1,0 +1,40 @@
+core_version_requirement: ^8.7.7 || ^9
+type: theme
+base theme: trans_gt
+
+name: 'GT Design Pack: Curie (D9 transition)'
+description: 'All the features of Babbage plus templates for Layout Builder'
+package: 'GT'
+
+regions:
+  header: 'Header'
+  navigation: 'Navigation'
+  utility_navigation: 'Utility Navigation'
+  search: 'Search'
+  banner: 'Banner'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  breadcrumbs: 'Page Title / Breadcrumbs'
+  before_content: 'Before Content'
+  full_width_before_content: 'Full Width Before Content'
+  content: 'Content'
+  full_width_after_content: 'Full Width After Content'
+  after_content: 'After Content'
+  full_width_content: 'After Full Width Content / with border'
+  full_width_content_two: 'After Full Width Content / without border'
+  sidebar_first: 'Sidebar Left'
+  sidebar_second: 'Sidebar Right'
+  before_footer: 'Footer Top / Must be utilized with the Superfooter Option'
+  footer_first: 'Footer First'
+  footer_second: 'Footer Second'
+  footer_third: 'Footer Third'
+  footer_four: 'Footer Fourth'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  other: 'Other / Placeholder Region'
+
+libraries:
+  - 'trans_curie/global-styling'
+  - 'trans_curie/fonts'
+  - 'trans_curie/bootstrap_cdn'
+

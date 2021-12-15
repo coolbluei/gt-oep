@@ -1,6 +1,18 @@
 <?php
 
 use Drupal\Core\Database\Database;
+use Drupal\Core\Config\FileStorage;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\taxonomy\Entity\Vocabulary;
+use Symfony\Component\Yaml\Yaml;
+use Drupal\hg_reader\Entity\HgImporter;
+use Drupal\hg_reader\Controller\HgImporterController;
+use Drupal\Core\Datetime\DrupalDateTime;
+use \Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
+use Drupal\Core\Datetime\DateFormatInterface;
 
 function hg_reader_install() {
   $config = \Drupal::service('config.factory')->getEditable('hg_reader.settings');
@@ -33,6 +45,26 @@ function hg_reader_schema() {
 
   return $schema;
 }
+/**
+ * hg_reader_requirements
+ *
+ * @param string $phase
+ * @return array
+ */
+function hg_reader_requirements($phase) {
+	$requirements = [];
+
+	// Checking `mercury_news` specifically becuase of hg_reader_update_8002
+	if ($phase == 'runtime' && \Drupal\node\Entity\NodeType::load('mercury_news') ) {
+		$requirements['hg_reader'] = [
+			'title' => t('Mercury Reader'),
+			'severity' => REQUIREMENT_ERROR,
+			'description' => t("Mercury Reader has <a href='@url'>outdated content types</a>. Please re-install Mercury Reader to install the proper content types.", array('@url' => "https://github.gatech.edu/ICWebTeam/hg_reader/issues/21" ))
+		];
+	}
+
+	return $requirements;
+}
 
 function hg_reader_update_8001(&$sandbox) {
   $spec = [
@@ -55,4 +87,196 @@ function hg_reader_update_8001(&$sandbox) {
 
   $schema = Database::getConnection()->schema();
   $schema->createTable('hg_reader_log', $spec);
+}
+
+/**
+ * Adds a YouTube field to the news node type.
+ */
+function hg_reader_update_8002() {
+  $message = NULL;
+
+  $entitytypes_fields = [
+    'node' => [
+      'hg_news' => [
+        'field_hg_youtube_video',
+      ],
+    ]
+  ];
+
+  _ensure_fields($entitytypes_fields);
+  return $message;
+}
+
+
+function _ensure_fields(array $entitytypes_fields) {
+  $modulePath = drupal_get_path('module', 'hg_reader');
+  $config_directory = new FileStorage($modulePath . '/config/install');
+
+  foreach ($entitytypes_fields as $entitytype => $bundles) {
+    foreach ($bundles as $bundle => $fields) {
+      foreach ($fields as $field) {
+        $field_storage_name = 'field.storage.' . $entitytype . '.' . $field;
+        $config_record = $config_directory->read($field_storage_name);
+        if (!FieldStorageConfig::loadByName($config_record['entity_type'], $config_record['field_name'])) {
+          FieldStorageConfig::create($config_record)->save();
+        }
+
+        $field_config_name = 'field.field.' . $entitytype . '.' . $bundle . '.' . $field;
+        $config_record = $config_directory->read($field_config_name);
+        if (!FieldConfig::loadByName($config_record['entity_type'], $config_record['bundle'], $config_record['field_name'])) {
+          FieldConfig::create($config_record)->save();
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Rebuilds taxonomy terms for orphaned metadata entities.
+ */
+function hg_reader_update_8003(&$sandbox) {
+  // news: 'field_hg_keywords', 'field_hg_categories', 'field_hg_news_room_topics'
+  // event: 'field_hg_event_categories', 'field_hg_invited_audience'
+
+  $count_node = 0;
+  $count_tax = 0;
+
+  // First, query all hg_reader content types
+  // The query
+  $nids = \Drupal::entityQuery('node')
+      ->condition('type', ['hg_event', 'hg_news'], 'IN')
+      ->execute();
+
+  if (!empty($nids)) {
+    $hg_fields = [
+      'field_hg_keywords' => 'hg_keywords',
+      'field_hg_categories' => 'hg_categories',
+      'field_hg_news_room_topics' => 'hg_news_room_topics',
+      'field_hg_newsroom_topics' => 'hg_newsroom_topics',
+      'field_hg_event_categories' => 'hg_categories',
+      'field_hg_invited_audience' => 'hg_invited_audience'
+    ];
+
+    // Now, go into each entity.
+    foreach ($nids as $nid) {
+      $bool_update = false;
+      $node = Node::load($nid);
+
+      if ($node instanceof \Drupal\node\NodeInterface) {
+        foreach ($hg_fields as $hg_field => $hg_field_vocab) {
+          // checking if field exists on entity
+          if ($node->hasField($hg_field)) {
+
+            // loading hg_field_vocab into a vid
+            $vocab_id = Vocabulary::load($hg_field_vocab)->id();
+
+            // now, checking field
+            $categories = $node->$hg_field->getValue();
+            if (!empty($categories)) {
+              foreach ($categories as $category) {
+                // Now, load each tid.
+                $term = Term::load($category['target_id']);
+
+                // Now, checking VIDs
+		if (is_null($term)) { continue; }
+                if ($term->bundle() != $vocab_id) {
+                  $count_tax++;
+                  // VIDs don't match, so recreate term in $vocab_id
+                  $term_new = Term::create([
+                    'name' => $term->getName(),
+                    'vid' => $vocab_id,
+                  ]);
+                  // save term
+                  $term_new->save();
+
+                  // Finally, replace Tax reference with the newly created entity
+                  // sourced from https://drupal.stackexchange.com/questions/262090/how-do-i-programmatically-delete-a-reference-field-values
+                  $key = array_search(current($category), array_column($categories, key($category)));
+                  $node->get($hg_field)->removeItem($key);
+
+                  // now, replace that relationship
+                  $node->get($hg_field)->appendItem(['target_id' => $term_new->id()]);
+                  \Drupal::logger('hg_reader')->notice('Updated [tid=' . $term_new->id() . ']' . $term_new->getName() . ' for [nid=' . $node->id() . ']' . $node->label());
+                  $bool_update = true;
+                }
+              }
+            }
+          }
+
+          if ($bool_update){
+            // Now, save.
+            $node->save();
+            \Drupal::logger('hg_reader')->notice('Updated [nid=' . $node->id() . ']' . $node->label());
+            $count_node++;
+          }
+        }
+      }
+    }
+  }
+  \Drupal::messenger()->addMessage(t('Recreated <em>@name</em> terms across @count content.', array('@name' => $count_tax, '@count' => $count_node)), 'status');
+}
+
+/**
+ * Support for videos in hg_news
+ */
+function hg_reader_update_8004(&$sandbox) {
+  $config_path = drupal_get_path('module', 'hg_reader') . '/config/install';
+	$source = new FileStorage($config_path);
+	$config_storage = \Drupal::service('config.storage');
+	$config_storage->write('core.entity_form_display.node.hg_news.default', $source->read('core.entity_form_display.node.hg_news.default'));
+}
+
+/**
+ * Dates originally stored as 'America/New York' should be 'UTC'.
+ */
+function hg_reader_update_8005(&$sandbox) {
+  // Create a datetime for the entityQuery()
+  $date_now = new DrupalDateTime('now');
+  $date_now->setTimezone(new \DateTimeZone(DateTimeItemInterface::STORAGE_TIMEZONE));
+  $date_now_formatted = $date_now->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+
+  // Pull all events with starting date >= now.
+  // https://drupal.stackexchange.com/questions/198324/how-to-do-a-date-range-entityquery-with-a-date-only-field-in-drupal-8
+  $nids = \Drupal::entityQuery('node')
+    ->condition('type','hg_event')
+    ->condition('field_hg_event_time.value', $date_now_formatted, '>=')
+    ->execute();
+
+  // If entityquery retuns null, no events found, exit gracefully.
+  if (empty($nids)) { return; }
+
+  // Iterate through each nid.
+  foreach ($nids as $nid) {
+    $node = Node::load($nid);
+    if(empty($node)){
+      continue;
+    }
+    $node_hg_id = $node->get('field_hg_id')->getString();
+    $node_hg_event_start = $node->get('field_hg_event_time')->getValue()[0]['value'];
+    // Compare stored date versus hg date
+    // hg URL, e.g. https://hg.gatech.edu/node/650591/xml
+    if(!empty($node_hg_id)){
+      $hg_id = $node->get('field_hg_importer')->getString();
+      \Drupal::logger('hg_reader')->notice("Processing Mercury Item '" . $node->getTitle() . "' using HgImporter " . $hg_id . ".");
+
+      $hg_reader = HgImporter::load($hg_id);
+      $remote_xml = $hg_reader->pull_remote($node_hg_id, 'item');
+      $remote_hg = unserialize($hg_reader->serialize_xml($remote_xml, 'Item'));
+      $hg_reader->decode($remote_hg);
+      $remote_dates = $hg_reader->process_eventdate($remote_hg['times'][0]['startdate'], $remote_hg['times'][0]['stopdate'], $remote_hg['times'][0]['timezone']);
+      if (!empty(strcmp($remote_dates['value'], $node_hg_event_start))){
+
+        \Drupal::logger('hg_reader')->notice("Currently stored date [" . $node_hg_event_start . "] is out-of-sync with the proposed UTC date ["  . $remote_dates['value'] . "].");
+        \Drupal::logger('hg_reader')->notice("Updating '" . $node->getTitle() . "' datetime to match UTC.");
+        // currently stored start date doesn't match the UTC version in DB, update this.
+        $node->set('field_hg_event_time', $remote_dates);
+        $node->save();
+        \Drupal::logger('hg_reader')->notice("Stored datetime pair " . $remote_dates['value'] . "|" . $remote_dates['end_value'] . " for '" . $node->getTitle() . "'.");
+      }
+
+    }
+    else {
+      // If Mercury ID is empty, well... ignore this?
+    }
+  }
 }

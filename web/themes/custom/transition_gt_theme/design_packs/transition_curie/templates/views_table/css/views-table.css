@@ -1,0 +1,42 @@
+/* Table CSS */
+table {
+  font-family: var(--font-abel);
+  font-size: 1rem;
+  line-height: 1.2;
+  margin: 10px 0 20px 0;
+}
+table p {
+  font-size: .9rem;
+  line-height: 1.2;
+}
+table a,
+table a:visited {
+  border-bottom: none !important;
+  color: var(--gt-black) !important;
+  line-height: 1.2;
+}
+ table a:hover,
+ table a:active {
+  border-bottom: 1px solid var(--gt-md-grey)!important;
+  color: var(--gt-black) !important;
+}
+caption {
+  color: var(--gt-md-grey) !important;
+  text-transform: uppercase;
+  font-size: .85rem;
+  font-weight: normal;
+}
+.detail summary {
+  text-transform: uppercase;
+}
+.detail {
+  text-transform: none;
+}
+.views-element-container.contextual-region {
+  color: var(--gt-black) !important;
+  line-height: 1.2;
+  margin: 0 0 3rem;
+}
+.views-field-title {
+  font-weight: bold;
+}

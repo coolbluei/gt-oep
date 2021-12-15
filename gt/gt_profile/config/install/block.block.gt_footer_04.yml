@@ -1,0 +1,23 @@
+uuid: 09f220c6-7937-45db-8947-7350130d64fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.gt-footer-04
+  module:
+    - system
+id: gt_footer_04
+theme: gt
+region: footer_04
+weight: 0
+provider: null
+plugin: 'system_menu_block:gt-footer-04'
+settings:
+  id: 'system_menu_block:gt-footer-04'
+  label: 'GT super footer: column 4 (optional)'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

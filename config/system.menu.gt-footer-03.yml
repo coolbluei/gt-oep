@@ -1,0 +1,8 @@
+uuid: 71c5c058-b354-4313-801d-55a05018dcdf
+langcode: en
+status: true
+dependencies: {  }
+id: gt-footer-03
+label: 'GT official links: column 3 (optional)'
+description: 'GT official links: column three (optional)'
+locked: true

@@ -1,0 +1,168 @@
+<?php
+
+use Drupal\Core\Utility\UpdateException;
+
+
+function gt_tools_install() {
+  $messages = [];
+  gt_tools_create_footer_blocks('install');
+}
+
+/**
+ * Undo the many grievous mistakes of Curie.
+ */
+
+function gt_tools_update_9301(&$sandbox) {
+  $current_theme = \Drupal::configFactory()
+  ->getEditable('system.theme')
+  ->get('default');
+
+
+  // Get rid of the GT footerdaemon module, for the love of God.
+  gt_tools_disable_footerdaemon();
+
+  // Farewell to cleverly named themes.
+  gt_tools_swap_out_curie_theme($current_theme);
+
+  // Install footer blocks
+  gt_tools_create_footer_blocks('update');
+
+  // Remove all the blocks what don't belong.
+  gt_tools_reconfigure_system_blocks();
+
+  // Deal with blocks belonging to the default theme.
+  gt_tools_reconfigure_user_blocks($current_theme);
+
+  gt_tools_update_terms();
+
+  drupal_flush_all_caches();
+}
+
+function gt_tools_disable_footerdaemon() {
+  $moduleHandler = \Drupal::service('module_handler');
+  if ($moduleHandler->moduleExists('gt_footerdaemon')) {
+    \Drupal::service('module_installer')->uninstall(['gt_footerdaemon']);
+    for ($i = 0; $i < 4; $i++) {
+      \Drupal::configFactory()->getEditable('system.menu.gt_footer_menu_' . $i)->delete();
+    }
+  }
+}
+
+function gt_tools_swap_out_curie_theme($current_theme) {
+  $theme_installer = \Drupal::service('theme_installer');
+  $theme_installer->install(['gt']);
+  if ($current_theme == 'curie') {
+    \Drupal::configFactory()
+    ->getEditable('system.theme')
+    ->set('default', 'gt')
+    ->save();
+  }
+  $theme_installer->uninstall(['curie']);
+  \Drupal::state()->set('gt_profile', 'profiles/contrib/gt_profile/gt_profile.info.yml');
+}
+
+function gt_tools_create_footer_blocks($op) {
+  $module_path = \Drupal::service('module_handler')->getModule('gt_tools')->getPath();
+  $config_dir = $module_path . '/config/' . $op;
+
+  // Post-install configuration
+  $files = glob($config_dir . '/*.yml');
+  $source = new \Drupal\Core\Config\FileStorage($config_dir);
+  $config_storage = \Drupal::service('config.storage');
+  foreach ($files as $file) {
+    $components = explode(DIRECTORY_SEPARATOR, $file);
+    $config_name = str_replace('.yml', '', end($components));
+    $config_storage->write($config_name, $source->read($config_name));
+  }
+}
+
+function gt_tools_reconfigure_system_blocks() {
+  $block_names = ['gt_account_menu', 'gt_footer', 'gt_powered', 'gt_tools'];
+  $blocks_were_altered = FALSE;
+  foreach ($block_names as $block_name) {
+    $block = \Drupal\block\Entity\Block::load($block_name);
+    if ($block) {
+      $block->setStatus(FALSE);
+      $block->save();
+      $blocks_were_altered = TRUE;
+    }
+  }
+  $block_names = [
+    'gt_search' => 'search',
+    'gt_footer_01' => 'footer_01',
+    'gt_footer_02' => 'footer_02',
+    'gt_footer_03' => 'footer_03',
+    'gt_footer_04' => 'footer_04',
+    'gt_footer_contact' => 'footer_05',
+    'gt_footer_general' => 'footer_06',
+    'gt_footer_legal' => 'footer_07',
+    'gt_footer_logo' => 'footer_08',
+  ];
+  foreach ($block_names as $block_name => $region) {
+    $block = \Drupal\block\Entity\Block::load($block_name);
+    if ($block) {
+      $block->setRegion($region);
+      $block->save();
+      $blocks_were_altered = TRUE;
+    }
+  }
+  if ($blocks_were_altered) {
+    $messages[] = 'Drupal blocks were reorganized per the new theme.';
+  }
+}
+
+function gt_tools_reconfigure_user_blocks($current_theme) {
+  // Remove stock gt blocks
+  $database = \Drupal::database();
+  $query = $database->delete('config');
+  $query->condition('config.data', '%s:5:"theme";a:1:{i:0;s:2:"gt";}%');
+  $result = $query->execute();
+
+  // If blocks belong to a subtheme, let them remain that way.
+  if ($current_theme != 'curie') { return; }
+
+  // Get all configs associated with curie
+  $database = \Drupal::database();
+  $query = $database->select('config', 'c');
+  $query->condition('c.data', '%s:5:"theme";a:1:{i:0;s:5:"curie";}%');
+  $query->fields('c', ['name', 'data']);
+  $result = $query->execute()->fetchAll();
+
+  // Replace curie with gt
+  foreach ($result as $row) {
+    $name = str_replace('curie', 'gt', $row->name);
+    $data_arr = unserialize($row->data);
+    $data_arr['theme'] = $name;
+    $data_arr['id'] = str_replace('curie', 'gt', $data_arr['id']);
+    if (isset($data_arr['dependencies']['theme'])) {
+      foreach ($data_arr['dependencies']['theme'] as &$theme) {
+        if ($theme == 'curie') { $theme = 'gt'; }
+      }
+    }
+    $data = serialize($data_arr);
+
+    $query = $database->update('config');
+    $query->fields([
+      'name' => $name,
+      'data' => $data,
+    ])
+    ->condition('name', $row->name)
+    ->execute();
+    // echo $query;
+    // dpm($query->__toString());
+    // dpm($query->arguments());
+  }
+}
+
+function gt_tools_update_terms() {
+  $query = \Drupal::entityQuery('taxonomy_term');
+  $query->condition('vid', 'style');
+  $result = $query->execute();
+
+  foreach($result as $term_id) {
+    $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($term_id);
+    $term_name = $term->getName();
+    $term->setName(str_replace('Curie', 'GT', $term_name));
+    $term->save();
+  }
+}

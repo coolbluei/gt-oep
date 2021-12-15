@@ -1,0 +1,35 @@
+# The permissions.yml file defines the permissions for the module.
+# Defines the administer permission for the entity types.
+
+permission.footer-01:
+  title: 'GT super footer one: Official links <span style="color: #02753a">(optional)</span>'
+  restrict access: true
+  warning: 'Notice: These links can be removed but not altered. If you have any questions/issues with this policy email <a href="mailto:webteam@gatech.edu">webteam@gatech.edu</a>.'
+permission.footer-02:
+  title: 'GT super footer two: Official links <span style="color: #02753a">(optional)</span>'
+  restrict access: true
+  warning: 'Notice: These links can be removed but not altered. If you have any questions/issues with this policy email <a href="mailto:webteam@gatech.edu">webteam@gatech.edu</a>.'
+permission.footer-03:
+  title: 'GT super footer three: Official links <span style="color: #02753a">(optional)</span>'
+  restrict access: true
+  warning: 'Notice: These links can be removed but not altered. If you have any questions/issues with this policy email <a href="mailto:webteam@gatech.edu">webteam@gatech.edu</a>.'
+permission.footer-04:
+  title: 'GT super footer four: Official links <span style="color: #02753a">(optional)</span>'
+  restrict access: true
+  warning: 'Notice: These links can be removed but not altered. If you have any questions/issues with this policy email <a href="mailto:webteam@gatech.edu">webteam@gatech.edu</a>.'
+permission.footer-05:
+  title: 'GT super footer five: Official links <span style="color: #02753a">(optional)</span>'
+  restrict access: true
+  warning: 'Notice: These links can be removed but not altered. If you have any questions/issues with this policy email <a href="mailto:webteam@gatech.edu">webteam@gatech.edu</a>.'
+permission.footer-general:
+  title: 'GT super footer general: Official links <span style="color: #02753a">(optional)</span>'
+  restrict access: true
+  warning: 'Notice: These links can be removed but not altered. If you have any questions/issues with this policy email <a href="mailto:webteam@gatech.edu">webteam@gatech.edu</a>.'
+permission.footer-legal:
+  title: 'GT official links: Legal <span style="color: #a80707">(required)</span>'
+  restrict access: true
+  warning: 'Warning: These links are required by legal and cannot be removed or altered. If you have any questions/issues with this policy email <a href="mailto:webteam@gatech.edu">webteam@gatech.edu</a>.'
+permission.footer-08:
+  title: 'GT super footer eight: Official links <span style="color: #02753a">(optional)</span>'
+  restrict access: true
+  warning: 'Notice: These links can be removed but not altered. If you have any questions/issues with this policy email <a href="mailto:webteam@gatech.edu">webteam@gatech.edu</a>.'

@@ -1,0 +1,29 @@
+core_version_requirement: ^8 || ^9
+type: theme
+base theme: stable
+
+name: 'GT Theme 8.x-1.0 (D9 transition version)'
+description: 'Main GT theme'
+package: 'GT'
+
+regions:
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  top_navigation: 'Top Navigation'
+  header: 'Top Bar'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  sidebar_first: 'Primary'
+  sidebar_second: 'Secondary'
+  superfooter_1: 'Superfooter (Column 1)'
+  superfooter_2: 'Superfooter (Column 2)'
+  superfooter_3: 'Superfooter (Column 3)'
+  superfooter_4: 'Superfooter (Column 4)'
+  footer: 'Footer'
+  footer_right: 'Footer Right'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+
+# libraries:
+#   - 'gt/global-styling'

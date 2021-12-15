@@ -1,0 +1,23 @@
+uuid: f38ffd07-9adc-4a9f-8fc7-6731f5fb2548
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alerts
+    - field.storage.block_content.field_alert_style
+  module:
+    - options
+id: block_content.alerts.field_alert_style
+field_name: field_alert_style
+entity_type: block_content
+bundle: alerts
+label: 'Alert Style'
+description: 'More Information: https://getbootstrap.com/docs/4.0/components/alerts/'
+required: false
+translatable: false
+default_value:
+  -
+    value: primary
+default_value_callback: ''
+settings: {  }
+field_type: list_string

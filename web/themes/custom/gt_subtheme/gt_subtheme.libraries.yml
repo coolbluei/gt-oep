@@ -28,8 +28,8 @@ accordion:
   js:
     js/accordion.js: {}
   dependencies:
-    - curie/gt-accordion
-    - core/jquery.ui.accordion
+    - trans_curie/gt-accordion
+    - jquery_ui_accordion/accordion
 
 icons:
   js:

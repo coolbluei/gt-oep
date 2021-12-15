@@ -1,0 +1,33 @@
+/* Views List */
+.item-list ul li {
+  list-style: none;
+}
+.item-list ul .view-list-item::before {
+  font-family: var(--font-awesome-old);
+  content: '\f04d';
+  margin-left: -1.5rem;
+  position: absolute;
+}
+
+.views-field.views-field-title a,
+.views-field.views-field-title a:visited {
+  border-bottom: none;
+  color: var(--gt-black);
+  font-weight: 400;
+}
+
+.views-field.views-field-title a:hover {
+  color: var(--gt-gold);
+}
+.views-field ol li {
+  color: var(--gt-gold);
+}
+.views-element-container ol li::before {
+  display: none !important;
+}
+
+.views-element-container ol li {
+  color: var(--gt-gold) !important;
+  font-weight: 600;
+  list-style: symbols!important;
+}

@@ -1,0 +1,8 @@
+uuid: f101899e-bb4d-442e-9f96-6afe1cc63ab3
+langcode: en
+status: true
+dependencies: {  }
+id: accordion
+label: Accordion
+revision: 1
+description: 'Provide an accordion section to your layout.'

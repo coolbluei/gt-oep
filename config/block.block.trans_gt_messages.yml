@@ -1,0 +1,22 @@
+uuid: 7b874120-556c-44bc-8e8e-a484c8fa0340
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - trans_gt
+_core:
+  default_config_hash: Br18pqVyVuDxUzX-kHToeY84BOP4QMbQqv_M3oqmd1E
+id: trans_gt_messages
+theme: trans_gt
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

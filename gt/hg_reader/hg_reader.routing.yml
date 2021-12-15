@@ -89,9 +89,9 @@ entity.hg_reader_importer.process_importer:
     _permission: 'administer importers'
 
 entity.hg_reader_importer.settings:
-  path: '/admin/structure/hg_reader_importer/settings'
+  path: '/admin/config/hg-reader/settings'
   defaults:
-    _form: '\Drupal\hg_reader\Form\HgImporterSettingsForm'
-    _title: 'Mercury importer settings'
+    _form: '\Drupal\hg_reader\Form\HgReaderSettingsForm'
+    _title: 'Mercury Reader settings'
   requirements:
-    _permission: 'administer importers'
+    _permission: 'access administration pages'

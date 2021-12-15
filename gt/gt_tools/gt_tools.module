@@ -6,3 +6,22 @@ function gt_tools_installed() {
   // and are forced to engage in bullshit workarounds.
   return TRUE;
 }
+
+function gt_tools_theme() {
+  $blocks = [
+    'gt_footer_contact' => [
+        'template' => 'gt-footer-contact',
+        'variables' => [],
+    ],
+    'gt_footer_logo' => [
+        'template' => 'gt-footer-logo',
+        'variables' => [],
+    ],
+  ];
+
+  return $blocks;
+}
+
+function gt_tools_preprocess_gt_footer_logo(&$variables, $hook) {
+  $variables['logo_path'] = file_create_url(drupal_get_path('module', 'gt_tools') . '/images/gt-logo.svg');
+}

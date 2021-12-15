@@ -1,0 +1,32 @@
+{# Preprocess #}
+{% set image_url = file_url(content.field_compact_image.0['#item'].entity.uri.value) %}
+{% set image_alt_text = (content.field_compact_image['#items'].alt) %}
+{% set title = (content.field_compact_title) %}
+{% set body = (content.field_compact_body) %}
+
+{# Content #}
+<div class="col-md-6 col-lg-4 item zoom-on-hover">
+
+  {# Image #}
+  <a class="lightbox" href="{{ image_url }}">
+    <img class="img-fluid image" src="{{ image_url }}" alt="{{ image_alt_text }}">
+    <span class="description">
+
+      {# Title #}
+      <span class="description-heading">
+        {% if title is not empty %}
+          {{ title }}
+        {% endif %}
+      </span>
+
+        {# Body #}
+      <span class="description-body">
+       {% if body is not empty %}
+         {{ body }}
+       {% endif %}
+      </span>
+
+    </span>
+  </a>
+
+</div>

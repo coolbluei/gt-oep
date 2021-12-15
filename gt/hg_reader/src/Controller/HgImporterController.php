@@ -66,8 +66,23 @@ class HgImporterController extends ControllerBase {
   }
 
   public function import_nodes(HgImporterInterface $hg_reader_importer) {
+
+		// Is fid a multi-value?
+		$fid_count = $hg_reader_importer->get('fid')->count();
+		if ($hg_reader_importer->get('fid')->count() > 1){
+			for ($i = 0; $i < $fid_count; $i++){
+				$fid = $hg_reader_importer->get('fid')->get($i)->getString();
+				$this->import_nodes_single($hg_reader_importer, $fid);
+			}
+		}
+		else {
+			$fid = $hg_reader_importer->get('fid')->getString();
+			$this->import_nodes_single($hg_reader_importer, $fid);
+		}
+  }
+
+	public function import_nodes_single(HgImporterInterface $hg_reader_importer, string $fid) {
     $iid = $hg_reader_importer->get('id')->getString();
-    $fid = $hg_reader_importer->get('fid')->getString();
     $name = $hg_reader_importer->get('name')->getString();
 
     // First check if this even needs doing.
@@ -79,6 +94,11 @@ class HgImporterController extends ControllerBase {
           )
         ));
       }
+
+       // If it doesnt need to be done, we still need to update "Last_run" since update_nodes doesnt do it anywhere.
+      $hg_reader_importer->set('last_run', time());
+      $hg_reader_importer->save();
+
       return $this->redirect('entity.hg_reader_importer.collection');
     }
 
@@ -101,10 +121,10 @@ class HgImporterController extends ControllerBase {
 
     // bubblegum, bubblgum in a dish, how many nodes did you import?
     if ($this->messenger) {
-      $this->messenger->addMessage($this->t('@count nodes imported from <em>@importer_name</em>.',
+      $this->messenger->addMessage($this->t('@count nodes imported from <em>@importer_fid</em>.',
         array(
           '@count' => $node_count,
-          '@importer_name' => $name,
+          '@importer_fid' => $fid,
         )
       ));
     }
@@ -112,7 +132,7 @@ class HgImporterController extends ControllerBase {
     // Stamp the importer with the current time.
     $hg_reader_importer->set('last_run', time());
     $hg_reader_importer->save();
-  }
+	}
 
   public function update_nodes(HgImporterInterface $hg_reader_importer) {
     $name = $hg_reader_importer->get('name')->getString();
@@ -127,10 +147,10 @@ class HgImporterController extends ControllerBase {
     }
 
     if ($this->messenger && $update_count > 0) {
-      $this->messenger->addMessage($this->t('@count nodes updated from <em>@importer_name</em>.',
+      $this->messenger->addMessage($this->t('@count nodes updated from <em>@importer_fid</em>.',
         array(
           '@count' => $update_count,
-          '@importer_name' => $name,
+          '@importer_fid' => $fid,
         )
       ));
     }

@@ -1,0 +1,19 @@
+# global-styling:
+#   css:
+#     theme:
+#       https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css: { type: external }
+#       https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css: { type: external }
+#       css/gt_style.css: {}
+#       css/gt_search.css: {}
+#   js:
+#       https://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js: { type: external }
+#   dependencies:
+#     - core/jquery
+#     # - core/drupal
+#     # - core/drupalSettings
+#
+# fonts:
+#   css:
+#     theme:
+#       //fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,500,500italic,700,700italic: { type: external }
+#       //fonts.googleapis.com/css?family=Roboto+Slab:400,700: { type: external }

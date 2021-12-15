@@ -1,0 +1,8 @@
+uuid: c733022c-48a4-466a-98e5-7d35f913ba6d
+langcode: en
+status: true
+dependencies: {  }
+id: alerts
+label: Alerts
+revision: 1
+description: 'Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.'

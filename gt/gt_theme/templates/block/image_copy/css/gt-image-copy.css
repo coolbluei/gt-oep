@@ -1,0 +1,316 @@
+/* CSS Style Sheet for image over copy  */
+.text-left,
+.text-left p {
+  text-align: left;
+}
+
+.text-center,
+.text-center p {
+  text-align: center;
+}
+
+.text-right,
+.text-right p {
+  text-align: right;
+}
+
+img.img-fluid {
+  width: 100%;
+  height: auto;
+}
+
+img.original {
+  height: auto;
+}
+
+.card-transparent {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+}
+
+#superblock .card-deck {
+  margin: 0;
+  width: intrinsic;
+}
+
+#superblock .card-footer {
+  background-color: transparent;
+  border: 0;
+  margin: 0 0 0 10px;
+  padding: 0;
+}
+
+/* black */
+.gt-black {
+  background-color: var(--gt-black) !important;
+}
+
+.gt-black .card-body h2,
+.gt-black .card-body h3,
+.gt-black .card-body h4,
+.gt-black .card-body h5,
+.gt-black .card-body h6 {
+  color: var(--gt-gold);
+}
+
+.gt-text-black h2,
+.gt-text-black h3,
+.gt-text-black h4,
+.gt-text-black h5,
+.gt-text-black h6,
+.gt-text-black dl,
+.gt-text-black ol,
+.gt-text-black ul,
+.gt-text-black p,
+.gt-text-black .p {
+  color: var(--gt-black);
+}
+
+.main-container .btn.btn-primary-black,
+.main-container .btn.btn-primary-black a,
+.main-container .btn.btn-primary-black a:link,
+.main-container .btn.btn-primary-black a:visited,
+.main-container a.btn.btn-primary-black,
+.main-container a.btn.btn-primary-black:link,
+.main-container a.btn.btn-primary-black:visited {
+  text-decoration: none;
+  background: var(--gt-dark-gray);
+  border-color: transparent;
+  color: var(--gt-white);
+}
+
+.main-container .btn.btn-primary-black:hover,
+.main-container a.btn.btn-primary-black:hover,
+.main-container a.btn.btn-primary-black:link:hover,
+.main-container a.btn.btn-primary-black:visited:hover,
+.main-container .btn.btn-primary-black a:hover,
+.main-container .btn.btn-primary-black a:link:hover,
+.main-container .btn.btn-primary-black a:visited:hover {
+  background: var(--gt-md-grey);
+  text-decoration: none;
+  color: var(--gt-white);
+}
+
+/* white */
+.gt-white {
+  background-color: var(--gt-white) !important;
+}
+
+.gt-white img {
+	position: relative;
+	z-index: 99;
+}
+
+.gt-white .card-body h2,
+.gt-white .card-body h3,
+.gt-white .card-body h4,
+.gt-white .card-body h5,
+.gt-white .card-body h6 {
+  color: var(--gt-md-gold);
+}
+
+.gt-text-white h2,
+.gt-text-white h3,
+.gt-text-white h4,
+.gt-text-white h5,
+.gt-text-white h6,
+.gt-text-white dl,
+.gt-text-white ol,
+.gt-text-white ul,
+.gt-text-white p,
+.gt-text-white .p,
+.gt-text-white {
+  color: var(--gt-white);
+}
+
+.main-container .gt-text-white a:hover,
+.main-container .gt-text-white a:link:hover {
+  color: var(--gt-dark-gray);
+}
+
+.main-container .btn.btn-primary-white,
+.main-container .btn.btn-primary-white a,
+.main-container .btn.btn-primary-white a:link,
+.main-container .btn.btn-primary-white a:visited,
+.main-container a.btn.btn-primary-white,
+.main-container a.btn.btn-primary-white:link,
+.main-container a.btn.btn-primary-white:visited {
+  background: var(--gt-white);
+  color: var(--gt-black);
+}
+
+.main-container .btn.btn-primary-white:hover,
+.main-container a.btn.btn-primary-white:hover,
+.main-container a.btn.btn-primary-white:link:hover,
+.main-container a.btn.btn-primary-white:visited:hover,
+.main-container .btn.btn-primary-white a:hover,
+.main-container .btn.btn-primary-white a:link:hover,
+.main-container .btn.btn-primary-white a:visited:hover {
+  background: var(--gt-superlight-gray);
+  color: var(--gt-black);
+}
+
+/* blue */
+.gt-blue {
+  background-color: var(--gt-navy) !important;
+}
+
+.gt-text-blue h2,
+.gt-text-blue h3,
+.gt-text-blue h4,
+.gt-text-blue h5,
+.gt-text-blue h6,
+.gt-text-blue dl,
+.gt-text-blue ol,
+.gt-text-blue ul,
+.gt-text-blue p,
+.gt-text-blue .p {
+  color: var(--gt-white);
+}
+
+.main-container .btn.btn-primary-blue,
+.main-container .btn.btn-primary-blue a,
+.main-container .btn.btn-primary-blue a:link,
+.main-container .btn.btn-primary-blue a:visited,
+.main-container a.btn.btn-primary-blue,
+.main-container a.btn.btn-primary-blue:link,
+.main-container a.btn.btn-primary-blue:visited {
+  background: var(--gt-navy);
+  color: var(--gt-white);
+}
+
+.main-container .btn.btn-primary-blue:hover,
+.main-container a.btn.btn-primary-blue:hover,
+.main-container a.btn.btn-primary-blue:link:hover,
+.main-container a.btn.btn-primary-blue:visited:hover,
+.main-container .btn.btn-primary-blue a:hover,
+.main-container .btn.btn-primary-blue a:link:hover,
+.main-container .btn.btn-primary-blue a:visited:hover {
+  background: var(--gt-blue);
+  color: var(--gt-white);
+}
+
+/* gold */
+.gt-gold {
+  background-color: var(--gt-gold) !important;
+}
+
+.gt-text-gold h2,
+.gt-text-gold h3,
+.gt-text-gold h4,
+.gt-text-gold h5,
+.gt-text-gold h6,
+.gt-text-gold dl,
+.gt-text-gold ol,
+.gt-text-gold ul,
+.gt-text-gold p,
+.gt-text-gold .p {
+  color: var(--gt-gold);
+}
+
+.main-container .btn.btn-primary-gold,
+.main-container .btn.btn-primary-gold a,
+.main-container .btn.btn-primary-gold a:link,
+.main-container .btn.btn-primary-gold a:visited,
+.main-container a.btn.btn-primary-gold,
+.main-container a.btn.btn-primary-gold:link,
+.main-container a.btn.btn-primary-gold:visited {
+  background: var(--gt-gold);
+  color: var(--gt-black);
+}
+
+.main-container .btn.btn-primary-gold:hover,
+.main-container a.btn.btn-primary-gold:hover,
+.main-container a.btn.btn-primary-gold:link:hover,
+.main-container a.btn.btn-primary-gold:visited:hover,
+.main-container .btn.btn-primary-gold a:hover,
+.main-container .btn.btn-primary-gold a:link:hover,
+.main-container .btn.btn-primary-gold a:visited:hover {
+  background: var(--gt-tech-light-gold);
+  color: var(--gt-black);
+}
+
+/* gray */
+.gt-warm-gray {
+  background-color: var(--gt-warm-gray-medium) !important;
+}
+
+.gt-text-warm-gray h2,
+.gt-text-warm-gray h3,
+.gt-text-warm-gray h4,
+.gt-text-warm-gray h5,
+.gt-text-warm-gray h6,
+.gt-text-warm-gray dl,
+.gt-text-warm-gray ol,
+.gt-text-warm-gray ul,
+.gt-text-warm-gray p,
+.gt-text-warm-gray .p {
+  color: var(--gt-warm-gray);
+}
+
+.main-container .btn.btn-primary-warm-gray,
+.main-container .btn.btn-primary-warm-gray a,
+.main-container .btn.btn-primary-warm-gray a:link,
+.main-container .btn.btn-primary-warm-gray a:visited,
+.main-container a.btn.btn-primary-warm-gray,
+.main-container a.btn.btn-primary-warm-gray:link,
+.main-container a.btn.btn-primary-warm-gray:visited {
+  background: var(--gt-warm-gray);
+  color: var(--gt-black);
+}
+
+.main-container .btn.btn-primary-warm-gray:hover,
+.main-container a.btn.btn-primary-warm-gray:hover,
+.main-container a.btn.btn-primary-warm-gray:link:hover,
+.main-container a.btn.btn-primary-warm-gray:visited:hover,
+.main-container .btn.btn-primary-warm-gray a:hover,
+.main-container .btn.btn-primary-warm-gray a:link:hover,
+.main-container .btn.btn-primary-warm-gray a:visited:hover {
+  background: var(--gt-warm-gray-medium);
+  color: var(--gt-black);
+}
+
+/* transparent */
+#superblock .gt-transparent .card-body {
+	padding: 0;
+}
+
+.gt-transparent .card-body h2,
+.gt-transparent .card-body h3,
+.gt-transparent .card-body h4,
+.gt-transparent .card-body h5,
+.gt-transparent .card-body h6 {
+  color: var(--gt-md-gold);
+}
+
+/* banner region specific styling */
+#gt-banner #superblock .gt-transparent .card-body {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+
+.gt-black .btn {
+  color: var(--gt-black) !important;
+}
+
+.gt-gold .btn {
+  background: var(--gt-black) !important;
+  color: var(--gt-white) !important;
+  text-decoration: none !important;
+}
+
+.gt-gold .btn:hover {
+  background: var(--gt-white) !important;
+  color: var(--gt-black) !important;
+}
+
+.gt-blue .card-body.gt-text-blue{
+  color: #fff !important;
+}

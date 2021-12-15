@@ -1,0 +1,48 @@
+uuid: 7ac4beeb-d3f7-4603-92cb-17f83f4d633f
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.accordion
+    - field.field.block_content.accordion.body
+    - field.field.block_content.accordion.field_accordion_field
+  module:
+    - faqfield
+    - text
+id: block_content.accordion.default
+targetEntityType: block_content
+bundle: accordion
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 26
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  field_accordion_field:
+    weight: 27
+    settings:
+      answer_widget: text_format
+      question_title: Question
+      answer_title: Answer
+      advanced:
+        question_length: 255
+        question_size: 100
+        question_rows: 0
+        answer_rows: 3
+    third_party_settings: {  }
+    type: faqfield_default
+    region: content
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

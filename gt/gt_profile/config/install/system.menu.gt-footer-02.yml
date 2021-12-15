@@ -1,0 +1,8 @@
+uuid: 8f366bfa-09b9-11ec-9a03-0242ac130003
+langcode: en
+status: true
+dependencies: {  }
+id: gt-footer-02
+label: 'GT official links: column 2 (optional)'
+description: 'GT official links: column two (optional)'
+locked: true

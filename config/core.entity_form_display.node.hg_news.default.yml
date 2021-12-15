@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.hg_news.field_hg_subtitle
     - field.field.node.hg_news.field_hg_summary
     - field.field.node.hg_news.field_hg_summary_sentence
+    - field.field.node.hg_news.field_hg_youtube_video
     - image.style.thumbnail
     - node.type.hg_news
   module:
@@ -32,6 +33,7 @@ dependencies:
     - link
     - path
     - text
+    - video_embed_field
 third_party_settings:
   field_group:
     group_hg_overview:
@@ -54,7 +56,7 @@ third_party_settings:
         - field_hg_dateline
         - field_hg_location
       parent_name: ''
-      weight: 9
+      weight: 11
       format_type: details
       format_settings:
         id: ''
@@ -68,7 +70,7 @@ third_party_settings:
         - field_hg_email
         - field_hg_contact
       parent_name: ''
-      weight: 10
+      weight: 12
       format_type: details
       format_settings:
         id: ''
@@ -83,7 +85,7 @@ third_party_settings:
         - field_hg_related_files
         - field_hg_sidebar
       parent_name: ''
-      weight: 11
+      weight: 13
       format_type: details
       format_settings:
         id: ''
@@ -99,7 +101,7 @@ third_party_settings:
         - field_hg_core_research_areas
         - field_hg_news_room_topics
       parent_name: ''
-      weight: 12
+      weight: 14
       format_type: details
       format_settings:
         id: ''
@@ -107,6 +109,20 @@ third_party_settings:
         effect: none
       label: 'Categories and keywords'
       region: content
+    group_media:
+      children:
+        - field_hg_images
+        - field_hg_youtube_video
+      parent_name: ''
+      weight: 8
+      format_type: details
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Media
 _core:
   default_config_hash: guq8QlViGA2EMKMjNNFuPiX-79pBGVC9-MwpDnztyGc
 id: node.hg_news.default
@@ -173,22 +189,28 @@ content:
     type: email_default
     region: content
   field_hg_id:
-    weight: 26
+    weight: 16
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_hg_images:
-    weight: 8
+    weight: 9
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
     region: content
+  field_hg_youtube_video:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: video_embed_field_textfield
+    region: content
   field_hg_importer:
-    weight: 13
+    weight: 15
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -246,7 +268,7 @@ content:
     type: text_textarea
     region: content
   field_hg_source_updated:
-    weight: 27
+    weight: 17
     settings: {  }
     third_party_settings: {  }
     type: datetime_timestamp
@@ -277,7 +299,7 @@ content:
     region: content
   path:
     type: path
-    weight: 30
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }

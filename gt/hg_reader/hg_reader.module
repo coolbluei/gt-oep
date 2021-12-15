@@ -6,7 +6,7 @@
  * @author Office of Communications and Marketing <web@comm.gatech.edu>
  */
 
-define('READER_VERSION', '8.x-1.6');
+define('READER_VERSION', '2.4');
 define('HG_IMAGE_NOT_FOUND', 113741);
 
 use Drupal\hg_reader\Entity\HgImporter;
@@ -32,7 +32,7 @@ function hg_reader_cron() {
     // TODO: first->getValue can probably be replaced with some other method.
     $last_run = $importer->get('last_run')->first()->getValue()['value'];
     $frequency = $importer->get('frequency')->first()->getValue()['value'];
-    if (time() - $last_run > $frequency) {
+    if ((time() - $last_run) > $frequency) {
       $controller->process_importer($importer);
     }
   }
@@ -106,12 +106,12 @@ function hg_reader_theme() {
       'template' => 'node--hg-boilerplate',
       'base hook' => 'node',
     ],
-    'node__hg_event' => [
-      'template' => 'node--hg-event',
+    'node__hg_event__full' => [
+      'template' => 'node--hg-event--full',
       'base hook' => 'node',
     ],
-    'node__hg_external_news' => [
-      'template' => 'node--hg-external-news',
+    'node__hg_external_news__full' => [
+      'template' => 'node--hg-external-news--full',
       'base hook' => 'node',
     ],
     'node__hg_image' => [
@@ -122,8 +122,8 @@ function hg_reader_theme() {
        'template' => 'node--hg-feature',
        'base hook' => 'node',
     ],
-    'node__hg_news' => [
-       'template' => 'node--hg-news',
+    'node__hg_news__full' => [
+       'template' => 'node--hg-news--full',
        'base hook' => 'node',
     ],
     'node__hg_profile' => [

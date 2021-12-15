@@ -1,0 +1,22 @@
+uuid: e78530ea-da5f-48ed-9709-83c5d091f728
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - trans_curie
+_core:
+  default_config_hash: cFDg6mYTQiUuxRkBg-vsHtjNs0aBXJ1rucxGkOmT_p8
+id: trans_curie_content
+theme: trans_curie
+region: content
+weight: -6
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

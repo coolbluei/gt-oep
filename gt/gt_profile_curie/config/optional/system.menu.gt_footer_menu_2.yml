@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: gt_footer_menu_2
-label: 'GT Footer menu 2'
-description: 'Footer supermenu, automatically updated via the GT Footer Daemon module.'
-locked: false

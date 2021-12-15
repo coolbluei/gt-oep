@@ -1,0 +1,19 @@
+uuid: 50a1b80b-a742-4d28-8359-695183e821e1
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - faqfield
+id: block_content.field_accordion_field
+field_name: field_accordion_field
+entity_type: block_content
+type: faqfield
+settings: {  }
+module: faqfield
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

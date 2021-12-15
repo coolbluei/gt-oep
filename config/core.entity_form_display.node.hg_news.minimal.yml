@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.hg_news.field_hg_subtitle
     - field.field.node.hg_news.field_hg_summary
     - field.field.node.hg_news.field_hg_summary_sentence
+    - field.field.node.hg_news.field_hg_youtube_video
     - image.style.thumbnail
     - node.type.hg_news
   module:
@@ -321,4 +322,5 @@ content:
       match_limit: 10
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_hg_youtube_video: true

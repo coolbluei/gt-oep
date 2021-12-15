@@ -1,0 +1,107 @@
+<?php
+/**
+ * Implementation of hook_local_tasks().
+ *
+ *
+ */
+function babbage_preprocess_menu_local_task(&$variables)
+{
+    $variables['link']['#options']['attributes']['class'][] = 'btn btn-secondary';
+}
+
+/**
+ * Implementation of hook_form_alter().
+ *
+ *
+ */
+function babbage_suggestions_form_alter(array &$suggestions, array $variables)
+{
+    if ($variables['element']['#form_id'] == 'search_block_form') {
+        $suggestions[] = 'form__search_block_form';
+    }
+}
+
+/**
+ * Implementation of block_form_alter().
+ *
+ *
+ */
+function babbage_form_search_block_form_alter(&$form, &$form_state)
+{
+    $form['keys']['#attributes']['placeholder'][] = t('');
+    $form['actions']['submit']['#value'] = html_entity_decode('Search');
+    $form['actions']['submit']['#attributes']['class'][] = 'btn btn-default';
+}
+
+/**
+ * Implementation of hook_preprocess_page().
+ *
+ *
+ */
+function babbage_preprocess_page(&$variables)
+{
+    $variables['contact_title'] = theme_get_setting('contact_title');
+    $variables['contact_address'] = theme_get_setting('contact_address');
+    $variables['contact_address_2'] = theme_get_setting('contact_address_2');
+    $variables['contact_city'] = theme_get_setting('contact_city');
+    $variables['contact_state'] = theme_get_setting('contact_state');
+    $variables['contact_zip_code'] = theme_get_setting('contact_zip_code');
+    $variables['contact_telephone'] = theme_get_setting('contact_telephone');
+    $variables['contact_map_url'] = theme_get_setting('contact_map_url');
+    $variables['sticky_menu'] = theme_get_setting('sticky_menu');
+    $variables['sticky_header'] = theme_get_setting('sticky_header');
+    $variables['cas_login'] = theme_get_setting('cas_login');
+    $variables['super_footer'] = theme_get_setting('super_footer');
+    $variables['demi_header'] = theme_get_setting('demi_header');
+    $variables['site_layout'] = theme_get_setting('site_layout');
+    $variables['footer_first_size'] = (!theme_get_setting('footer_first_size') || theme_get_setting('footer_first_size') == 0) ? 3 : theme_get_setting('footer_first_size');
+    $variables['footer_second_size'] = (!theme_get_setting('footer_second_size') || theme_get_setting('footer_second_size') == 0) ? 3 : theme_get_setting('footer_second_size');
+    $variables['footer_third_size'] = (!theme_get_setting('footer_third_size') || theme_get_setting('footer_third_size') == 0) ? 3 : theme_get_setting('footer_third_size');
+    $variables['footer_four_size'] = (!theme_get_setting('footer_four_size') || theme_get_setting('footer_four_size') == 0) ? 3 : theme_get_setting('footer_four_size');
+}
+
+/**
+ * Implementation of hook_preprocess_html().
+ *
+ *
+ */
+/* Allow CSS/Footer Customization and add path alias to body class */
+function babbage_preprocess_html(&$variables)
+{
+    $variables['attributes']['class'][] = theme_get_setting('hide-breadcrumb');
+    $variables['attributes']['class'][] = theme_get_setting('footer_fixed');
+    $current_path = \Drupal::service('path.current')->getPath();
+    $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+    $path_alias = ltrim($path_alias, '/');
+    $variables['attributes']['class'][] = 'path-' . \Drupal\Component\Utility\Html::cleanCssIdentifier($path_alias);
+
+    if (theme_get_setting('customize_css')) {
+        $custom_style = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', theme_get_setting('customize_css'));
+        $custom_style = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '   ', '    '), '', $custom_style);
+        $variables['customize_css'] = $custom_style;
+    }
+}
+
+/**
+ * Implementation of hook_views_views_grid().
+ *
+ *
+ */
+function babbage_preprocess_views_view_grid(&$variables)
+{
+    $view = $variables['view'];
+    $rows = $variables['rows'];
+    $style = $view->style_plugin;
+    $options = $style->options;
+    $variables['gt_masonry']['class'] = '';
+    $variables['gt_masonry']['class_item'] = '';
+    if (strpos($options['row_class_custom'], 'masonry') || $options['row_class_custom'] == 'masonry') {
+        $variables['gt_masonry']['class'] = 'post-masonry-style row';
+        $variables['gt_masonry']['class_item'] = 'item-masonry';
+    }
+}
+
+function babbage_preprocess_block(&$variables)
+{
+    $variables['hide_breadcrumb'] = theme_get_setting('hide_breadcrumb');
+}

@@ -1,0 +1,53 @@
+/* Spacer CSS */
+#spacer {
+  margin: 1rem 0;
+}
+
+#spacer.small {
+  padding: 10px;
+}
+
+#spacer.medium {
+  padding: 30px;
+}
+
+#spacer.large {
+  padding: 50px;
+}
+
+#spacer.xlarge {
+  padding: 100px;
+}
+
+.spacer-title {
+  display: none;
+}
+
+.role-administrator .logged-in .spacer-title {
+  color: var(--gt-black);
+  font-size: 100%;
+  font-weight: 700;
+  display: block;
+}
+
+.role-administrator .logged-in #spacer {
+  background: var(--gt-pimile-light);
+}
+
+@media (max-width: 768px) {
+  #spacer.small {
+    padding: 5px 0;
+  }
+
+  #spacer.medium {
+    padding: 15px 0;
+  }
+
+  #spacer.large {
+    padding: 25px 0;
+  }
+
+  #spacer.xlarge {
+    padding: 50px 0;
+  }
+}

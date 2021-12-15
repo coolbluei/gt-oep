@@ -1,7 +1,5 @@
 name: GT Footer Daemon
 type: module
-description: Let the GT Footer Daemon work for you! This little beauty will keep
-  your stock GT superfooter entirely up to date, sparing you the toil of editing
-  a million links and sparing your users the pain of endless 404s. Everybody wins!
+description: This module has been deprecated, and what you're looking at is just a stub to prevent errors on legacy installs. Get over it.
 package: GT
-core: 8.x
+core_version_requirement: ^8.8 || ^9

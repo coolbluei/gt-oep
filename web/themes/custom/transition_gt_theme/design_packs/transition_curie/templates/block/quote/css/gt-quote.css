@@ -1,0 +1,29 @@
+/* CSS file is not linking correctly - code in gt-general.css */
+/* CSS file is not linking correctly - code in gt-general.css */
+/* CSS file is not linking correctly - code in gt-general.css */
+/* CSS file is not linking correctly - code in gt-general.css */
+/* CSS file is not linking correctly - code in gt-general.css */
+/* CSS file is not linking correctly - code in gt-general.css */
+/* CSS file is not linking correctly - code in gt-general.css */
+
+/* Block Quote
+.quote  {
+  padding: 25px 30px;
+  background: var(--gt-superlight-gray);
+  border-radius: 5px;
+}
+
+.quote::before {
+  color: var(--gt-black);
+  content: '\201C';
+  font-family: "FontAwesome";
+  font-size: 150%;
+}
+
+.quote::after {
+  color: var(--gt-black);
+  content: '\201C';
+  font-family: "FontAwesome";
+  font-size: 150%;
+}
+*/

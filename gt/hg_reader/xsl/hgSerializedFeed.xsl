@@ -16,7 +16,7 @@
             <xsl:text>;</xsl:text>
 
             <xsl:if test="type = 'news'">
-                <xsl:text>a:29:{</xsl:text>
+                <xsl:text>a:30:{</xsl:text>
 
                 <xsl:call-template name="general_element">
                     <xsl:with-param name="element_name" select="string('nid')" />
@@ -149,6 +149,8 @@
                 <xsl:call-template name="categories" />
 
                 <xsl:call-template name="news_terms" />
+
+                <xsl:call-template name="news_room_topics" />
 
                 <xsl:call-template name="keywords" />
 
@@ -927,6 +929,30 @@
         <xsl:value-of select="count(news_terms/term)"/>
         <xsl:text>:{</xsl:text>
         <xsl:for-each select="news_terms/term">
+            <xsl:text>i:</xsl:text>
+            <xsl:value-of select="(position() - 1)"/>
+            <xsl:text>;</xsl:text>
+
+            <xsl:text>a:2:{</xsl:text>
+            <xsl:call-template name="format_base64" />
+            <xsl:text>s:5:"value";</xsl:text>
+            <xsl:text>s:</xsl:text>
+            <xsl:value-of select="string-length(php:functionString('base64_encode',self::node()))"/>
+            <xsl:text>:"</xsl:text>
+            <xsl:value-of select="php:functionString('base64_encode',self::node())"/>
+            <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+        </xsl:for-each>
+        <xsl:text>}</xsl:text>
+    </xsl:template>
+
+    <xsl:template name="news_room_topics">
+        <xsl:text>s:16:"news_room_topics";</xsl:text>
+        <xsl:text>a:</xsl:text>
+        <xsl:value-of select="count(news_room_topics/topic)"/>
+        <xsl:text>:{</xsl:text>
+        <xsl:for-each select="news_room_topics/topic">
             <xsl:text>i:</xsl:text>
             <xsl:value-of select="(position() - 1)"/>
             <xsl:text>;</xsl:text>

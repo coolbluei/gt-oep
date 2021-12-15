@@ -12,6 +12,12 @@ use Drupal\user\UserInterface;
 use \Drupal\node\Entity\Node;
 use \Drupal\file\Entity\File;
 use \Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Messenger\MessengerTrait;
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
+use \Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
+use Drupal\Core\Datetime\DateFormatInterface;
 
 /**
  * Defines the HgImporter entity. Each importer has a name, an ID or IDs
@@ -58,6 +64,7 @@ use \Drupal\taxonomy\Entity\Term;
 class HgImporter extends ContentEntityBase implements HgImporterInterface {
 
   use EntityChangedTrait; // Implements methods defined by EntityChangedInterface.
+  use MessengerTrait;
 
   /**
    * {@inheritdoc}
@@ -125,7 +132,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
    * @return array An array of nids
    */
   function get_mercury_nids() {
-    $query = db_select('node__field_hg_importer', 'i');
+    $query = \Drupal::database()->select('node__field_hg_importer', 'i');
     $query->join('node__field_hg_id', 'm', 'i.entity_id = m.entity_id');
     $query->join('node', 'n', 'i.entity_id = n.nid');
     $query->fields('m', array('field_hg_id_value'));
@@ -528,7 +535,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     switch($rawnode['type']) {
       case 'external_news':
         $parameters['field_hg_article_url']      = $rawnode['article_url'];
-        $parameters['field_hg_dateline']         = substr($rawnode['article_dateline'], 0, 19);
+        $parameters['field_hg_dateline']         = substr($rawnode['article_dateline'], 0, 10);
         $parameters['field_hg_publication']      = $rawnode['publication'];
         $parameters['field_hg_related_files']    = $rawnode['files'];
         break;
@@ -552,13 +559,11 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
           'value' => $rawnode['contact'],
           'format' => $format,
         ];
-        // Dates are so damn ugly.
-        $start = new \DateTime($rawnode['start']);
-        $end = new \DateTime($rawnode['end']);
-        $parameters['field_hg_event_time']       = [
-          'value' => date('Y-m-d\TH:i:s', strtotime($start->format('Y-m-d H:i:s'))),
-          'end_value' => date('Y-m-d\TH:i:s', strtotime($end->format('Y-m-d H:i:s'))),
-        ];
+
+        // Converting dates from hg.gatech.edu to UTC for storage.
+        //\Drupal::logger('hg_reader')->notice("Raw start date [" . $rawnode['start'] . "].");
+        $parameters['field_hg_event_time'] = $this->process_eventdate($rawnode['start'], $rawnode['end'], null);
+
         $parameters['field_hg_summary']          = [
           'value' => $rawnode['summary'],
           'format' => $format,
@@ -590,18 +595,18 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         $parameters['field_hg_email']               = $rawnode['email'];
         $parameters['field_hg_location']            = $rawnode['location'];
         $parameters['field_hg_related_files']       = $rawnode['files'];
-        $parameters['field_hg_related_links']       = $rawnode['related_links'];
-        $parameters['field_hg_sidebar']             = $rawnode['sidebar'];
+        //$parameters['field_hg_related_links']       = $rawnode['related_links'];
         $parameters['field_hg_subtitle']            = $rawnode['subtitle'];
         $parameters['field_hg_summary_sentence']    = $rawnode['sentence'];
         $parameters['field_hg_keywords']            = $this->process_terms($rawnode['keywords'], 'hg_keywords') ?: array();
         $parameters['field_hg_categories']          = $this->process_terms($rawnode['categories'], 'hg_categories') ?: array();
         if (isset($rawnode['news_room_topics'])) {
-          $parameters['field_hg_news_room_topics']    = $this->process_terms($rawnode['news_room_topics'], 'hg_news_room_topics') ?: array();
+          $parameters['field_hg_news_room_topics']  = $this->process_terms($rawnode['news_room_topics'], 'hg_news_room_topics') ?: array();
         }
         // TODO: Fix this.
         // $parameters['field_hg_core_research_areas'] = $this->process_terms($rawnode['core_research_areas']) ?: array();
         $parameters['field_hg_images']              = $this->process_images($rawnode['hg_media']) ?: array();
+        $parameters['field_hg_youtube_video']       = $this->process_videos($rawnode['hg_media']) ?: array();
         $parameters['field_hg_contact']             = [
           'value' => $rawnode['contact'],
           'format' => $format,
@@ -610,6 +615,18 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
           'value' => $rawnode['summary'],
           'format' => $format,
         ];
+        $parameters['field_hg_sidebar']             = [
+          'value' => $rawnode['sidebar'],
+          'format' => $format,
+        ];
+        foreach ($rawnode['related_links'] as $link) {
+          $parameters['field_hg_related_links'][]     = [
+            'uri' => $link['url'],
+            'title' => $link['title'],
+          ];
+
+        }
+
         break;
     }
     return $parameters;
@@ -627,7 +644,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     $this->decode($remote_node);
 
     // apply updates to local copy
-    $nid = db_select('node__field_hg_id', 'mid')
+    $nid = \Drupal::database()->select('node__field_hg_id', 'mid')
       ->fields('mid', array('entity_id'))
       ->condition('field_hg_id_value', $remote_nid)
       ->execute()
@@ -657,7 +674,9 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     switch($remote_node['type']) {
       case 'external_news':
         $node->set('field_hg_article_url', $remote_node['article_url']);
-        $node->set('field_hg_dateline', substr($remote_node['article_dateline'], 0, 19));
+        $node->field_hg_dateline->set(0, [
+          'value' => substr($remote_node['article_dateline'], 0, 10),
+        ]);
         $node->set('field_hg_publication', $remote_node['publication']);
         $node->set('field_hg_related_files', $remote_node['files']);
         break;
@@ -687,13 +706,11 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
           'value' => $remote_node['contact'],
           'format' => $format,
         ]);
-        // Dates are so damn ugly.
-        $start = new \DateTime($remote_node['times'][0]['startdate']);
-        $end = new \DateTime($remote_node['times'][0]['stopdate']);
-        $node->field_hg_event_time->set(0, [
-          'value' => date('Y-m-d\TH:i:s', strtotime($start->format('Y-m-d H:i:s'))),
-          'end_value' => date('Y-m-d\TH:i:s', strtotime($end->format('Y-m-d H:i:s'))),
-        ]);
+
+        $processed_time = $this->process_eventdate($remote_node['times'][0]['startdate'], $remote_node['times'][0]['stopdate'], $remote_hg['times'][0]['timezone']);
+
+        $node->field_hg_event_time->set(0, $processed_time);
+
         $node->field_hg_summary->set(0, [
           'value' => $remote_node['summary'],
           'format' => $format,
@@ -717,13 +734,12 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
       case 'news':
         // $node->set('field_hg_dateline', substr($remote_node['dateline'], 0, 19));
         $node->field_hg_dateline->set(0, [
-          'value' => substr($remote_node['dateline'], 0, 19),
+          'value' => substr($remote_node['dateline'], 0, 10),
         ]);
         $node->set('field_hg_email', $remote_node['contact_email']);
         $node->set('field_hg_location', $remote_node['location']);
         $node->set('field_hg_related_files', $remote_node['files']);
         $node->set('field_hg_related_links', $remote_node['links']);
-        $node->set('field_hg_sidebar', $remote_node['sidebar']);
         $node->set('field_hg_subtitle', $remote_node['subtitle']);
         $node->set('field_hg_summary_sentence', $remote_node['sentence']);
         // $node->set('field_hg_keywords']            = $this->process_terms($remote_node['keywords']) ?: array();
@@ -737,6 +753,12 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
             $node->field_hg_images->set($key, $this->process_images($remote_node['media']) ?: array());
           }
         }
+        $videos = $this->process_videos($remote_node['media']);
+        if (!empty($videos)) {
+          foreach ($videos as $key => $video) {
+            $node->field_hg_youtube_video->set($key, $this->process_videos($remote_node['media']) ?: array());
+          }
+        }
         $node->field_hg_contact->set(0, [
           'value' => $remote_node['contact'],
           'format' => $format,
@@ -745,6 +767,11 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
           'value' => $remote_node['summary'],
           'format' => $format,
         ]);
+        $node->field_hg_sidebar->set(0, [
+          'value' => $remote_node['sidebar'],
+          'format' => $format,
+        ]);
+
         break;
     }
   }
@@ -759,12 +786,14 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
 
     // TODO: Image path should be part of the module's configuration.
     $image_path = 'public://hg_media';
-    if (file_prepare_directory($image_path, FILE_CREATE_DIRECTORY)) {
+    if (\Drupal::service('file_system')->prepareDirectory($image_path, FileSystemInterface::CREATE_DIRECTORY)) {
       $image_list = array();
 
       foreach ($images as $image) {
-        if (!$data = @file_get_contents($image['image_path'])) { continue; }
-        $file = file_save_data($data, 'public://' . 'hg_media/' . $image['image_name'], FILE_EXISTS_REPLACE);
+        if (!empty($image['youtube_id'])) {
+          continue;
+        } else if (!$data = @file_get_contents($image['image_path'])) { continue; }
+        $file = file_save_data($data, 'public://' . 'hg_media/' . $image['image_name'], FileSystemInterface::EXISTS_REPLACE);
         $image_list[$file->id()] = [
           'target_id' => $file->id(),
           'alt' => substr(strip_tags($image['body']), 0, 512),
@@ -775,10 +804,28 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
 
     } else {
       // TODO: Oh Lord
-      drupal_set_message('Media destination directory is faulty.', 'error');
+      \Drupal::messenger()->addMessage(t('Media destination directory is faulty.'), 'error');
       return FALSE;
     }
   }
+
+  /**
+   * [process_videos description]
+   * @return [type] [description]
+   */
+  function process_videos($videos) {
+    $video_list = array();
+
+    foreach ($videos as $video) {
+      if (empty($video['youtube_id'])) {
+        continue;
+      } else {
+        $video_list[] = 'http://youtu.be/' . $video['youtube_id'];
+      }
+    }
+    return $video_list;
+  }
+
 
   /**
    * [process_terms description]
@@ -790,11 +837,11 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     $tids = array();
     foreach ($rawterms as $rawterm) {
       if (is_array($rawterm)) { $rawterm = $rawterm[$fieldname]; }
-      $terms = taxonomy_term_load_multiple_by_name($rawterm);
+      $terms = taxonomy_term_load_multiple_by_name($rawterm, $fieldname);
       if ($terms == NULL) {
         $created = $this->create_term($rawterm, $fieldname);
         if ($created) {
-          $new_terms = taxonomy_term_load_multiple_by_name($rawterm);
+          $new_terms = taxonomy_term_load_multiple_by_name($rawterm, $fieldname);
           foreach ($new_terms as $key => $term) {
             $tids[] = $key;
           }
@@ -830,11 +877,11 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
   function readerSetMessage($message, $severity) {
     switch ($severity) {
       case 'error':
-        if (error_displayable()) { drupal_set_message($message, $severity); }
+        if (error_displayable()) { \Drupal::messenger()->addMessage(t($message), $severity); }
         else { \Drupal::logger('hg_reader')->{$severity}($message); }
         break;
       case 'warning':
-        if (error_displayable()) { drupal_set_message($message, $severity); }
+        if (error_displayable()) { \Drupal::messenger()->addMessage(t($message), $severity); }
         else { \Drupal::logger('hg_reader')->{$severity}($message); }
         break;
     }
@@ -855,7 +902,18 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     $entities = $storage_handler->loadMultiple($result);
     $storage_handler->delete($entities);
 
-    drupal_set_message(t('Deleted all content from <em>@name</em>.', array('@name' => $name['value'])), 'status');
+    \Drupal::messenger()->addMessage(t('Deleted all content from <em>@name</em>.', array('@name' => $name['value'])), 'status');
+  }
+
+  /**
+   * Return count of items associated with this importer.
+   *
+   */
+  function countItems($iid) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('field_hg_importer', $iid);
+    $count = $query->count()->execute();
+    return $count;
   }
 
   /**
@@ -990,6 +1048,50 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
 
     return $fields;
   }
-}
 
-?>
+  public function process_eventdate($raw_start, $raw_end, $timezone){
+    // Timezone check via $raw_start
+    $raw_start_tz = (new \DateTime($raw_start))->getTimezone()->getName();
+
+    // Process the $timezone argument permutations, first, is timezone either invalid or not filled?
+    if(empty($timezone) || (empty(in_array($timezone, timezone_identifiers_list())))){
+
+      // If so, check to see if the $raw_start has a timezone in it
+      if (!empty($raw_start_tz)){
+        //\Drupal::logger('hg_reader')->notice("Timezone explicitly defined '" . $raw_start_tz . ".");
+        // $raw_start has a timezone in it, so create explicit timezone based on that.
+        $timezone = new \DateTimeZone($raw_start_tz);
+      }
+
+      // If not, make big assumption.
+      else {
+        //\Drupal::logger('hg_reader')->notice("No raw timezone found, assuming 'America/New_York'.");
+        // Individual item feeds do not have a timezone, just a timestamp sans timezone, so casing for that.
+        // Assume time zone in XML is 'America/New York' from hg.gatech
+        $timezone = new \DateTimeZone('America/New_York');
+      }
+    }
+    // $timezone argument provided, so we use it and trust the developer.
+    else {
+      //\Drupal::logger('hg_reader')->notice("Timezone found, " . $timezone . ".");
+    }
+
+    // Creating DrupalDateTime objects using timezone and date.
+    $start = new DrupalDateTime($raw_start, $timezone);
+    $end = new DrupalDateTime($raw_end, $timezone);
+
+    // Converting dates from hg.gatech.edu to UTC for storage.
+    $start->setTimeZone(new \DateTimeZone(DateTimeItemInterface::STORAGE_TIMEZONE));
+    $end->setTimeZone(new \DateTimeZone(DateTimeItemInterface::STORAGE_TIMEZONE));
+
+    // Converting format to Drupal preferred storage string.
+    $start->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+    $end->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+
+    // Returning the array for storage with start/end.
+    return [
+      'value' => date('Y-m-d\TH:i:s', strtotime($start->format('Y-m-d H:i:s'))),
+      'end_value' => date('Y-m-d\TH:i:s', strtotime($end->format('Y-m-d H:i:s'))),
+    ];
+  }
+}

@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Default theme implementation.
+ *
+ *
+ * @see template_preprocess_gt_footer_logo()
+ *
+ * @ingroup themeable
+ */
+#}
+<div id="gt-copyright" aria-labelledby="georgia tech logo and copyright">
+  <div class="gt-footer-logo float-md-right float-sm-left">
+    <a href="https://www.gatech.edu/" title="{{ 'Georgia Tech'|t }}">
+      <img src="{{ logo_path }}" alt="{{ 'Georgia Tech'|t }}" role="presentation"
+        aria-label="logo link to main campus site"/>
+    </a>
+  </div>
+
+  <div class="gt-footer-copy d-none d-sm-block float-md-right float-sm-left">
+    <p class="p-1 mt-2 copyright-hide">© {{ 'now'|date('Y') }} Georgia Institute of
+      Technology</p>
+  </div>
+
+  <div class="gt-footer-login mt-5 d-none d-sm-block float-md-right float-sm-left">
+    <p class="gt-login {{ class_cas_login }} d-sm-none d-md-block">
+      <a class="gt-login" href="{{ url('<front>') }}cas" aria-label="admin login">GT LOGIN</a>
+    </p>
+  </div>
+</div>
