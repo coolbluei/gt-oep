@@ -1,4 +1,4 @@
-admin: seven
-default: gt_subtheme
 _core:
   default_config_hash: GbNToN689gxf9LYxGCKyVH4owW1pFvJ0DJbAZD_vhLs
+admin: seven
+default: gtpd_subtheme

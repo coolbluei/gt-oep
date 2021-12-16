@@ -14,11 +14,11 @@ bundle: progress_bar
 mode: default
 content:
   field_button_style:
+    type: options_select
     weight: 3
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_custom_color:
     type: string_textfield
     weight: 4

@@ -1,0 +1,25 @@
+uuid: e06d61db-be18-4cd5-b879-c48786583dd9
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.social
+  module:
+    - system
+  theme:
+    - gtpd_subtheme
+id: gtpd_subtheme_social
+theme: gtpd_subtheme
+region: after_content
+weight: -7
+provider: null
+plugin: 'system_menu_block:social'
+settings:
+  id: 'system_menu_block:social'
+  label: Social
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

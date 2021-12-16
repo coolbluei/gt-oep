@@ -21,13 +21,13 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       carousel: carousel
+    negate: 0
     target_bundles_drag_drop:
       carousel:
-        enabled: true
         weight: 3
+        enabled: true
       carousel_slide:
         weight: 4
         enabled: false

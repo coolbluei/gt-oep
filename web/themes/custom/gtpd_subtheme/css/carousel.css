@@ -1,0 +1,88 @@
+.carousel {
+    width: 100%;
+}
+
+.carousel li {
+  list-style: none;
+}
+
+.carousel .slides .paragraph--type--carousel-slide {
+    height: 800px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    background-position: center;
+}
+
+.flex-direction-nav {
+    display: block !important;
+    opacity: 1 !important;
+    top: 30% !important;
+    width: 100%;
+    z-index: 999 !important;
+}
+
+.flex-direction-nav a {
+    cursor: pointer;
+    display: block;
+    height: 64px;
+    opacity: 1;
+    transition: all 0.3s ease 0s;
+    z-index: 10;
+}
+
+.main-container .flex-direction-nav a:hover {
+    background: none;
+}
+
+.flex-direction-nav .flex-prev {
+    left: 50px;
+}
+
+.flex-direction-nav .flex-next {
+    right: 50px;
+}
+
+.flex-prev,
+.flex-next {
+    opacity: 1;
+}
+
+.flex-direction-nav a:before {
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 1px 1px 0 rgb(0 0 0 / 30%);
+}
+
+.carousel .slide-text {
+    color: #ffffff;
+    padding: 1em 1em 1em 4em;
+    position: absolute;
+    background-color: #000000;
+    width: 100vw;
+    top: 0;
+}
+
+.carousel .slide-text .field--name-field-title {
+    text-shadow: 1px 1px 1px rgb(0 0 0 / 65%);
+    font-size: 2.5rem;
+    font-family: "Roboto Condensed","Helvetica Neue","Helvetica","Arial",sans-serif;
+    text-align: left;
+    font-weight: 600;
+    line-height: 1;
+    text-transform: inherit;
+    margin: 0 1em .1em 0;
+}
+
+.carousel .slide-text .field--name-field-text {
+    font-size: 1.3rem;
+    line-height: 1.9rem;
+    font-weight: 400;
+}
+
+@media only screen and (min-width: 37.5em) {
+    .carousel .slide-text {
+        width: 50vw !important;
+        top: 4em;
+        background-color: rgba(0,0,0,0.55);
+    }
+}

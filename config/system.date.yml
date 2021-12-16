@@ -1,11 +1,11 @@
+_core:
+  default_config_hash: 5GpDpDMoMHbJhhjah60rbrqZ2YvZaNFzyr-02CBr9-4
+first_day: 0
 country:
   default: US
-first_day: 0
 timezone:
   default: America/New_York
   user:
     configurable: false
-    warn: false
     default: 0
-_core:
-  default_config_hash: 5GpDpDMoMHbJhhjah60rbrqZ2YvZaNFzyr-02CBr9-4
+    warn: false

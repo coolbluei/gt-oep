@@ -19,19 +19,17 @@ mode: default
 content:
   field_button_style:
     type: entity_reference_entity_view
-    weight: 1
-    region: content
     label: hidden
     settings:
-      link: false
       view_mode: default
+      link: false
     third_party_settings:
       field_formatter_class:
         class: ''
+    weight: 1
+    region: content
   field_link:
     type: link
-    weight: 3
-    region: content
     label: hidden
     settings:
       trim_length: null
@@ -42,12 +40,14 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
+    weight: 3
+    region: content
   field_link_styling:
-    weight: 2
+    type: list_key
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: list_key
+    weight: 2
     region: content
 hidden:
   field_navigation_style: true

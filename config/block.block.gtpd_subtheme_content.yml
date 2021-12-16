@@ -1,0 +1,22 @@
+uuid: 6c7a1674-d134-47a8-b94b-ce6e6fe527fe
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - gtpd_subtheme
+_core:
+  default_config_hash: cFDg6mYTQiUuxRkBg-vsHtjNs0aBXJ1rucxGkOmT_p8
+id: gtpd_subtheme_content
+theme: gtpd_subtheme
+region: content
+weight: -6
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -15,8 +15,8 @@ dependencies:
     - user
 third_party_settings:
   layout_builder:
-    allow_custom: true
     enabled: true
+    allow_custom: true
     sections:
       -
         layout_id: layout_onecol
@@ -30,27 +30,27 @@ third_party_settings:
             configuration:
               id: 'field_block:node:page:body'
               label: Body
-              provider: layout_builder
               label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
               formatter:
-                label: hidden
                 type: text_default
+                label: hidden
                 settings: {  }
                 third_party_settings:
                   field_formatter_class:
                     class: ''
-              context_mapping:
-                entity: layout_builder.entity
-            additional: {  }
             weight: 1
+            additional: {  }
           d1a5d2de-74ee-4d55-913b-c51200a27730:
             uuid: d1a5d2de-74ee-4d55-913b-c51200a27730
             region: content
             configuration:
+              id: 'field_block:node:page:field_carousel'
               label_display: '0'
               context_mapping:
                 entity: layout_builder.entity
-              id: 'field_block:node:page:field_carousel'
               formatter:
                 type: entity_reference_revisions_entity_view
                 label: above
@@ -58,11 +58,12 @@ third_party_settings:
                   view_mode: default
                   link: ''
                 third_party_settings: {  }
-            additional: {  }
             weight: 2
+            additional: {  }
         third_party_settings: {  }
   layout_builder_restrictions:
     entity_view_mode_restriction:
+      allowed_layouts: {  }
       allowed_blocks:
         'Chaos Tools': {  }
         'Content fields': {  }
@@ -78,7 +79,6 @@ third_party_settings:
         User: {  }
         'User fields': {  }
         core: {  }
-      allowed_layouts: {  }
 id: node.page.default
 targetEntityType: node
 bundle: page
@@ -86,17 +86,17 @@ mode: default
 content:
   field_carousel:
     type: entity_reference_revisions_entity_view
-    weight: 101
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 101
     region: content
   links:
-    weight: 100
     settings: {  }
     third_party_settings: {  }
+    weight: 100
     region: content
 hidden:
   body: true

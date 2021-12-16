@@ -2,12 +2,12 @@ uuid: e6d5b48f-2f15-4b92-833d-ffa05cdff587
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - hg_reader
   module:
     - node
     - text
+  enforced:
+    module:
+      - hg_reader
 _core:
   default_config_hash: erDOkddlwS_YF9BxFmD4aWScUrBqPVnjWSzbH2BezEc
 id: node.field_hg_teaching

@@ -21,9 +21,9 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       faq: faq
+    negate: 0
     target_bundles_drag_drop:
       carousel:
         weight: 8
@@ -32,8 +32,8 @@ settings:
         weight: 9
         enabled: false
       faq:
-        enabled: true
         weight: 10
+        enabled: true
       faq_section:
         weight: 11
         enabled: false

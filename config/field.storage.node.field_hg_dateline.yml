@@ -2,12 +2,12 @@ uuid: e32186b4-e8ed-473a-b3e6-031e357870cc
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - hg_reader
   module:
     - datetime
     - node
+  enforced:
+    module:
+      - hg_reader
 _core:
   default_config_hash: x3dWNdySm1kDVplLieoXXRHLPPMYTOBvzhpnuC5HJUE
 id: node.field_hg_dateline

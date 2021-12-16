@@ -20,25 +20,25 @@ bundle: image
 mode: default
 content:
   body:
-    weight: 3
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings:
       field_formatter_class:
         class: small
-    type: text_default
+    weight: 3
     region: content
   field_image:
-    weight: 1
+    type: image
     label: hidden
     settings:
-      image_style: ''
       image_link: ''
+      image_style: ''
     third_party_settings: {  }
-    type: image
+    weight: 1
     region: content
   field_link:
-    weight: 2
+    type: link
     label: hidden
     settings:
       trim_length: 80
@@ -47,6 +47,6 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 2
     region: content
 hidden: {  }

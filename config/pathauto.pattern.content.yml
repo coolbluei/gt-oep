@@ -11,13 +11,13 @@ pattern: '[node:title]'
 selection_criteria:
   75a8487a-cebf-439f-a05a-39e17f11f97d:
     id: node_type
+    negate: false
+    uuid: 75a8487a-cebf-439f-a05a-39e17f11f97d
+    context_mapping:
+      node: node
     bundles:
       landing_page: landing_page
       page: page
-    negate: false
-    context_mapping:
-      node: node
-    uuid: 75a8487a-cebf-439f-a05a-39e17f11f97d
 selection_logic: and
 weight: -5
 relationships: {  }

@@ -2,11 +2,11 @@ uuid: 6b23050c-61c2-47f1-95c4-16c3cdf99542
 langcode: en
 status: true
 dependencies:
+  module:
+    - node
   enforced:
     module:
       - hg_reader
-  module:
-    - node
 _core:
   default_config_hash: dUA_5EV9KoAMg0oC9On0Mw25ICrffJV-H8jMBn7XyxA
 id: node.field_hg_secondary_email

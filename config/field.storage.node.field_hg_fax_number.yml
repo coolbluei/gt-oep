@@ -2,12 +2,12 @@ uuid: 387ec89a-66b0-46da-be32-ae8d37923152
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - hg_reader
   module:
     - node
     - telephone
+  enforced:
+    module:
+      - hg_reader
 _core:
   default_config_hash: cXIu7BnYUIyvt_ati84QWH-H-Vb6kTfIbmnHWl4YimU
 id: node.field_hg_fax_number

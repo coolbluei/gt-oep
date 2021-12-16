@@ -2,12 +2,12 @@ uuid: 2578f24e-733e-46c5-8fdd-a7e528a3c48d
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - hg_reader
   module:
     - node
     - taxonomy
+  enforced:
+    module:
+      - hg_reader
 _core:
   default_config_hash: Kxiy2MShXVjAV2Tl-6F0dIFAdIFgm5cL9WdaVthm-Oc
 id: node.field_hg_core_research_areas

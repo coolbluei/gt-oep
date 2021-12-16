@@ -1,0 +1,5 @@
+/* Subtheme extensions to global styles */
+
+#site-title a:hover {
+  text-decoration: underline;
+}

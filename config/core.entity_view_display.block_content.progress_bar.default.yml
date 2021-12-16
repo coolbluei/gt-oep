@@ -17,39 +17,39 @@ mode: default
 content:
   field_button_style:
     type: entity_reference_entity_view
-    weight: 0
-    region: content
     label: hidden
     settings:
-      link: false
       view_mode: default
+      link: false
     third_party_settings:
       field_formatter_class:
         class: ''
+    weight: 0
+    region: content
   field_custom_color:
     type: string
-    weight: 1
-    region: content
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 1
+    region: content
   field_height:
     type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
     weight: 2
     region: content
-    label: hidden
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
   field_percentage:
     type: number_integer
-    weight: 3
-    region: content
     label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
+    weight: 3
+    region: content
 hidden: {  }

@@ -18,25 +18,25 @@ bundle: custom_links
 mode: default
 content:
   field_button_style:
+    type: options_select
     weight: 3
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_link:
+    type: link_default
     weight: 4
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
-    region: content
   field_link_styling:
+    type: options_select
     weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   info:
     type: string_textfield
     weight: 0

@@ -21,14 +21,14 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       carousel_slide: carousel_slide
+    negate: 0
     target_bundles_drag_drop:
       carousel:
         weight: 3
         enabled: false
       carousel_slide:
-        enabled: true
         weight: 4
+        enabled: true
 field_type: entity_reference_revisions

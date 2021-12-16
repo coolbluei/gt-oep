@@ -1,0 +1,97 @@
+<?php
+
+use Drupal\safe_field_getter\SafeFieldGetter;
+use Drupal\node\NodeInterface;
+use Drupal\image\Entity\ImageStyle;
+
+function gtpd_subtheme_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if($node instanceof NodeInterface) {
+        $suggestions[] = 'page__' . $node->bundle();
+    }
+}
+
+function gtpd_subtheme_preprocess_page(&$variables) {
+    $variables['hide_title'] = FALSE;
+
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if($node instanceof NodeInterface) {
+        if($node->hasField('field_carousel')) {
+            $carousel = SafeFieldGetter::firstReference($node, 'field_carousel');
+            if($carousel) {
+                $rendered_carousel = \Drupal::entityTypeManager()->getViewBuilder('paragraph')->view($carousel);
+                $variables['carousel'] = $rendered_carousel;
+            }
+        }
+
+        if($node->hasField('field_hide_title')) {
+            $hide_title_value = SafeFieldGetter::firstBoolean($node, 'field_hide_title');
+            if($hide_title_value) {
+                $variables['hide_title'] = $hide_title_value;
+            }
+        }
+    }
+}
+
+function gtpd_subtheme_preprocess_paragraph__carousel_slide(&$variables) {
+    $paragraph = $variables['paragraph'];
+
+    $media = SafeFieldGetter::firstReference($paragraph, 'field_image');
+    $image = SafeFieldGetter::firstReference($media, 'field_media_image');
+    $file_uri = $image->getFileUri();
+
+    $style = ImageStyle::load('flexslider_full');
+    $url = $style->buildUrl($file_uri);
+    $variables['image_url'] = $url;
+}
+
+function gtpd_subtheme_preprocess_paragraph__twitter_feed(&$variables) {
+    $paragraph = $variables['paragraph'];
+
+    $variables['twitter_id'] = SafeFieldGetter::firstSimple($paragraph, 'field_twitter_id');
+}
+
+function gtpd_subtheme_preprocess_paragraph__mercury_feed(&$variables) {
+    $paragraph = $variables['paragraph'];
+
+    $variables['title'] = SafeFieldGetter::firstSimple($paragraph, 'field_title');
+
+    $variables['feed'] = views_embed_view('mercury_news_and_events', 'embed_1');
+}
+
+function gtpd_subtheme_preprocess_node__hg_news(&$variables) {
+    $node = $variables['node'];
+
+    $meta = SafeFieldGetter::firstComplex($node, 'field_hg_images');
+    $file = SafeFieldGetter::firstReference($node, 'field_hg_images');
+
+    if(!empty($file)) {
+        $variables['image'] = [
+            '#theme' => 'image_style',
+            '#style_name' => 'medium',
+            '#uri' => $file->getFileUri(),
+            '#alt' => $meta['alt'],
+            '#attributes' => [
+                'class' => [
+                    'float-left',
+                    'mr-3',
+                    'mt-0',
+                    'mb-0'
+                ],
+            ],
+        ];
+    }
+}
+
+function gtpd_subtheme_preprocess_paragraph__faq(&$variables) {
+    $paragraph = $variables['paragraph'];
+
+    $variables['question'] = SafeFieldGetter::firstSimple($paragraph, 'field_question');
+    $answer = SafeFieldGetter::firstComplex($paragraph, 'field_body');
+
+    $variables['answer'] = [
+        '#type' => 'processed_text',
+        '#text' => $answer['value'],
+        '#format' => $answer['format'],
+    ];
+}

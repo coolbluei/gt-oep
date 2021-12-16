@@ -2,13 +2,13 @@ uuid: 8f88ecdb-4e2b-450e-81db-fa808a3d4e2e
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - hg_reader
   module:
     - file
     - image
     - node
+  enforced:
+    module:
+      - hg_reader
 _core:
   default_config_hash: 1IKj5sk3q0i-8FJ9f6o_Vl7MfTFs8SLhu31aGA36V5k
 id: node.field_hg_images
@@ -16,6 +16,9 @@ field_name: field_hg_images
 entity_type: node
 type: image
 settings:
+  target_type: file
+  display_field: false
+  display_default: false
   uri_scheme: public
   default_image:
     uuid: ''
@@ -23,9 +26,6 @@ settings:
     title: ''
     width: null
     height: null
-  target_type: file
-  display_field: false
-  display_default: false
 module: image
 locked: false
 cardinality: -1

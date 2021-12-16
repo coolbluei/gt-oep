@@ -2,12 +2,12 @@ uuid: 4a3d2a35-4fc7-4810-a1ba-c50dbfbcbb49
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - hg_reader
   module:
     - datetime_range
     - node
+  enforced:
+    module:
+      - hg_reader
 _core:
   default_config_hash: 5I1TaxzvL_kS4afYB_Bn7gCozL7szSAeTBReYd1IJ80
 id: node.field_hg_event_time

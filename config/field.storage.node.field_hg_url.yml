@@ -2,12 +2,12 @@ uuid: 3078aaa2-c635-4a81-9719-898943858c8d
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - hg_reader
   module:
     - link
     - node
+  enforced:
+    module:
+      - hg_reader
 _core:
   default_config_hash: qlRrU11b0bdphV3Z0U4H54Gj9MGPoFOJ3pIZwRw7xMo
 id: node.field_hg_url

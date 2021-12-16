@@ -23,11 +23,11 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       row: row
       text: text
       faq_section: faq_section
+    negate: 0
     target_bundles_drag_drop:
       carousel:
         weight: 6
@@ -39,15 +39,15 @@ settings:
         weight: 10
         enabled: false
       faq_section:
-        enabled: true
         weight: 11
+        enabled: true
       image_link:
         weight: 8
         enabled: false
       row:
-        enabled: true
         weight: 9
-      text:
         enabled: true
+      text:
         weight: 10
+        enabled: true
 field_type: entity_reference_revisions

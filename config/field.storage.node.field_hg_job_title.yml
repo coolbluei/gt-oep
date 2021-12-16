@@ -2,11 +2,11 @@ uuid: 24199175-3338-4ed0-aee9-f62106faa197
 langcode: en
 status: true
 dependencies:
+  module:
+    - node
   enforced:
     module:
       - hg_reader
-  module:
-    - node
 _core:
   default_config_hash: MWzQGMI8ZCOGXogWb-xPPiPmaRacUpX_DUzXZEZCo9E
 id: node.field_hg_job_title
@@ -15,8 +15,8 @@ entity_type: node
 type: string
 settings:
   max_length: 255
-  is_ascii: false
   case_sensitive: false
+  is_ascii: false
 module: core
 locked: false
 cardinality: 1

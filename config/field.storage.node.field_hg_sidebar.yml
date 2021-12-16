@@ -2,12 +2,12 @@ uuid: 70a3530e-c2c4-4e72-b5d2-0b378df867f8
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - hg_reader
   module:
     - node
     - text
+  enforced:
+    module:
+      - hg_reader
 _core:
   default_config_hash: 7xkmTQnThYTwmarXZAXJ_MRdQh0bvFAbEMt6qx90zek
 id: node.field_hg_sidebar

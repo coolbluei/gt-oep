@@ -19,33 +19,33 @@ mode: default
 content:
   field_image:
     type: image
-    weight: 0
-    region: content
     label: hidden
     settings:
-      image_style: large
       image_link: ''
+      image_style: large
     third_party_settings:
       field_formatter_class:
         class: ''
+    weight: 0
+    region: content
   field_quote:
     type: basic_string
-    weight: 2
-    region: content
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_video_url:
-    weight: 1
+    type: video_embed_field_video
     label: hidden
     settings:
+      autoplay: false
       responsive: true
       width: 854
       height: 480
-      autoplay: false
     third_party_settings:
       field_formatter_class:
         class: ''
-    type: video_embed_field_video
+    weight: 1
     region: content
 hidden: {  }

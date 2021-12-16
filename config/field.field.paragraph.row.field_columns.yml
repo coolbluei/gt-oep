@@ -25,13 +25,13 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       image_link: image_link
       text_link: text_link
       text: text
       mercury_feed: mercury_feed
       twitter_feed: twitter_feed
+    negate: 0
     target_bundles_drag_drop:
       carousel:
         weight: 6
@@ -46,21 +46,21 @@ settings:
         weight: 13
         enabled: false
       image_link:
-        enabled: true
         weight: 8
-      mercury_feed:
         enabled: true
+      mercury_feed:
         weight: 16
+        enabled: true
       row:
         weight: 9
         enabled: false
       text:
-        enabled: true
         weight: 10
+        enabled: true
       text_link:
-        enabled: true
         weight: 9
-      twitter_feed:
         enabled: true
+      twitter_feed:
         weight: 18
+        enabled: true
 field_type: entity_reference_revisions

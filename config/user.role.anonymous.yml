@@ -1,7 +1,15 @@
 uuid: 2f0ef75d-59a6-49c7-9c94-21db4572d90d
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.restricted_html
+  module:
+    - contact
+    - filter
+    - media
+    - search
+    - system
 _core:
   default_config_hash: Y293BbVeaJOUT9hKaiI9gGSueqhICyopKxfk184gt4U
 id: anonymous

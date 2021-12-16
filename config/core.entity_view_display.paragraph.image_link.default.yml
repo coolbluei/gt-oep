@@ -16,7 +16,7 @@ bundle: image_link
 mode: default
 content:
   field_image:
-    weight: 1
+    type: entity_reference_entity_view
     label: hidden
     settings:
       view_mode: large
@@ -24,10 +24,10 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    type: entity_reference_entity_view
+    weight: 1
     region: content
   field_link:
-    weight: 2
+    type: link
     label: hidden
     settings:
       trim_length: null
@@ -38,14 +38,14 @@ content:
     third_party_settings:
       field_formatter_class:
         class: ''
-    type: link
+    weight: 2
     region: content
   field_title:
-    weight: 0
+    type: string
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 0
     region: content
 hidden: {  }

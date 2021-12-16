@@ -2,11 +2,11 @@ uuid: 15cd7c08-284b-4b76-93e6-6c24ae960a45
 langcode: en
 status: true
 dependencies:
+  module:
+    - node
   enforced:
     module:
       - hg_reader
-  module:
-    - node
 _core:
   default_config_hash: Bo5mt6GbPs-HU9eYPJOwWV5NNeCuXCe6LAacdP3XOuw
 id: node.field_hg_youtube_id
@@ -15,8 +15,8 @@ entity_type: node
 type: string
 settings:
   max_length: 255
-  is_ascii: false
   case_sensitive: false
+  is_ascii: false
 module: core
 locked: false
 cardinality: 1

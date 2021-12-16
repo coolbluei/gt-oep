@@ -15,20 +15,20 @@ bundle: heading_title
 mode: default
 content:
   body:
-    weight: 1
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 1
     region: content
   field_heading_title:
     type: string
-    weight: 0
-    region: content
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings:
       field_formatter_class:
         class: 'heading-title h1'
+    weight: 0
+    region: content
 hidden: {  }

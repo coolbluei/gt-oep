@@ -26,14 +26,14 @@ bundle: hg_external_news
 mode: default
 content:
   body:
-    label: hidden
     type: text_default
-    weight: 101
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 101
     region: content
   field_hg_article_url:
-    weight: 102
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -42,59 +42,59 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 102
     region: content
   field_hg_dateline:
-    weight: 104
+    type: datetime_default
     label: above
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
-    type: datetime_default
+    weight: 104
     region: content
   field_hg_id:
-    weight: 114
+    type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 114
     region: content
   field_hg_importer:
-    weight: 113
+    type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 113
     region: content
   field_hg_publication:
-    weight: 103
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 103
     region: content
   field_hg_related_files:
-    weight: 105
+    type: file_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: file_default
+    weight: 105
     region: content
   field_hg_source_updated:
-    weight: 115
+    type: timestamp
     label: above
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    type: timestamp
+    weight: 115
     region: content
   links:
     weight: 100

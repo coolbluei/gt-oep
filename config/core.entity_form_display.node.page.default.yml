@@ -36,6 +36,7 @@ content:
   field_carousel:
     type: entity_reference_paragraphs
     weight: 121
+    region: content
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -44,7 +45,6 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
-    region: content
   path:
     type: path
     weight: 30
@@ -53,24 +53,24 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 15
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 120
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 16
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -86,9 +86,9 @@ content:
     region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
 hidden:
   layout_builder__layout: true

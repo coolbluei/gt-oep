@@ -2,12 +2,12 @@ uuid: f95a42cd-3a2c-40f1-bf55-b5bd980a9b73
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - hg_reader
   module:
     - node
     - options
+  enforced:
+    module:
+      - hg_reader
 _core:
   default_config_hash: H755YHrJRnprrCmCKwn5dpmaVsrN85QoPyuwHomntf0
 id: node.field_hg_degree

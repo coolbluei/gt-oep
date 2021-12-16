@@ -2,12 +2,12 @@ uuid: 2f8e6642-b088-4465-9f4d-78d0489342b4
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - hg_reader
   module:
     - node
     - taxonomy
+  enforced:
+    module:
+      - hg_reader
 _core:
   default_config_hash: CgZPeKrNLuFwKL4uc4faJxdwkAp5lx4fJBfuQYTVrbg
 id: node.field_hg_event_categories

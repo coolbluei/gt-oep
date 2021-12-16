@@ -2,12 +2,12 @@ uuid: 20c1d43a-d642-41ae-bfd4-65d82b4f213a
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - hg_reader
   module:
     - node
     - telephone
+  enforced:
+    module:
+      - hg_reader
 _core:
   default_config_hash: KLS66vCuLT5CeSMDsxgO90UMhooKVt7DUkOi3OhyPiM
 id: node.field_hg_mobile_phone

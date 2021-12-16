@@ -1,0 +1,20 @@
+uuid: c63875f3-530c-4db6-9977-b137aeec50d7
+langcode: en
+status: true
+dependencies:
+  module:
+    - gt_tools
+  theme:
+    - gtpd_subtheme
+id: gtfooterlogoblock
+theme: gtpd_subtheme
+region: footer_08
+weight: 0
+provider: null
+plugin: gt_footer_logo_block
+settings:
+  id: gt_footer_logo_block
+  label: 'GT footer logo block'
+  label_display: '0'
+  provider: gt_tools
+visibility: {  }

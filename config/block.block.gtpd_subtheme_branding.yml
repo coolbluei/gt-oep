@@ -1,0 +1,25 @@
+uuid: 23016ba2-b899-4590-bdf5-bd439663afa9
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - gtpd_subtheme
+_core:
+  default_config_hash: MH7oY9KbszJNI8r9G4stFa3OveQ9kY9qEfNO2k882Ac
+id: gtpd_subtheme_branding
+theme: gtpd_subtheme
+region: header
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

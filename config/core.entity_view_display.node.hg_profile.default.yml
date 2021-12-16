@@ -45,137 +45,137 @@ bundle: hg_profile
 mode: default
 content:
   body:
-    label: hidden
     type: text_default
-    weight: 101
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 101
     region: content
   field_hg_alternate_job_title:
-    weight: 111
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 111
     region: content
   field_hg_city:
-    weight: 120
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 120
     region: content
   field_hg_classification:
-    weight: 106
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 106
     region: content
   field_hg_degree:
-    weight: 123
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 123
     region: content
   field_hg_fax_number:
-    weight: 114
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 114
     region: content
   field_hg_first_name:
-    weight: 102
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 102
     region: content
   field_hg_id:
-    weight: 126
+    type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 126
     region: content
   field_hg_importer:
-    weight: 113
+    type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 113
     region: content
   field_hg_job_title:
-    weight: 110
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 110
     region: content
   field_hg_last_name:
-    weight: 104
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 104
     region: content
   field_hg_middle_name:
-    weight: 103
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 103
     region: content
   field_hg_mobile_phone:
-    weight: 113
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 113
     region: content
   field_hg_nickname:
-    weight: 105
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 105
     region: content
   field_hg_phone_number:
-    weight: 112
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 112
     region: content
   field_hg_primary_email:
-    weight: 115
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 115
     region: content
   field_hg_related_files:
-    weight: 125
+    type: file_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: file_default
+    weight: 125
     region: content
   field_hg_related_links:
-    weight: 124
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -184,63 +184,63 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 124
     region: content
   field_hg_research:
-    weight: 109
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 109
     region: content
   field_hg_secondary_email:
-    weight: 116
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 116
     region: content
   field_hg_source_updated:
-    weight: 127
+    type: timestamp
     label: above
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    type: timestamp
+    weight: 127
     region: content
   field_hg_state:
-    weight: 121
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 121
     region: content
   field_hg_street_address:
-    weight: 119
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 119
     region: content
   field_hg_summary:
-    weight: 107
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 107
     region: content
   field_hg_teaching:
-    weight: 108
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 108
     region: content
   field_hg_url:
-    weight: 117
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -249,15 +249,15 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 117
     region: content
   field_hg_zip_code:
-    weight: 122
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 122
     region: content
   links:
     weight: 100

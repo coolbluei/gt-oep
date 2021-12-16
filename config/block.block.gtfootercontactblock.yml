@@ -1,0 +1,20 @@
+uuid: be33b3d8-2c70-442c-9143-da044bfb53fe
+langcode: en
+status: true
+dependencies:
+  module:
+    - gt_tools
+  theme:
+    - gtpd_subtheme
+id: gtfootercontactblock
+theme: gtpd_subtheme
+region: footer_05
+weight: 0
+provider: null
+plugin: gt_footer_contact_block
+settings:
+  id: gt_footer_contact_block
+  label: 'GT footer contact block'
+  label_display: '0'
+  provider: gt_tools
+visibility: {  }
