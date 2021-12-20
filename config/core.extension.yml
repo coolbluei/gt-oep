@@ -81,6 +81,9 @@ theme:
   stable: 0
   seven: 0
   gt: 0
+  gt_subtheme: 0
+  trans_gt: 0
+  trans_curie: 0
   classy: 0
   gtpd_subtheme: 0
 profile: gt_profile
