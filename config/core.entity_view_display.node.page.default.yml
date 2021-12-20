@@ -41,8 +41,8 @@ third_party_settings:
                 third_party_settings:
                   field_formatter_class:
                     class: ''
-            weight: 1
             additional: {  }
+            weight: 1
           d1a5d2de-74ee-4d55-913b-c51200a27730:
             uuid: d1a5d2de-74ee-4d55-913b-c51200a27730
             region: content
@@ -58,8 +58,8 @@ third_party_settings:
                   view_mode: default
                   link: ''
                 third_party_settings: {  }
-            weight: 2
             additional: {  }
+            weight: 2
         third_party_settings: {  }
   layout_builder_restrictions:
     entity_view_mode_restriction:

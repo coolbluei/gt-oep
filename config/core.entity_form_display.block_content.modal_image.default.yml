@@ -41,4 +41,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_video: true
+  field_video_provider: true
   info: true

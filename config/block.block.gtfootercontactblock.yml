@@ -15,6 +15,6 @@ plugin: gt_footer_contact_block
 settings:
   id: gt_footer_contact_block
   label: 'GT footer contact block'
-  label_display: '0'
   provider: gt_tools
+  label_display: '0'
 visibility: {  }

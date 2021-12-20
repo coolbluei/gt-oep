@@ -203,12 +203,6 @@ content:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-  field_hg_youtube_video:
-    type: video_embed_field_textfield
-    weight: 9
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_hg_importer:
     type: number
     weight: 15
@@ -296,6 +290,12 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_hg_youtube_video:
+    type: video_embed_field_textfield
+    weight: 9
+    region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path

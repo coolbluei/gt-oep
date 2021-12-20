@@ -15,6 +15,6 @@ plugin: gt_footer_logo_block
 settings:
   id: gt_footer_logo_block
   label: 'GT footer logo block'
-  label_display: '0'
   provider: gt_tools
+  label_display: '0'
 visibility: {  }
