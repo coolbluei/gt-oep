@@ -54,6 +54,7 @@ module:
   page_cache: 0
   path: 0
   path_alias: 0
+  phpass: 0
   quickedit: 0
   rdf: 0
   safe_field_getter: 0
@@ -82,8 +83,8 @@ module:
   gt_profile: 1000
 theme:
   stable: 0
-  seven: 0
   gt: 0
   classy: 0
   gtpd_subtheme: 0
+  claro: 0
 profile: gt_profile

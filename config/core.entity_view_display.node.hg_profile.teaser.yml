@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.hg_profile.field_hg_job_title
     - field.field.node.hg_profile.field_hg_last_name
     - field.field.node.hg_profile.field_hg_linkedin
+    - field.field.node.hg_profile.field_hg_media
     - field.field.node.hg_profile.field_hg_middle_name
     - field.field.node.hg_profile.field_hg_mobile_phone
     - field.field.node.hg_profile.field_hg_nickname

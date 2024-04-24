@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.hg_profile.field_hg_job_title
     - field.field.node.hg_profile.field_hg_last_name
     - field.field.node.hg_profile.field_hg_linkedin
+    - field.field.node.hg_profile.field_hg_media
     - field.field.node.hg_profile.field_hg_middle_name
     - field.field.node.hg_profile.field_hg_mobile_phone
     - field.field.node.hg_profile.field_hg_nickname
@@ -267,6 +268,15 @@ content:
       date_format: medium
       custom_date_format: ''
       timezone: ''
+      tooltip:
+        date_format: ''
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
     third_party_settings: {  }
     weight: 127
     region: content

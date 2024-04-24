@@ -12,7 +12,7 @@ field_name: field_video_url
 entity_type: block_content
 bundle: video_embed
 label: 'Video URL'
-description: 'Video Embed field creates a simple field type that allows you to embed videos from YouTube and Vimeo and show their thumbnail previews simply by entering the video''s url.'
+description: "Video Embed field creates a simple field type that allows you to embed videos from YouTube and Vimeo and show their thumbnail previews simply by entering the video's url."
 required: false
 translatable: false
 default_value: {  }

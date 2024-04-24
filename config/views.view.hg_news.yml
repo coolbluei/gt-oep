@@ -14,7 +14,7 @@ _core:
 id: hg_news
 label: 'Recent news'
 module: views
-description: 'This is Mercury Reader''s default news page.'
+description: "This is Mercury Reader's default news page."
 tag: ''
 base_table: node_field_data
 base_field: nid

@@ -14,7 +14,7 @@ _core:
 id: hg_events
 label: 'Mercury events'
 module: views
-description: 'This is Mercury Reader''s default events page.'
+description: "This is Mercury Reader's default events page."
 tag: ''
 base_table: node_field_data
 base_field: nid
