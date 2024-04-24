@@ -1,5 +1,0 @@
-# Schema for the theme setting configuration file of the GT theme.
-
-gt.settings:
-  type: theme_settings
-  label: 'gt settings'

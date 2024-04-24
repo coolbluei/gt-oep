@@ -1,9 +1,0 @@
-<div class="p-4">
-<h4>{{ node.label }}</h4>
-{# Description #}
-{% if content.body|render is not empty %}
-    <div{{ attributes.addClass('description', classes)}}>
-        {{ content.body[0] }}
-    </div>
-{% endif %}
-</div>
