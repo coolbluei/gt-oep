@@ -3,3 +3,61 @@
 #site-title a:hover {
   text-decoration: underline;
 }
+
+a:hover {
+  color: var(--gt-md-gold, #857237);
+}
+
+.gt-container {
+  margin-bottom: 4em;
+}
+
+.gt-container div.row > aside {
+  display: flex;
+}
+
+.gt-container div.row > aside > div {
+  padding: 12px;
+  background-color: #f8f8f8;
+  margin-top: 12px;
+}
+
+@media screen and (max-width: 991px) {
+
+  body.sidebar-for-large .gt-container div.row > aside.col-sm-3,
+  body.sidebar-for-large .gt-container div.row > section.col-sm-9 {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+body.gtpd-theme .superblock .gt-text-blue h2,
+body.gtpd-theme .superblock .gt-text-blue h3,
+body.gtpd-theme .superblock .gt-text-blue h4,
+body.gtpd-theme .superblock .gt-text-blue h5,
+body.gtpd-theme .superblock .gt-text-blue h6,
+body.gtpd-theme .superblock .gt-text-blue dl,
+body.gtpd-theme .superblock .gt-text-blue ol,
+body.gtpd-theme .superblock .gt-text-blue ul,
+body.gtpd-theme .superblock .gt-text-blue p,
+body.gtpd-theme .superblock .gt-text-blue .p {
+  color: var(--gt-navy);
+}
+
+body.gtpd-theme .card-body {
+  padding: 30px;
+}
+
+body.gtpd-theme .layout__region {
+  margin-bottom: 0;
+}
+
+
+
+body.gtpd-theme .main-nav .dropdown-item.menu-item--level-2 > a,
+body.gtpd-theme .main-nav .dropdown-item.menu-item--level-2 > a:link,
+body.gtpd-theme .main-nav .dropdown-item.menu-item--level-2 > a:visited {
+  color: var(--gt-drk-gold);
+  font-weight: 700;
+}

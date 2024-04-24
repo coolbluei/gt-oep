@@ -38,11 +38,10 @@
  * @ingroup themeable
  */
 #}
-{{ attach_library('gt_subtheme/carousel') }}
+{{ attach_library('gtpd_subtheme/mercury') }}
 
 {%
   set classes = [
-    'carousel',
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
@@ -52,7 +51,10 @@
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      {{ content }}
+      <h3>{{ title }}</h3>
+
+      {{ feed }}
+
     {% endblock %}
   </div>
 {% endblock paragraph %}

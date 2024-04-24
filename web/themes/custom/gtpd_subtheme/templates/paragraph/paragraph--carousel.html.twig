@@ -38,15 +38,15 @@
  * @ingroup themeable
  */
 #}
-{{ attach_library('gt_subtheme/accordion') }}
+{{ attach_library('gtpd_subtheme/carousel') }}
 
 {%
   set classes = [
+    'carousel',
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    not paragraph.isPublished() ? 'paragraph--unpublished',
-    'accordion'
+    not paragraph.isPublished() ? 'paragraph--unpublished'
   ]
 %}
 {% block paragraph %}
