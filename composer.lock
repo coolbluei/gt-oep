@@ -3755,7 +3755,7 @@
         },
         {
             "name": "gt/gt_profile",
-            "version": "dev-upgrade-step3",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "gt/gt_profile",
@@ -3769,7 +3769,7 @@
         },
         {
             "name": "gt/gt_theme",
-            "version": "dev-upgrade-step3",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "gt/gt_theme",
@@ -3783,7 +3783,7 @@
         },
         {
             "name": "gt/gt_tools",
-            "version": "dev-upgrade-step3",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "gt/gt_tools",
@@ -3797,7 +3797,7 @@
         },
         {
             "name": "gt/hg_reader",
-            "version": "dev-upgrade-step3",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "gt/hg_reader",
@@ -8154,5 +8154,5 @@
         "php": ">=7.3"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
