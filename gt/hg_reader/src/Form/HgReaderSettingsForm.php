@@ -38,6 +38,7 @@ class HgReaderSettingsForm extends ConfigFormBase {
 
     // get all y'all's text formats
     $formats = \Drupal::entityQuery('filter_format')
+        ->accessCheck(FALSE)
         ->execute();
     // use limited_html if it exists
     $default_format = array_search('limited_html', $formats) ? 'limited_html' : 'plain_text';
@@ -94,11 +95,14 @@ class HgReaderSettingsForm extends ConfigFormBase {
     $config = \Drupal::config('hg_reader.settings');
     $hg_url = $config->get('hg_url');
     $url = $hg_url . '/ajax/groupsdata';
-    $ch = HgImporter::curl_setup($url, FALSE);
+    $ch = HgImporter::curl_setup($url);
     $data['data'] = curl_exec($ch);
-    $error = curl_error($ch);
 
-    if (!$error) {
+    if (curl_errno($ch)) {
+      $error = curl_error($ch);
+    }
+
+    if (!isset($error)) {
       $groups = json_decode($data['data']);
       foreach ($groups as &$group) {
         $group = $group->title;
@@ -106,6 +110,11 @@ class HgReaderSettingsForm extends ConfigFormBase {
       sort($groups);
       return $groups;
     } else {
+      $this->getLogger('hg_reader')->error('Unable to retrieve groups list from Mercury: %error',
+        array(
+          '%error' => $error,
+        )
+      );
       \Drupal::messenger()->addError($this->t('Mercury Reader failed to retrieve the groups list from Mercury. You may need to reinstall the module in order to avoid attenuated functionality.'));
       return array();
     }

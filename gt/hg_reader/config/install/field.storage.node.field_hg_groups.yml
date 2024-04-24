@@ -1,0 +1,21 @@
+uuid: 646598e8-8e33-4d08-9395-98e3a7c91d37
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_hg_groups
+field_name: field_hg_groups
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

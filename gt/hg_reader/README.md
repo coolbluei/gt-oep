@@ -1,8 +1,8 @@
-Welcome to version 1.x of the Drupal 8 edition of Mercury Reader. This project has been alpha/beta-ish forever, and there are a couple lingering issues that may or may not be real, so we decided to go ahead and call it 1.x. It still might flake out now and then. Report issues in GitHub.
+Welcome to version 3.x of the Drupal 9 edition of Mercury Reader. Please report issues in GitHub.
 
 INSTALLATION
 
-Install it like you would any other module. Stick it in /modules/contrib, navigate to the Extend page, enable it and you're off to the races.
+If you used the gt_installer you will already have the module and it will already be enabled.
 
 CONFIGURATION
 
@@ -25,11 +25,11 @@ Everything in hg_reader is node-based, so all node-based facilities pertain. You
 
 THEMING
 
-Since the output of this module is all nodes and pages and blocks, theming boils down to what you'd be doing if you weren't using hg_reader, so no biggie. Note that the module includes a stylesheet. It's a bare-bones stylesheet, aimed solely at preventing a trainwreck. It works best with the new GT theme, which is not yet available, ha ha. So, if you want to get on this before the theme is out, expect to do a lot of styling.
+Since the output of this module is all nodes and pages and blocks, theming boils down to what you'd be doing if you weren't using hg_reader, so no biggie. Note that the module includes a stylesheet. It's a bare-bones stylesheet, aimed solely at preventing a trainwreck. It works best with the GT theme.
 
 BUGS
 
-Expect lots of them -- Drupal 8 is extremely creaky and prone to catastrophic come-aparts. Should you encounter a bug, go to http://edit.hg.gatech.edu/help/support-request-form and give us the details.
+Should you encounter a bug, go to https://github.gatech.edu/ICWebTeam/hg_reader/issues and give us the details.
 
 CODA
 

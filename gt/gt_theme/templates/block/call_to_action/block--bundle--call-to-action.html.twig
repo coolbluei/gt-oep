@@ -25,7 +25,6 @@
 * @see template_preprocess_block()
 */
 #}
-
 {# Attach the library. #}
 {{ attach_library('gt/call-action') }}
 
@@ -33,98 +32,98 @@
 {% set alignment = (content.field_alignment.0) %}
 {% set body = (content.body) %}
 {% set button = 'btn btn-primary-' ~ color_button %}
+{% set fluid_image = (content.field_image.0['#item'].entity.uri.value) ? (file_url(content.field_image.0['#item'].entity.uri.value)) : '' %}
+{% set image_alt = (content.field_image.0['#item'].alt ) %}
+{% set image_path = (content.field_image['#items'].entity.uri.value) ? (file_url(content.field_image['#items'].entity.uri.value)) : '' %}
+{% set image_style = (content.field_image_style.0) %}
 {% set image = (content.field_image) %}
 {% set link = (content.field_link.0) %}
 {% set link_title = (content.field_link.0['#title']|render) %}
 {% set link_url = file_url(content.field_link.0['#url']|render) %}
+{% set remove_padding = (content.field_remove_padding.0) %}
 {% set text_alignment = (content.field_text_alignment.0) %}
 {% set text_color = 'gt-text-' ~ color_text %}
 {% set video = (content.field_video_url.0) %}
-{% set remove_padding = (content.field_remove_padding.0) %}
 
-{# Set Remove Padding and Margin #}
-{% if remove_padding is not empty %}
-  {% set background_class =  remove_padding %}
-{% else %}
-  {% set remove_padding = 'my-3 mb-4' %}
-{% endif %}
 
 {# Set Background Color #}
 {% if color_background is not empty %}
-  {% set background_class = 'gt-' ~ color_background %}
+    {% set background_class = 'gt-' ~ color_background %}
 {% else %}
-  {% set background_class = '' %}
+    {% set background_class = '' %}
 {% endif %}
 
-{# Set CSS Classes #}
-{% set container_classes = [
-  remove_padding,
-  'd-flex',
-  'clearfix',
-  'block',
-  'block-' ~ configuration.provider|clean_class,
-  'block-' ~ plugin_id|clean_class,
-] %}
+{# Set Remove Padding and Margin #}
+{% if remove_padding is not empty %}
+    {% set background_class =  remove_padding %}
+{% else %}
+    {% set remove_padding = 'my-3 mb-4' %}
+{% endif %}
 
-{% set classes = [
-  background_class,
-  'cta-content',
+{# Set CSS Block Classes #}
+{% set container_classes  = [
+    'container-fluid',
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+    'call-to-action',
+    background_class,
+    'd-flex',
+    'flex-direction',
+    remove_padding,
+    'clearfix'
 ] %}
 
 {# Set Media CSS classes #}
 {% set media_classes = [
-  'w-50',
-  'mb-2',
+    'w-50',
+    'mb-2',
 ] %}
 
 {# Content #}
-<div{{ attributes.setAttribute('id', 'call-to-action').addClass(container_classes) }}>
-  <div class="container-fluid {{ classes|join(' ') }} ">
-    <div class="container">
-
-      {# Video #}
-      {% if video is not empty %}
-        <div class="{{ alignment }} {{ media_classes|join(' ') }}">
-          {{ video }}
+{% block content %}
+    <div{{ attributes.addClass(container_classes) }}>
+        <div class="container">
+            <div class="{{ alignment }} {{ media_classes|join(' ') }}">
+                {# Video #}
+                {% if video is not empty %}
+                    {{ video }}
+                {% endif %}
+                {# Image with Link #}
+                {% if image is not empty and link is not empty %}
+                    <a title="{{ link_title }}" aria-label="{{ link_title }}" href="{{ link_url }}">
+                        <div role="img" aria-label="{{ image_alt }}">
+                            <img class="{{ image_style }} card-img-top" src="{{ image_path }}" loading="lazy" alt="{{ image_alt }}">
+                        </div>
+                    </a>
+                {% endif %}
+                {# Image without Link #}
+                {% if image is not empty and link is empty %}
+                    <div role="img" aria-label="{{ image_alt }}">
+                        <img class="{{ image_style }} card-img-top" src="{{ image_path }}" loading="lazy" alt="{{ image_alt }}">
+                    </div>
+                {% endif %}
+            </div>
+            {# Copy #}
+            <div class="{{ text_color }}">
+                {{ title_prefix }}
+                {% if label %}
+                    <h3>{{ label }}</h3>
+                {% endif %}
+                {{ title_suffix }}
+                {% if body %}
+                    {{ body }}
+                {% else %}
+                {% endif %}
+            </div>
+            {# Link #}
+            {% if link_title %}
+                <div class="card-footer w-100 mx-3 my-3">
+                    <a class="{{ button }}" title="{{ link_title }}" aria-label="{{ link_title }}"
+                       href="{{ link_url }}">{{ link_title }}</a>
+                </div>
+            {% else %}
+            {% endif %}
         </div>
-
-        {# Image with Link #}
-      {% elseif image is not empty and link is not empty and alignment is not empty %}
-        <div class="{{ alignment }} {{ media_classes|join(' ') }}">
-          <a href="{{ link_url }}">
-            {{ image }}
-          </a>
-        </div>
-
-        {# Image without Link #}
-      {% elseif image is not empty and link is empty and alignment is not empty %}
-        <div class="{{ alignment }} {{ media_classes|join(' ') }}">
-          {{ image }}
-        </div>
-      {% else %}
-      {% endif %}
-
-      {# Copy #}
-      <div class="{{ text_color }}">
-        {{ title_prefix }}
-        {% if label %}
-          <h3>{{ label }}</h3>
-        {% endif %}
-        {{ title_suffix }}
-        {% if body %}
-          {{ body }}
-        {% else %}
-        {% endif %}
-      </div>
-
-      {# Link #}
-      {% if link_title %}
-          <div class="card-footer w-100 mx-3 my-3">
-          <a class="{{ button }}" aria-labelledby="{{ link_title }}"  href="{{ link_url }}">{{ link_title }}</a>
-        </div>
-      {% else %}
-      {% endif %}
     </div>
-
-  </div>
-</div>
+{% endblock %}

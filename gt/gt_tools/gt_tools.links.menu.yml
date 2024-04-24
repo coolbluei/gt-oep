@@ -1,4 +1,3 @@
-#
 # Admin links
 #
 gt_tools.gt_tools:
@@ -20,7 +19,7 @@ gt_tools.admin_settings:
 #
 gt_footer_general.general:
   title: 'General'
-  description: 'General'
+  description: 'General Main Menu Category'
   parent: system.admin_structure_menu
   menu_name: gt-footer-general
   url: 'internal:#'
@@ -32,7 +31,7 @@ gt_footer_general.general:
 
 gt_footer_general.directory:
   title: 'Directory'
-  description: 'Directory'
+  description: 'Georgia Institute of Technology Directory'
   parent: system.admin_structure_menu
   menu_name: gt-footer-general
   url: https://directory.gatech.edu/
@@ -40,7 +39,7 @@ gt_footer_general.directory:
 
 gt_footer_general.employment:
   title: 'Employment'
-  description: 'Employment'
+  description: 'Georgia Institute of Technology Employment'
   parent: system.admin_structure_menu
   menu_name: gt-footer-general
   url: https://careers.gatech.edu/
@@ -48,10 +47,10 @@ gt_footer_general.employment:
 
 gt_footer_general.emergency:
   title: 'Emergency Information'
-  description: 'Emergency Information'
+  description: 'Georgia Institute of Technology Emergency Information'
   parent: system.admin_structure_menu
   menu_name: gt-footer-general
-  url: https://gatech.edu/emergency/
+  url: https://www.gatech.edu/emergency/
   weight: 400
 
 #
@@ -59,7 +58,7 @@ gt_footer_general.emergency:
 #
 gt_footer_legal.legal:
   title: 'Legal'
-  description: 'Legal'
+  description: 'Legal Main Menu Category'
   parent: system.admin_structure_menu
   menu_name: gt-footer-legal
   url: 'internal:#'
@@ -71,15 +70,15 @@ gt_footer_legal.legal:
 
 gt_footer_legal.privacy:
   title: 'Legal & Privacy Information'
-  description: 'Legal & Privacy Information'
+  description: 'Georgia Institute of Technology Legal & Privacy Information'
   parent: system.admin_structure_menu
   menu_name: gt-footer-legal
-  url: https://gatech.edu/legal/
+  url: https://www.gatech.edu/legal/
   weight: 200
 
 gt_footer_legal.human:
   title: 'Human Trafficking Notice'
-  description: 'Human Trafficking Notice'
+  description: 'Georgia Human Trafficking Resources'
   parent: system.admin_structure_menu
   menu_name: gt-footer-legal
   url: https://gbi.georgia.gov/human-trafficking-notice
@@ -87,7 +86,7 @@ gt_footer_legal.human:
 
 gt_footer_legal.titlex:
   title: 'Title IX/Sexual Misconduct'
-  description: 'Title IX/Sexual Misconduct'
+  description: 'Georgia Tech Title IX/Sexual Misconduct Resources'
   parent: system.admin_structure_menu
   menu_name: gt-footer-legal
   url: https://titleix.gatech.edu/
@@ -95,7 +94,7 @@ gt_footer_legal.titlex:
 
 gt_footer_legal.hazing:
   title: 'Hazing Public Disclosures'
-  description: 'Hazing Public Disclosures'
+  description: 'Georgia Tech Hazing Conduct History'
   parent: system.admin_structure_menu
   menu_name: gt-footer-legal
   url: https://osi.gatech.edu/hazing-conduct-history
@@ -103,34 +102,42 @@ gt_footer_legal.hazing:
 
 gt_footer_legal.accessibility:
   title: 'Accessibility'
-  description: 'Accessibility'
+  description: 'Georgia Institute of Technology Accessibility Resources'
   parent: system.admin_structure_menu
   menu_name: gt-footer-legal
-  url: https://gatech.edu/accessibility/
+  url: https://www.gatech.edu/accessibility/
   weight: 600
 
 gt_footer_legal.accountability:
   title: 'Accountability'
-  description: 'Accountability'
+  description: 'Georgia Institute of Technology Accountability Resources'
   parent: system.admin_structure_menu
   menu_name: gt-footer-legal
-  url: https://gatech.edu/accountability/
+  url: https://www.gatech.edu/accountability/
   weight: 700
 
 gt_footer_legal.accreditation:
   title: 'Accreditation'
-  description: 'Accreditation'
+  description: 'Georgia Institute of Technology Accreditation'
   parent: system.admin_structure_menu
   menu_name: gt-footer-legal
-  url: https://gatech.edu/accreditation/
+  url: https://www.gatech.edu/accreditation/
   weight: 800
+
+gt_footer_legal.report:
+  title: 'Report Free Speech and Censorship Concern'
+  description: 'University System of Georgia Ethics and Compliance Reporting Hotline'
+  parent: system.admin_structure_menu
+  menu_name: gt-footer-legal
+  url: https://secure.ethicspoint.com/domain/media/en/gui/76612/index.html
+  weight: 900
 
 #
 # GT SuperFooter links for "footer first".
 #
 gt-footer-01.gt-resources:
   title: 'Georgia Tech Resources'
-  description: 'Georgia Tech Resources'
+  description: 'Georgia Tech Resources Main Menu Category'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: 'internal:#'
@@ -142,15 +149,15 @@ gt-footer-01.gt-resources:
 
 gt-footer-01.office-departments:
   title: 'Offices and Departments'
-  description: 'Offices and Departments'
+  description: 'Georgia Tech Offices and Departments Directory'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
-  url: https://gatech.edu/offices-and-departments
+  url: https://www.gatech.edu/offices-and-departments
   weight: 200
 
 gt-footer-01.news-center:
   title: 'News Center'
-  description: 'News Center'
+  description: 'Georgia Tech News Center'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: https://news.gatech.edu/
@@ -158,7 +165,7 @@ gt-footer-01.news-center:
 
 gt-footer-01.campus-calendar:
   title: 'Campus Calendar'
-  description: 'Campus Calendar'
+  description: 'Georgia Tech Campus Calendar'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: https://calendar.gatech.edu/
@@ -166,7 +173,7 @@ gt-footer-01.campus-calendar:
 
 gt-footer-01.special-events:
   title: 'Special Events'
-  description: 'Special Events'
+  description: 'Georgia Tech Special Events and Protocol'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: https://specialevents.gatech.edu/
@@ -174,7 +181,7 @@ gt-footer-01.special-events:
 
 gt-footer-01.green-buzz:
   title: 'GreenBuzz'
-  description: 'GreenBuzz'
+  description: 'A resource for showcasing green behaviors, activities, initiatives, and events at Georgia Tech'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: https://greenbuzz.gatech.edu/
@@ -182,7 +189,7 @@ gt-footer-01.green-buzz:
 
 gt-footer-01.institute-communications:
   title: 'Institute Communications'
-  description: 'Institute Communications'
+  description: 'Georgia Tech Office of Institute Communications'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: https://comm.gatech.edu/
@@ -190,7 +197,7 @@ gt-footer-01.institute-communications:
 
 gt-footer-01.visitor-resources:
   title: 'Visitor Resources'
-  description: 'Visitor Resources'
+  description: 'Visitor Resources Main Menu Category'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: 'internal:#'
@@ -202,7 +209,7 @@ gt-footer-01.visitor-resources:
 
 gt-footer-01.campus-visits:
   title: 'Campus Visits'
-  description: 'Campus Visits'
+  description: 'Georgia Tech Campus Visits'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: https://admission.gatech.edu/visit
@@ -210,15 +217,15 @@ gt-footer-01.campus-visits:
 
 gt-footer-01.directions-campus:
   title: 'Directions to Campus'
-  description: 'Directions to Campus'
+  description: 'Visit Georgia Tech Campus'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
-  url: https://admission.gatech.edu/visit/directions-and-parking
+  url: https://www.gatech.edu/about/visit
   weight: 1000
 
 gt-footer-01.visitor-parking:
   title: 'Visitor Parking Information'
-  description: 'Visitor Parking Information'
+  description: 'Georgia Tech Parking and Transportation Services'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: https://pts.gatech.edu/visitors
@@ -250,7 +257,7 @@ gt-footer-01.gt-hotel:
 
 gt-footer-01.barnes-noble:
   title: 'Barnes and Noble at Georgia Tech'
-  description: 'Barnes and Noble at Georgia Tech'
+  description: 'Barnes and Noble at Georgia Tech Official Bookstore'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: https://gatech.bncollege.com/shop/gatech/home
@@ -258,7 +265,7 @@ gt-footer-01.barnes-noble:
 
 gt-footer-01.ferst-arts:
   title: 'Ferst Center for the Arts'
-  description: 'Ferst Center for the Arts'
+  description: 'Georgia Tech Ferst Center for the Arts'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: https://arts.gatech.edu/
@@ -266,7 +273,7 @@ gt-footer-01.ferst-arts:
 
 gt-footer-01.paper-museum:
   title: 'Robert C. Williams Paper Museum'
-  description: 'Robert C. Williams Paper Museum'
+  description: 'The Robert C. Williams Museum of Papermaking'
   parent: system.admin_structure_menu
   menu_name: gt-footer-01
   url: https://paper.gatech.edu/
@@ -277,7 +284,7 @@ gt-footer-01.paper-museum:
 #
 gt-footer-02.cisr:
   title: 'Colleges, Instructional Sites and Research'
-  description: 'Colleges, Instructional Sites and Research'
+  description: 'Colleges, Instructional Sites and Research Main Menu Category'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: 'internal:#'
@@ -289,7 +296,7 @@ gt-footer-02.cisr:
 
 gt-footer-02.gt-colleges:
   title: 'Colleges'
-  description: 'Colleges'
+  description: 'Georgia Tech Colleges'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: 'internal:#'
@@ -301,7 +308,7 @@ gt-footer-02.gt-colleges:
 
 gt-footer-02.college-computing:
   title: 'College of Computing'
-  description: 'College of Computing'
+  description: 'Georgia Tech College of Computing'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://cc.gatech.edu/
@@ -309,7 +316,7 @@ gt-footer-02.college-computing:
 
 gt-footer-02.college-design:
   title: 'College of Design'
-  description: 'College of Design'
+  description: 'Georgia Tech College of Design'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://design.gatech.edu/
@@ -317,7 +324,7 @@ gt-footer-02.college-design:
 
 gt-footer-02.college-engineering:
   title: 'College of Engineering'
-  description: 'College of Engineering'
+  description: 'Georgia Tech College of Engineering'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://coe.gatech.edu/
@@ -325,15 +332,15 @@ gt-footer-02.college-engineering:
 
 gt-footer-02.college-sciences:
   title: 'College of Sciences'
-  description: 'College of Sciences'
+  description: 'Georgia Tech College of Sciences'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://cos.gatech.edu/
   weight: 600
 
 gt-footer-02.college-liberal-arts:
-  title: 'Ivan Allen College of Liberal Art'
-  description: 'Ivan Allen College of Liberal Art'
+  title: 'Ivan Allen College of Liberal Arts'
+  description: 'Georgia Tech Ivan Allen College of Liberal Arts'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://iac.gatech.edu/
@@ -341,7 +348,7 @@ gt-footer-02.college-liberal-arts:
 
 gt-footer-02.college-business:
   title: 'Scheller College of Business'
-  description: 'Scheller College of Business'
+  description: 'Georgia Tech Scheller College of Business'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://scheller.gatech.edu/
@@ -349,7 +356,7 @@ gt-footer-02.college-business:
 
 gt-footer-02.instructional-sites:
   title: 'Instructional Sites'
-  description: 'Instructional Sites'
+  description: 'Instructional Sites Main Menu Category'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: 'internal:#'
@@ -360,8 +367,8 @@ gt-footer-02.instructional-sites:
         - btn btn-secondary btn-sm disabled
 
 gt-footer-02.ga-tech-lorraine:
-  title: 'Georgia Tech-Lorraine'
-  description: 'Georgia Tech-Lorraine'
+  title: 'Georgia Tech-Europe'
+  description: 'Georgia Techs European Campus'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://lorraine.gatech.edu/
@@ -369,7 +376,7 @@ gt-footer-02.ga-tech-lorraine:
 
 gt-footer-02.ga-tech-shenzhen:
   title: 'Georgia Tech-Shenzhen'
-  description: 'Georgia Tech-Shenzhen'
+  description: 'Georgia Tech Study Abroad in China'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://shenzhen.gatech.edu/
@@ -377,7 +384,7 @@ gt-footer-02.ga-tech-shenzhen:
 
 gt-footer-02.ga-tech-online:
   title: 'Georgia Tech Online'
-  description: 'Georgia Tech Online'
+  description: 'Georgia Tech Professional Education Online'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://pe.gatech.edu/georgia-tech-online
@@ -385,7 +392,7 @@ gt-footer-02.ga-tech-online:
 
 gt-footer-02.progessional-education:
   title: 'Professional Education'
-  description: 'Professional Education'
+  description: 'Georgia Tech Professional Education Unit'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://pe.gatech.edu/
@@ -393,7 +400,7 @@ gt-footer-02.progessional-education:
 
 gt-footer-02.language-indtitute:
   title: 'The Language Institute'
-  description: 'The Language Institute'
+  description: 'Georgia Tech Language Institute'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://esl.gatech.edu/
@@ -401,7 +408,7 @@ gt-footer-02.language-indtitute:
 
 gt-footer-02.global-footprint:
   title: 'Global Footprint'
-  description: 'Global Footprint'
+  description: 'Global Footprint Main Menu Category'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: 'internal:#'
@@ -413,7 +420,7 @@ gt-footer-02.global-footprint:
 
 gt-footer-02.global-engagement:
   title: 'Global Engagement'
-  description: 'Global Engagement'
+  description: 'Georgia Tech Office of Global Engagement'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://global.gatech.edu/
@@ -421,7 +428,7 @@ gt-footer-02.global-engagement:
 
 gt-footer-02.ga-tech-research:
   title: 'Research'
-  description: 'Research'
+  description: 'Research Main Menu Category'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: 'internal:#'
@@ -433,7 +440,7 @@ gt-footer-02.ga-tech-research:
 
 gt-footer-02.gtri:
   title: 'Georgia Tech Research Institute'
-  description: 'Georgia Tech Research Institute'
+  description: 'Georgia Tech Research Institute '
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://gtri.gatech.edu/
@@ -441,7 +448,7 @@ gt-footer-02.gtri:
 
 gt-footer-02.research-ga-tech:
   title: 'Research at Georgia Tech'
-  description: 'Research at Georgia Tech'
+  description: 'Research at Georgia Tech '
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://research.gatech.edu/
@@ -449,7 +456,7 @@ gt-footer-02.research-ga-tech:
 
 gt-footer-02.evp-research:
   title: 'Executive Vice President for Research'
-  description: 'Executive Vice President for Research'
+  description: 'Executive Vice President for Research at the Georgia Institute of Technology'
   parent: system.admin_structure_menu
   menu_name: gt-footer-02
   url: https://research.gatech.edu/meet-dr-chaouki-t-abdallah
@@ -460,7 +467,7 @@ gt-footer-02.evp-research:
 #
 gt-footer-03.student-parent:
   title: 'Student and Parent Resources'
-  description: 'Student and Parent Resources'
+  description: 'Student and Parent Resources Main Menu Category'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: 'internal:#'
@@ -472,7 +479,7 @@ gt-footer-03.student-parent:
 
 gt-footer-03.student-resources:
   title: 'Student Resources'
-  description: 'Student Resources'
+  description: 'Georgia Tech Student Resources'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: 'internal:#'
@@ -484,15 +491,15 @@ gt-footer-03.student-resources:
 
 gt-footer-03.apply:
   title: 'Apply'
-  description: 'Apply'
+  description: 'Georgia Tech Prospective Students'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
-  url: https://gatech.edu/admissions
+  url: https://www.gatech.edu/admissions
   weight: 300
 
 gt-footer-03.buzzport:
   title: 'BuzzPort'
-  description: 'BuzzPort'
+  description: 'Services to students, faculty, and administrative staff at Georgia Tech'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: https://buzzport.gatech.edu/
@@ -500,7 +507,7 @@ gt-footer-03.buzzport:
 
 gt-footer-03.buzzcard:
   title: 'Buzzcard'
-  description: 'Buzzcard'
+  description: 'Georgia Tech Buzzcard Services'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: https://buzzcard.gatech.edu/
@@ -508,7 +515,7 @@ gt-footer-03.buzzcard:
 
 gt-footer-03.career-center:
   title: 'Career Center'
-  description: 'Career Center'
+  description: 'Georgia Tech Career Center'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: https://career.gatech.edu/
@@ -516,7 +523,7 @@ gt-footer-03.career-center:
 
 gt-footer-03.commencement:
   title: 'Commencement'
-  description: 'Commencement'
+  description: 'Commencement Information for Students'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: https://commencement.gatech.edu/
@@ -524,7 +531,7 @@ gt-footer-03.commencement:
 
 gt-footer-03.library:
   title: 'Library'
-  description: 'Library'
+  description: 'Georgia Tech Library services'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: https://library.gatech.edu/
@@ -532,7 +539,7 @@ gt-footer-03.library:
 
 gt-footer-03.student-life:
   title: 'Student Life'
-  description: 'Student Life'
+  description: 'Student Life at Georgia Tech'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: https://studentlife.gatech.edu
@@ -540,23 +547,23 @@ gt-footer-03.student-life:
 
 gt-footer-03.entrepreneurship:
   title: 'Student Entrepreneurship'
-  description: 'Student Entrepreneurship'
+  description: 'CREATE-X Student Entrepreneurship'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: https://create-x.gatech.edu/
   weight: 1000
 
 gt-footer-03.study-abroad:
-  title: 'Study Abroad'
-  description: 'Study Abroad'
+  title: 'Education Abroad'
+  description: 'Georgia Tech Office of International Education'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
-  url: https://oie.gatech.edu/study-abroad
+  url: https://ea.oie.gatech.edu/
   weight: 1100
 
 gt-footer-03.canvas:
   title: 'Canvas'
-  description: 'Canvas'
+  description: 'Digital Learning'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: https://canvas.gatech.edu/
@@ -564,7 +571,7 @@ gt-footer-03.canvas:
 
 gt-footer-03.parent-resources:
   title: 'Parent Resources'
-  description: 'Parent Resources'
+  description: 'Georgia Tech Parent Resources'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: 'internal:#'
@@ -576,7 +583,7 @@ gt-footer-03.parent-resources:
 
 gt-footer-03.parent-family:
   title: 'Parent and Family Programs'
-  description: 'Parent and Family Programs'
+  description: 'Georgia Tech Office of Parent and Family Programs'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: https://parents.gatech.edu/
@@ -584,7 +591,7 @@ gt-footer-03.parent-family:
 
 gt-footer-03.division-student-life:
   title: 'Division of Student Life'
-  description: 'Division of Student Life'
+  description: 'Student Life at Georgia Tech'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: https://studentlife.gatech.edu
@@ -592,7 +599,7 @@ gt-footer-03.division-student-life:
 
 gt-footer-03.financial-aid:
   title: 'Scholarships and Financial Aid'
-  description: 'Scholarships and Financial Aid'
+  description: 'Georgia Tech Office of Scholarships & Financial Aid'
   parent: system.admin_structure_menu
   menu_name: gt-footer-03
   url: https://finaid.gatech.edu/
@@ -603,7 +610,7 @@ gt-footer-03.financial-aid:
 #
 gt-footer-04.employee-alumni-resources:
   title: 'Employee, Alumni, and Other Resources'
-  description: 'Employee, Alumni, and Other Resources'
+  description: 'Employee, Alumni, and Other Resources Main Menu Category'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: 'internal:#'
@@ -615,7 +622,7 @@ gt-footer-04.employee-alumni-resources:
 
 gt-footer-04.employees:
   title: 'Employees'
-  description: 'Employees'
+  description: 'Georgia Tech Employee Resources'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: 'internal:#'
@@ -627,7 +634,7 @@ gt-footer-04.employees:
 
 gt-footer-04.a-and-f:
   title: 'Administration and Finance'
-  description: 'Administration and Finance'
+  description: 'Georgia Tech Office of Administration and Finance'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://af.gatech.edu/
@@ -635,7 +642,7 @@ gt-footer-04.a-and-f:
 
 gt-footer-04.adviding-teaching:
   title: 'Advising and Teaching'
-  description: 'Advising and Teaching'
+  description: 'Georgia Tech Office of Advising and Teaching'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://advising.gatech.edu/
@@ -643,7 +650,7 @@ gt-footer-04.adviding-teaching:
 
 gt-footer-04.faculty-affairs:
   title: 'Faculty Affairs'
-  description: 'Faculty Affairs'
+  description: 'Office of the Vice Provost for Faculty'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://faculty.gatech.edu/
@@ -651,7 +658,7 @@ gt-footer-04.faculty-affairs:
 
 gt-footer-04.faculty-hiring:
   title: 'Faculty Hiring'
-  description: 'Faculty Hiring'
+  description: 'Georgia Tech Careers'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://careers.gatech.edu/
@@ -659,23 +666,31 @@ gt-footer-04.faculty-hiring:
 
 gt-footer-04.human-resources:
   title: 'Human Resources'
-  description: 'Human Resources'
+  description: 'Georgia Tech Human Resources'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://ohr.gatech.edu/
   weight: 700
 
+gt-footer-04.staff-council:
+  title: 'Staff Council'
+  description: 'Georgia Tech Staff Council'
+  parent: system.admin_structure_menu
+  menu_name: gt-footer-04
+  url: https://staffcouncil.gatech.edu/
+  weight: 750
+
 gt-footer-04.techworks:
   title: 'TechWorks'
-  description: 'TechWorks'
+  description: 'Georgia Techs administrative systems, forms and procedures'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://techworks.gatech.edu/
   weight: 800
 
 gt-footer-04.alumni:
-  title: 'Alumni'
-  description: 'Alumni'
+  title: 'Alumni and Foundation'
+  description: 'Georgia Tech Alumni Resources'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: 'internal:#'
@@ -687,23 +702,31 @@ gt-footer-04.alumni:
 
 gt-footer-04.alumni-association:
   title: 'Alumni Association'
-  description: 'Alumni Association'
+  description: 'Georgia Tech Alumni Association'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
-  url: https://gtalumni.org/
+  url: https://www.gtalumni.org/
   weight: 1000
 
 gt-footer-04.alumni-services:
   title: 'Alumni Career Services'
-  description: 'Alumni Career Services'
+  description: 'Georgia Tech Alumni Career Services'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
-  url: https://gtalumni.org/career
+  url: https:/www.gtalumni.org/career
   weight: 1100
+
+gt-footer-04.foundation:
+  title: 'Foundation'
+  description: 'Georgia Tech Foundation'
+  parent: system.admin_structure_menu
+  menu_name: gt-footer-04
+  url: https://www.gtf.gatech.edu/
+  weight: 1150
 
 gt-footer-04.give-back:
   title: 'Giving Back to Tech'
-  description: 'Giving Back to Tech'
+  description: 'Georgia Tech Alumni Association Resources'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://securelb.imodules.com/s/1481/alumni/19/interior.aspx?sid=1481&gid=21&pgid=787&cid=1639&appealcode=ALMW21Q105305S017UD
@@ -711,7 +734,7 @@ gt-footer-04.give-back:
 
 gt-footer-04.outreach:
   title: 'Outreach'
-  description: 'Outreach'
+  description: 'Georgia Tech Outreach Resources'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: 'internal:#'
@@ -723,7 +746,7 @@ gt-footer-04.outreach:
 
 gt-footer-04.startup:
   title: 'Startup Companies'
-  description: 'Startup Companies'
+  description: 'Georgia Tech Advanced Technology Development Center'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://atdc.org/
@@ -731,7 +754,7 @@ gt-footer-04.startup:
 
 gt-footer-04.economic-development:
   title: 'Economic Development'
-  description: 'Economic Development'
+  description: 'Georgia Tech Enterprise Innovation Institute'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://innovate.gatech.edu/
@@ -739,7 +762,7 @@ gt-footer-04.economic-development:
 
 gt-footer-04.industry:
   title: 'Industry Engagement'
-  description: 'Industry Engagement'
+  description: 'Georgia Tech Office of Industry Engagement'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://industry.gatech.edu/
@@ -747,7 +770,7 @@ gt-footer-04.industry:
 
 gt-footer-04.institute-relations:
   title: 'Institute Relations'
-  description: 'Institute Relations'
+  description: 'Georgia Tech Office of Institute Relations'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://gov.gatech.edu/
@@ -755,7 +778,7 @@ gt-footer-04.institute-relations:
 
 gt-footer-04.pe:
   title: 'Professional Education'
-  description: 'Professional Education'
+  description: 'Georgia Tech Professional Education'
   parent: system.admin_structure_menu
   menu_name: gt-footer-04
   url: https://pe.gatech.edu/

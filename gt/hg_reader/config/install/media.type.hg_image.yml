@@ -1,0 +1,17 @@
+uuid: 3eaea1d5-8f7d-464a-b8de-8da7886cb6a3
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - hg_reader
+id: hg_image
+label: 'Mercury image'
+description: 'Media container for images pulled from Mercury sources.'
+source: image
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_hg_image
+field_map:
+  name: name

@@ -1,6 +1,18 @@
 langcode: en
 status: false
-dependencies: {  }
+dependencies:   
+  module:
+    - block
+    - block_region_permissions
+    - comment
+    - contextual
+    - filter
+    - layout_builder
+    - media
+    - node
+    - quickedit
+    - system
+    - toolbar
 id: editor
 label: Editor
 weight: 2
@@ -8,6 +20,7 @@ is_admin: null
 permissions:
   - 'access administration pages'
   - 'access comments'
+  - 'access content'
   - 'access content overview'
   - 'access contextual links'
   - 'access in-place editing'
@@ -28,26 +41,30 @@ permissions:
   - 'administer gt page_top'
   - 'administer gt sidebar_first'
   - 'administer gt sidebar_second'
-  - 'configure all page node layout overrides'
-  - 'configure editable page node layout overrides'
   - 'create and edit custom blocks'
   - 'create article content'
   - 'create hg_boilerplate content'
   - 'create hg_event content'
   - 'create hg_external_news content'
   - 'create hg_image content'
+  - 'create hg_image media'
   - 'create hg_news content'
   - 'create hg_profile content'
   - 'create hg_video content'
+  - 'create hg_video media'
+  - 'create media'
   - 'create page content'
   - 'delete any article content'
   - 'delete any hg_boilerplate content'
   - 'delete any hg_event content'
   - 'delete any hg_external_news content'
   - 'delete any hg_image content'
+  - 'delete any hg_image media'
   - 'delete any hg_news content'
   - 'delete any hg_profile content'
   - 'delete any hg_video content'
+  - 'delete any hg_video media'
+  - 'delete any media'
   - 'delete any page content'
   - 'delete article revisions'
   - 'delete hg_boilerplate revisions'
@@ -57,14 +74,17 @@ permissions:
   - 'delete hg_news revisions'
   - 'delete hg_profile revisions'
   - 'delete hg_video revisions'
+  - 'delete media'
   - 'delete own article content'
   - 'delete own hg_boilerplate content'
   - 'delete own hg_event content'
   - 'delete own hg_external_news content'
   - 'delete own hg_image content'
+  - 'delete own hg_image media'
   - 'delete own hg_news content'
   - 'delete own hg_profile content'
   - 'delete own hg_video content'
+  - 'delete own hg_video media'
   - 'delete own page content'
   - 'delete page revisions'
   - 'edit any article content'
@@ -72,9 +92,11 @@ permissions:
   - 'edit any hg_event content'
   - 'edit any hg_external_news content'
   - 'edit any hg_image content'
+  - 'edit any hg_image media'
   - 'edit any hg_news content'
   - 'edit any hg_profile content'
   - 'edit any hg_video content'
+  - 'edit any hg_video media'
   - 'edit any page content'
   - 'edit own article content'
   - 'edit own comments'
@@ -82,9 +104,11 @@ permissions:
   - 'edit own hg_event content'
   - 'edit own hg_external_news content'
   - 'edit own hg_image content'
+  - 'edit own hg_image media'
   - 'edit own hg_news content'
   - 'edit own hg_profile content'
   - 'edit own hg_video content'
+  - 'edit own hg_video media'
   - 'edit own page content'
   - 'post comments'
   - 'revert article revisions'
@@ -97,6 +121,8 @@ permissions:
   - 'revert hg_video revisions'
   - 'revert page revisions'
   - 'skip comment approval'
+  - 'update any media'
+  - 'update media'
   - 'use text format full_html'
   - 'view article revisions'
   - 'view hg_boilerplate revisions'
@@ -106,5 +132,7 @@ permissions:
   - 'view hg_news revisions'
   - 'view hg_profile revisions'
   - 'view hg_video revisions'
+  - 'view media'
   - 'view own unpublished content'
+  - 'view own unpublished media'
   - 'view page revisions'

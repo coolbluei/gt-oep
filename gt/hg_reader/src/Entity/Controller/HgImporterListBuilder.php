@@ -5,7 +5,11 @@ namespace Drupal\hg_reader\Entity\Controller;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
+use Drupal\Core\Link;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
+
+
 
 /**
  * Provides a list controller for hg_reader_importer entity.
@@ -57,10 +61,14 @@ class HgImporterListBuilder extends EntityListBuilder {
     $row['name'] = $entity->toLink()->toString();
     $fids_array = $entity->fid->getValue();
     $fids = [];
+
     foreach ($fids_array as $fid) {
-      $fids[] = $fid['value'];
+      if (!is_int($fid)) {
+        $link = Link::fromTextAndUrl($fid['value'], Url::fromUri('https://hg.gatech.edu/node/' . $fid['value']))->toString();
+        $fids[] = $link;
+      }
     }
-    $row['fid'] = implode(', ', $fids);
+    $row['fid']['data']['#markup'] = implode(', ', $fids);
 
     $last_run = $entity->get('last_run')->getString();
     if ($last_run) {
@@ -68,7 +76,7 @@ class HgImporterListBuilder extends EntityListBuilder {
     } else {
       $row['last_run'] = 'n/a';
     }
-    $row['item_count'] = $entity->countItems($entity->id());
+    $row['item_count'] = $entity->countAllImporterItems($entity->id());
     return $row + parent::buildRow($entity);
   }
 

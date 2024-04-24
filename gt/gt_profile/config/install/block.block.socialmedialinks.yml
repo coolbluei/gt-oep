@@ -40,7 +40,7 @@ settings:
       weight: '-6'
     facebook:
       value: 'georgiatech'
-      description: ''
+      description: 'Follow us on Facebook'
       weight: '-5'
     flickr:
       value: ''
@@ -56,7 +56,7 @@ settings:
       weight: '-2'
     instagram:
       value: 'georgiatech'
-      description: ''
+      description: 'Follow us on Instagram'
       weight: '-1'
     linkedin:
       value: 'edu/school?id=18158&trk=tyah'
@@ -80,7 +80,7 @@ settings:
       weight: '4'
     twitter:
       value: 'georgiatech'
-      description: ''
+      description: 'Follow us on Twitter'
       weight: '5'
     vkontakte:
       value: ''
@@ -96,7 +96,7 @@ settings:
       weight: '8'
     youtube_channel:
       value: 'UCFkaWOGpyFBVRf5jEeD_wrA'
-      description: ''
+      description: 'Follow us on Youtube'
       weight: '9'
   appearance:
     orientation: h

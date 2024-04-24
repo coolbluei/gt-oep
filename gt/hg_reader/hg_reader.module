@@ -6,7 +6,7 @@
  * @author Office of Communications and Marketing <web@comm.gatech.edu>
  */
 
-define('READER_VERSION', '2.4');
+define('READER_VERSION', '4.0.2');
 define('HG_IMAGE_NOT_FOUND', 113741);
 
 use Drupal\hg_reader\Entity\HgImporter;
@@ -110,6 +110,10 @@ function hg_reader_theme() {
       'template' => 'node--hg-event--full',
       'base hook' => 'node',
     ],
+    'node__hg_event__teaser' => [
+      'template' => 'node--hg-event--teaser',
+      'base hook' => 'node',
+    ],
     'node__hg_external_news__full' => [
       'template' => 'node--hg-external-news--full',
       'base hook' => 'node',
@@ -126,6 +130,10 @@ function hg_reader_theme() {
        'template' => 'node--hg-news--full',
        'base hook' => 'node',
     ],
+    'node__hg_news__teaser' => [
+       'template' => 'node--hg-news--teaser',
+       'base hook' => 'node',
+    ],
     'node__hg_profile' => [
        'template' => 'node--hg-profile',
        'base hook' => 'node',
@@ -134,21 +142,13 @@ function hg_reader_theme() {
        'template' => 'node--hg-video',
        'base hook' => 'node',
     ],
-    'node__view__hg_events' => [
-      'template' => 'node--view--hg-events',
-      'base hook' => 'node',
-    ],
-    'node__view__hg_news' => [
-      'template' => 'node--view--hg-news',
-      'base hook' => 'node',
-    ],
     'field__field_hg_keywords' => [
      'base hook' => 'field',
     ],
     'field__field_hg_youtube_id' => [
      'base hook' => 'field',
     ],
-    'field__field_hg_images' => [
+    'field__node__field_hg_images' => [
      'base hook' => 'field',
     ],
     'field__node__field_hg_categories' => [
@@ -229,41 +229,11 @@ function hg_reader_form_alter(&$form, FormStateInterface $form_state, $form_id) 
  * Implements hook_preprocess_node. Process Mercury images and event times
  */
 function hg_reader_preprocess_node(&$vars) {
-    //get thumbnail images from field_image
-    $vars['field_image_url'] = _var_image_url($vars, 'field_image', 'thumbnail');
-
     // set up event_start and event_end vars.
-    if (isset($vars['elements']['field_hg_event_time']['#items'])) {
-      $vars['event_start'] = $vars['elements']['field_hg_event_time']['#items']->getValue()[0]['value'];
-      $vars['event_end'] = $vars['elements']['field_hg_event_time']['#items']->getValue()[0]['end_value'];
-    }
-}
-
-/**
- * Helper function for hook_preprocess_node. Pulls image field URL (original or styled)
- * @param  [type] $vars       [description]
- * @param  [type] $field      [description]
- * @param  string $style_name [description]
- * @return [type]             [description]
- */
-function _var_image_url($vars, $field, $style_name = '') {
-    if (!empty($vars['elements'][$field]['#object'])) {
-        $fields = $vars['elements'][$field]['#object']->getFields();
-        $image = $fields[$field]->getValue();
-
-        if (!empty($image[0]['target_id'])) {
-            $file = \Drupal\file\Entity\File::load($image[0]['target_id']);
-            $uri = $file->getFileUri();
-
-            if(!empty($style_name)) {
-                $url = \Drupal\image\Entity\ImageStyle::load($style_name)->buildUrl($uri);
-                return $url; //the styled URL
-            } else {
-                return file_create_url($uri); //original
-            }
-        }
-    }
-    return false;
+  if (isset($vars['elements']['field_hg_event_time']['#items'])) {
+    $vars['event_start'] = $vars['elements']['field_hg_event_time']['#items']->getValue()[0]['value'];
+    $vars['event_end'] = $vars['elements']['field_hg_event_time']['#items']->getValue()[0]['end_value'];
+  }
 }
 
 function hg_reader_modules_installed($modules) {

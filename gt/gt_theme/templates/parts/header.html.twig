@@ -1,114 +1,47 @@
-{# Alert #}
-{% if page.alert %}
-    {% block alert %}
-        {{ page.alert }}
-    {% endblock %}
-{% endif %}
-
 {# Header #}
 <header id="gt-header" role="banner">
-    <a href="#main-navigation" id="page-navigation" class="sr-only">Skip To Keyboard Navigation</a>
-    <div class="bg-gold-md-gold position-relative" id="brandhead">
-
-        {# GT Hambuger #}
-        <div id="mobile-menu-wrapper" class="d-block d-md-none container">
-            <button class="d-block ml-auto navbar-toggler collapsed" type="button" data-toggle="collapse"
-                    data-target="#Navbar" aria-controls="navbarResponsive" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="icon-bar top-bar"></span>
-                <span class="icon-bar middle-bar"></span>
-                <span class="icon-bar bottom-bar mb-1"></span>
-                <span class="icon-text"></span>
-                <span class="sr-only">Toggle navigation</span>
-            </button>
-        </div>
-
-        {# Top Header #}
-        <div class="container">
-            <div class="row">
-                <div class="col-5 col-sm-5 col-md-4 col-lg-3 bg-tech-md-gold" id="logo-wrapper">
-                    <div id="gt-logo">
-                        <a class="d-flex align-items-center" href="https://gatech.edu" title="Georgia Tech">
-                            <img id="gt-logo-image" src="{{ gt_path }}gt-logo-oneline-white.svg"
-                                 alt="{{ 'Georgia Tech'|t }} | {{ site_name }}"/>
-                        </a>
-                    </div><!--end gt-logo-->
-                </div>
-
-                <div class="col bg-gold-grad">
-                </div>
-            </div><!--end row -->
-        </div><!--end container-->
-    </div><!--end gold bg -->
-
-    <div class="container">
-        <div class="row">
-            <div class="col" id="site-name-slogan-wrapper">
-                {# GT Site Name/Site Title #}
-                {% if page.header %}
-                    <div id="site-title">
-                        {% block header %}
-                            {{ page.header }}
-                        {% endblock %}
-                    </div>
+    {# Logo and site title/s #}
+    {% if page.header %}
+        {% block header %}
+            {{ page.header }}
+        {% endblock %}
+    {% endif %}
+    {# Main and Utility Navigation and Search #}
+    <div class="container my-2">
+        <nav class="navbar navbar-expand-lg">
+            <div class="page-navigation main-nav collapse navbar-collapse" id="navbarGTContent">
+                {# Main navigation #}
+                {% if page.navigation %}
+                    {% block navigation %}
+                        <a id="main-navigation"></a>
+                        {{ page.navigation }}
+                    {% endblock %}
                 {% endif %}
-            </div><!--END col-->
-        </div><!--end row -->
-    </div><!--end container-->
-
-
-    {# Bottom Header #}
-
-    <div class="container">
-        <div class="navbar-expand-md">
-            <div id="bottom-header" class="py-1 mb-2">
-
-                <nav id="Navbar" class="collapse navbar navbar-collapse">
-                    <div class="d-md-flex w-100">
-                        {# Page Navigation #}
-                        {% if page.navigation %}
-                            <a id="main-navigation"></a>
-                            <div id="page-navigation" class="main-nav flex-shrink-1" role="navigation"
-                                 aria-label="Primary" aria-labelledby="main-navigation">
-                                {% block navigation %}
-                                    {{ page.navigation }}
-                                {% endblock %}
-                            </div>
-                        {% endif %}
-
-                        <div id="utility-search-wrapper"
-                             class="ml-auto d-sm-block d-md-flex justify-content-end flex-grow-1"
-                             role="navigation" aria-label="Secondary">
-                            {# Utility Navigation #}
-                            {% if page.utility_navigation %}
-                                <div class="utility-navigation">
-                                    {% block utility_navigation %}
-                                        {{ page.utility_navigation }}
-                                    {% endblock %}
-                                </div>
-                            {% endif %}
-
-                            {# Search #}
-                            {% if page.search %}
-                                <div id="search-container">
-                                    <div class="search-button relative">
-                                        <button class="btn btn-primary fa fa-search" title="open search" role="button"
-                                                data-toggle="collapse" data-target="#gt-search" aria-expanded="false"
-                                                aria-controls="expandable">
-                                            <span class="sr-only" role="presentation">Open Search</span>
-                                        </button>
-                                    </div>
-                                    <div id="gt-search" class="collapse absolute">
-                                        {% block search %}
-                                            {{ page.search }}
-                                        {% endblock %}
-                                    </div>
-                                </div>
-                            {% endif %}
+                {# Utility navigation #}
+            <div id="utility-search-wrapper" class="ml-auto d-sm-block d-md-flex justify-content-end flex-grow-1">
+                {% if page.utility_navigation %}
+                    {% block utility_navigation %}
+                        <div class="utility-navigation float-start">
+                            {{ page.utility_navigation }}
                         </div>
-                    </div>
-                </nav>
+                    {% endblock %}
+                {% endif %}
+                {# Search #}
+                {% if page.search %}
+                    {% block search %}
+                        <!-- Trigger Buttons HTML -->
+                        <a href="#search-container" class="gt-search" title="search" data-bs-toggle="collapse"
+                           data-bs-target="#gt-search"><i class="fas fa-search d-none d-md-block"></i></a>
+                        <!-- Collapsible Element HTML -->
+                        <div id="search-container">
+                            <div id="gt-search" class="collapse absolute">
+                                {{ page.search }}
+                            </div>
+                        </div>
+                    {% endblock %}
+                {% endif %}
+               </div>
             </div>
-        </div>
+        </nav>
     </div>
 </header>

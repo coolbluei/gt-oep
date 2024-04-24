@@ -1,0 +1,41 @@
+{# HG Mercury Profile Template #}
+
+{# Attached Style Sheet #}
+{{ attach_library('hg_reader/hg_reader') }}
+
+{# Set Div ID #}
+{% set hg_id = 'mercury' %}
+
+<div{{ attributes.setAttribute('id', hg_id).addClass('hg-profile__card') }}>
+  <a href="{{ url }}" class="hg-profile__image-link" >{{ card_image }}</a>
+  <h2 class="hg-profile__name"><a href="{{ url }}">{{ full_name }}</a></h2>
+
+  {# Top credentials #}
+  {% set college = content.field_hg_college_school|field_value|render|striptags|trim %}
+  {% set department = content.field_hg_department|field_value|render|striptags|trim %}
+  {% set specialty = content.field_hg_specialty|field_value %}
+  <p class="hg-profile__college-department">
+    <span class="hg-profile__horizontal-list">
+      {% if college is not empty %}
+        <span class="hg-profile__horizontal-list-item">{{ college }}</span>
+      {% endif %}
+      {% if department is not empty %}
+        <span class="hg-profile__horizontal-list-item">{{ department }}</span>
+      {% endif %}
+    </span>
+  </p>
+  {% if areas_of_expertise is not empty %}
+    <p class="hg-profile__expertise">
+      <span class="hg-profile__label">{{ "Areas of Expertise:"|t }}</span><br />
+      <span class="hg-profile__horizontal-list">
+      {% for area in areas_of_expertise %}
+        <span class="hg-profile__horizontal-list-item">{{ area }}</span>
+      {% endfor %}
+    </span>
+    </p>
+  {% endif %}
+  {% set specialty = content.field_hg_specialty|field_value %}
+  {% if specialty is not empty %}
+    <p class="hg-profile__specialty">{{ specialty }}</p>
+  {% endif %}
+</div>

@@ -2,22 +2,25 @@
 
 namespace Drupal\hg_reader\Entity;
 
-use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Entity\ContentEntityBase;
-use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\EntityChangedTrait;
-use Drupal\hg_reader\HgImporterInterface;
-use Drupal\user\UserInterface;
-use \Drupal\node\Entity\Node;
-use \Drupal\file\Entity\File;
-use \Drupal\taxonomy\Entity\Term;
 use Drupal\Core\Database\Connection;
-use Drupal\Core\Messenger\MessengerTrait;
-use Drupal\Core\File\FileSystemInterface;
-use Drupal\Core\Datetime\DrupalDateTime;
-use \Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\Core\Datetime\DateFormatInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\EntityChangedTrait;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Field\FieldItemList;
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Messenger\MessengerTrait;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
+use Drupal\file\Entity\File;
+use Drupal\file\FileRepositoryInterface;
+use Drupal\hg_reader\HgImporterInterface;
+use Drupal\media\Entity\Media;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\user\UserInterface;
 
 /**
  * Defines the HgImporter entity. Each importer has a name, an ID or IDs
@@ -148,6 +151,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
   public static function get_all_importers() {
     // Two ways to skin a cat, apparently.
     return self::loadMultiple(\Drupal::entityQuery('hg_reader_importer')
+      ->accessCheck(FALSE)
       ->execute());
   }
 
@@ -187,6 +191,11 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     return true;
   }
 
+  /**
+   * Check the remote node list against local nodes so we don't import duplicates.
+   * @param  array $remote_nodes A list of nodes on Mercury
+   * @return array $preexisting A list of nodes already imported
+   */
   function intersect_remote_with_local($remote_nodes) {
     $preexisting = array();
     foreach ($remote_nodes as $remote_node) {
@@ -196,14 +205,15 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
       $query->addExpression('COUNT(*)');
       $count = $query->execute()->fetchField();
       //  if nodes all exist, return false
-      if ($count == 1) { $preexisting[] = $remote_node; }
+      if ($count > 0) { $preexisting[] = $remote_node; }
     }
     return $preexisting;
   }
 
   /**
-   * Get the full list of nodes that have been deleted
+   * Get the full list of nodes that have been deleted from Mercury
    * @return array An array of node ids
+   *
    */
   function get_deleted() {
     $config = \Drupal::config('hg_reader.settings');
@@ -222,10 +232,14 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
   }
 
   /**
-   * [delete_tracked description]
-   * @param  [type] $importer [description]
-   * @param  [type] $deleted  [description]
-   * @return [type]           [description]
+   * Delete nodes that have been deleted in Mercury. In practice this tends to
+   * wipe out whole swaths of content inappropriately, so it's shelved for the
+   * time being.
+   * @param  HgImporter $importer One of these, duh
+   * @param  Array $deleted       The full list of all nodes deleted from Mercury
+   *                              in the last something, I don't remember what
+   *                              period of time but it's longish.
+   *
    */
   function delete_tracked($importer, $deleted) {
     // Don't process importers marked do not track.
@@ -299,14 +313,16 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
 
   /**
    * Pull a list of updates to a feed since a given time.
-   * @param  [type] $id       [description]
-   * @param  [type] $last_run [description]
-   * @return [type]           [description]
+   *
+   * @param  int $last_run  Time stamp for the last time the importer imported.
+   * @return array          Array containting an intersection of nodes in the feed & nodes in this system
    */
   function pull_updates($last_run) {
     $config = \Drupal::config('hg_reader.settings');
     $hg_url = $config->get('hg_url');
-    // $last_run = 1509680407; // for testing
+    // $last_run = 1656082304; // for testing
+    // This is a suck-ass way of doing this because I always forget to comment
+    // it back out when I'm done. Perhaps a debugging setting would be better.
     $url = $hg_url . '/uptracker/json/' . $last_run;
 
     $ch = $this->curl_setup($url);
@@ -331,47 +347,25 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
   public static function curl_setup($url, $follow = TRUE) {
     $ch = curl_init();
 
-    if ($follow) {
-      /*
-      * see: http://www.php.net/manual/en/function.curl-setopt.php#102121
-      */
-      $mr = 5;
-      $rch = curl_copy_handle($ch);
-      curl_setopt($rch, CURLOPT_URL, $url);
-      curl_setopt($rch, CURLOPT_FOLLOWLOCATION, false);
-      curl_setopt($rch, CURLOPT_HEADER, true);
-      curl_setopt($rch, CURLOPT_NOBODY, true);
-      curl_setopt($rch, CURLOPT_FORBID_REUSE, false);
-      curl_setopt($rch, CURLOPT_RETURNTRANSFER, true);
+    $config = \Drupal::config('hg_reader.settings');
+    $curl_connect_timeout = $config->get('hg_curl_timeout');
 
-      // follow up to $mr redirects
-      do {
-        $header = curl_exec($rch);
-        if (curl_errno($rch)) {
-          $code = 0;
-        } else {
-          $code = curl_getinfo($rch, CURLINFO_HTTP_CODE);
-          if ($code == 301 || $code == 302) {
-            preg_match('/Location:(.*?)\n/', $header, $matches);
-            $newurl = trim(array_pop($matches));
-          } else {
-            $code = 0;
-          }
-        }
-      } while ($code && --$mr);
+    $options = [
+      CURLOPT_URL => $url,
+      CURLOPT_HEADER => false,
+      CURLOPT_NOBODY => false,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_AUTOREFERER => true,
+      CURLOPT_FORBID_REUSE => false,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_FAILONERROR => true,
+      CURLOPT_CONNECTTIMEOUT => $curl_connect_timeout,
+      CURLOPT_TIMEOUT => 60,
+      CURLOPT_USERAGENT => 'hg_reader / drupal / ' . READER_VERSION . ' / ' . $_SERVER['HTTP_HOST'],
+    ];
 
-      curl_close($rch);
-    }
-    curl_setopt($ch, CURLOPT_URL, isset($newurl) ? $newurl : $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-    // curl_setopt($ch, CURLOPT_TIMEOUT, variable_get('hg_curl_timeout', 10));
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    curl_setopt($ch, CURLOPT_BINARYTRANSFER, TRUE);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'hg_reader / drupal / ' . READER_VERSION . ' / ' . $_SERVER['HTTP_HOST']);
-
+    curl_setopt_array($ch, $options);
     return $ch;
   }
 
@@ -413,12 +407,14 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
   }
 
   /**
-   * [serialize_xml description]
-   * @param  [type] $xml [description]
-   * @return [type]      [description]
+   * Applies the appropriate XSLT stylesheet to the imported XML to produce a
+   * serialized PHP array.
+   * @param  String $xml  The imported XML
+   * @param  String $type "Feed" or "Item"; Used to select the proper XSLT sheet.
+   * @return String       An imported node rendered as a serialized PHP array.
    */
   function serialize_xml($xml, $type = 'Feed') {
-    $xslt = drupal_get_path('module', 'hg_reader') . '/xsl/hgSerialized' . $type . '.xsl';
+    $xslt = \Drupal::service('extension.path.resolver')->getPath('module', 'hg_reader') . '/xsl/hgSerialized' . $type . '.xsl';
 
     // load XML into DOMDocument
     $xmlDoc = new \DOMDocument();
@@ -436,9 +432,9 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
   }
 
   /**
-   * [decode description]
-   * @param  [type] $item [description]
-   * @return [type]       [description]
+   * Converts all base64 fields in imported node array back to regular text.
+   * @param  Array $item The unserialized node array
+   *
    */
   function decode(&$item) {
     if (is_array($item)) {
@@ -456,9 +452,15 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     }
   }
 
+  /**
+   * Gets the selected text format from hg settings.
+   * @return string       The selected format.
+   */
   function get_text_format() {
     $config = \Drupal::config('hg_reader.settings');
-    $formats = \Drupal::entityQuery('filter_format')->execute();
+    $formats = \Drupal::entityQuery('filter_format')
+      ->accessCheck(FALSE)
+      ->execute();
     // TODO: module should suggest creating a text format on installation
     $format = $config->get('hg_text_format');
     if (empty($format) || !in_array($format, $formats)) {
@@ -476,18 +478,14 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
   }
 
   /**
-   * [createNode description]
-   * @param  [type] $rawnode [description]
-   * @param  [type] $fid     [description]
-   * @return [type]          [description]
+   * Creates a new node from Hg XML
+   * @param  Array  $rawnode   An array of node elements parsed from Hg XML
+   * @param  Int    $iid       Importer ID
+   * @return Boolean           Returns TRUE no matter what, which is pretty stupid really.
    */
   function create_node($rawnode, $iid) {
     // Skip this node if it already exists.
     if (in_array($rawnode['nid'], $this->preexisting)) { return false; }
-
-    // Create file object from remote URL.
-    // $data = file_get_contents('https://www.drupal.org/files/druplicon.small_.png');
-    // $file = file_save_data($data, 'public://druplicon.png', FILE_EXISTS_REPLACE);
 
     /**
      * TODO: Ok, this is a stopgap. Ideally all of these keys should be stored
@@ -500,26 +498,26 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     // Before we get started, let's correct a dumb old mistake from a million years ago.
     if ($rawnode['type'] == 'hgTechInTheNews') { $rawnode['type'] = 'external_news'; }
 
-    $parameters = $this->assemble_node($rawnode, $iid, $format);
+    $parameters = $this->create_node_helper($rawnode, $iid, $format);
 
     // Create node object
     $node = Node::create($parameters);
     $node->setOwnerId($this->getOwnerId());
     $node->save();
 
-    return true;
+    return $node;
   }
 
   /**
-   * [assemble_node description]
-   * @param  [type] $rawnode [description]
-   * @param  [type] $iid     [description]
-   * @param  [type] $format  [description]
-   * @return [type]          [description]
+   * Offloads the nitty gritty of node creation.
+   * @param  Array $rawnode   An array of node elements parsed from Hg XML
+   * @param  Int $iid         Importer ID
+   * @param  String $format   The selected text format
+   * @return Array            An array of node elements processed and ready for socking into a node.
    */
-  function assemble_node($rawnode, $iid, $format) {
+  function create_node_helper($rawnode, $iid, $format) {
     // First we build the universal parts of each node.
-    $parameters = array(
+    $elements = array(
       'type'                    => 'hg_' . $rawnode['type'],
       'title'                   => $rawnode['title'] ?: 'No Title',
       'field_hg_importer'       => $iid,
@@ -534,46 +532,66 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     // Then we build the CT-specific parts of each node.
     switch($rawnode['type']) {
       case 'external_news':
-        $parameters['field_hg_article_url']      = $rawnode['article_url'];
-        $parameters['field_hg_dateline']         = substr($rawnode['article_dateline'], 0, 10);
-        $parameters['field_hg_publication']      = $rawnode['publication'];
-        $parameters['field_hg_related_files']    = $rawnode['files'];
+        $elements['field_hg_article_url']      = $rawnode['article_url'];
+        $elements['field_hg_dateline']         = isset($rawnode['dateline']) ? substr($rawnode['dateline'], 0, 10) : '';
+        $elements['field_hg_publication']      = $rawnode['publication'];
+        $elements['field_hg_related_files']    = isset($rawnode['files']) ? $rawnode['files'] : '';
         break;
 
       case 'event':
-        $parameters['field_hg_extras']           = $rawnode['event_extras'];
-        $parameters['field_hg_fee']              = $rawnode['event_fee'];
-        $parameters['field_hg_location']         = $rawnode['event_location'];
-        $parameters['field_hg_location_email']   = $rawnode['event_email'];
-        $parameters['field_hg_location_phone']   = $rawnode['phone'];
-        $parameters['field_hg_location_url']     = strpos($rawnode['event_url'], 'http') != 0 ? 'http://' . $rawnode['event_url'] : $rawnode['event_url'];
-        $parameters['field_hg_related_files']    = $rawnode['files'];
-        $parameters['field_hg_summary_sentence'] = $rawnode['sentence'];
-        $parameters['field_hg_keywords']         = $this->process_terms($rawnode['keywords'], 'hg_keywords') ?: array();
-        $parameters['field_hg_event_categories'] = $this->process_terms($rawnode['categories'], 'hg_categories') ?: array();
-        $parameters['field_hg_invited_audience'] = $this->process_terms($rawnode['event_audience'], 'hg_invited_audience') ?: array();
-        $parameters['field_hg_images']           = $this->process_images($rawnode['hg_media']) ?: array();
+        // Easy fields
+        $elements['field_hg_fee']              = $rawnode['event_fee'];
+        $elements['field_hg_location']         = $rawnode['event_location'];
+        $elements['field_hg_location_email']   = $rawnode['event_email'];
+        $elements['field_hg_location_phone']   = $rawnode['phone'];
+        $elements['field_hg_location_url']     = strpos($rawnode['event_url'], 'http') != 0 ? 'http://' . $rawnode['event_url'] : $rawnode['event_url'];
+        $elements['field_hg_related_files']    = $rawnode['files'];
+        $elements['field_hg_summary_sentence'] = $rawnode['sentence'];
+        $elements['field_hg_keywords']         = $this->process_terms($rawnode['keywords'], 'hg_keywords') ?: array();
+        $elements['field_hg_event_categories'] = $this->process_terms($rawnode['categories'], 'hg_event_categories') ?: array();
+        $elements['field_hg_invited_audience'] = $this->process_terms($rawnode['event_audience'], 'hg_invited_audience') ?: array();
+        $elements['field_hg_images']           = $this->process_images($rawnode['hg_media']) ?: array();
+        $elements['field_hg_event_time']       = $this->process_eventdate($rawnode['start'], $rawnode['end'], null);
+
+        // Extras
+        foreach ($rawnode['event_extras'] as $extra) {
+          $elements['field_hg_extras'][] = $extra['extra'];
+        }
+
+        // Groups
+        foreach ($rawnode['groups'] as $group) {
+          $elements['field_hg_groups'][] = $group['name'];
+        }
+
         // TODO: This is not in the serialized array but should be.
-        // $parameters['field_hg_sidebar']          = $rawnode['sidebar'];
-        $parameters['field_hg_contact']          = [
+        // $elements['field_hg_sidebar']          = $rawnode['sidebar'];
+
+        // Contact
+        $elements['field_hg_contact']          = [
           'value' => $rawnode['contact'],
           'format' => $format,
         ];
 
-        // Converting dates from hg.gatech.edu to UTC for storage.
-        //\Drupal::logger('hg_reader')->notice("Raw start date [" . $rawnode['start'] . "].");
-        $parameters['field_hg_event_time'] = $this->process_eventdate($rawnode['start'], $rawnode['end'], null);
-
-        $parameters['field_hg_summary']          = [
+        // Summary
+        $elements['field_hg_summary']          = [
           'value' => $rawnode['summary'],
           'format' => $format,
         ];
+
+        // Location URL
+        $elements['field_hg_location_url'] = [
+          'uri' => strpos($rawnode['event_url'], 'http') != 0 ? 'http://' . $rawnode['event_url'] : $rawnode['event_url'],
+          'title' => $rawnode['event_url_title'],
+        ];
+
+        // Related links
         foreach ($rawnode['related_links'] as $link) {
-          $parameters['field_hg_related_links'][]    = [
+          $elements['field_hg_related_links'][]    = [
             'uri' => $link['url'],
             'title' => $link['title'],
           ];
         }
+
         break;
 
       case 'image':
@@ -583,59 +601,140 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
           'image_path' => $rawnode['image_path'],
           'body' => $rawnode['body'],
         ];
-        $parameters['field_hg_images'] = $this->process_images($rawnode['images']) ?: array();
+        $elements['field_hg_images'] = $this->process_images($rawnode['images']) ?: array();
           break;
 
       case 'video':
-        $parameters['field_hg_youtube_id'] = $rawnode['youtube_id'];
+        $elements['field_hg_youtube_id'] = $rawnode['youtube_id'];
         break;
 
-      case 'news':
-        $parameters['field_hg_dateline']            = substr($rawnode['dateline'], 0, 10);
-        $parameters['field_hg_email']               = $rawnode['email'];
-        $parameters['field_hg_location']            = $rawnode['location'];
-        $parameters['field_hg_related_files']       = $rawnode['files'];
-        //$parameters['field_hg_related_links']       = $rawnode['related_links'];
-        $parameters['field_hg_subtitle']            = $rawnode['subtitle'];
-        $parameters['field_hg_summary_sentence']    = $rawnode['sentence'];
-        $parameters['field_hg_keywords']            = $this->process_terms($rawnode['keywords'], 'hg_keywords') ?: array();
-        $parameters['field_hg_categories']          = $this->process_terms($rawnode['categories'], 'hg_categories') ?: array();
-        if (isset($rawnode['news_room_topics'])) {
-          $parameters['field_hg_news_room_topics']  = $this->process_terms($rawnode['news_room_topics'], 'hg_news_room_topics') ?: array();
+      case 'profile':
+        $elements['field_hg_alternate_job_title']           = $rawnode['alttitle'];
+        $elements['field_hg_city']                          = $rawnode['city'];
+        $elements['field_hg_college_school']                = $rawnode['college_school'];
+        $elements['field_hg_department']                    = $rawnode['department'];
+        $elements['field_hg_fax_number']                    = $rawnode['fax'];
+        $elements['field_hg_first_name']                    = $rawnode['firstname'];
+        $elements['field_hg_job_title']                     = $rawnode['jobtitle'];
+        $elements['field_hg_last_name']                     = $rawnode['lastname'];
+        $elements['field_hg_linkedin']                      = $rawnode['linkedin'];
+        $elements['field_hg_middle_name']                   = $rawnode['middlename'];
+        $elements['field_hg_mobile_phone']                  = $rawnode['cell'];
+        $elements['field_hg_nickname']                      = $rawnode['nickname'];
+        $elements['field_hg_phone_number']                  = $rawnode['phone'];
+        $elements['field_hg_primary_email']                 = $rawnode['primaryemail'];
+        $elements['field_hg_research']                      = $rawnode['research'];
+        $elements['field_hg_secondary_email']               = $rawnode['secondaryemail'];
+        $elements['field_hg_specialty']                     = $rawnode['specialty'];
+        $elements['field_hg_state']                         = $rawnode['state'];
+        $elements['field_hg_street_address']                = $rawnode['address'];
+        $elements['field_hg_summary']                       = $rawnode['summary'];
+        $elements['field_hg_teaching']                      = $rawnode['teaching'];
+        $elements['field_hg_twitter']                       = $rawnode['twitter'];
+        $elements['field_hg_zip_code']                      = $rawnode['zipcode'];
+
+        $elements['field_hg_media']                            = $this->process_media($rawnode['hg_media']) ?: array();
+        // $elements['field_hg_youtube_video']                 = $this->process_media($rawnode['hg_media'], 'remote_video') ?: array();
+
+        $elements['field_hg_related_files']                 = $this->process_files($rawnode['files']) ?: array();
+
+        if (isset($rawnode['areas_of_expertise'])) {
+          $elements['field_hg_expertise'] = $this->process_terms($rawnode['areas_of_expertise'], 'hg_areas_of_expertise') ?: array();
         }
-        // TODO: Fix this.
-        // $parameters['field_hg_core_research_areas'] = $this->process_terms($rawnode['core_research_areas']) ?: array();
-        $parameters['field_hg_images']              = $this->process_images($rawnode['hg_media']) ?: array();
-        $parameters['field_hg_youtube_video']       = $this->process_videos($rawnode['hg_media']) ?: array();
-        $parameters['field_hg_contact']             = [
-          'value' => $rawnode['contact'],
-          'format' => $format,
+
+        foreach ($rawnode['classifications'] as $classification) {
+          $classification = strtolower(preg_replace('/\s+/', '_', $classification));
+          $elements['field_hg_classification'][] = $classification;
+        }
+
+        $degree = strtolower(preg_replace('/\s+/', '_', $rawnode['degree']));
+        $elements['field_hg_degree'] = $degree;
+
+        $elements['field_hg_url'][] = [
+          'uri' => $rawnode['url'],
+          'title' => $rawnode['url_title'],
         ];
-        $parameters['field_hg_summary']             = [
-          'value' => $rawnode['summary'],
-          'format' => $format,
-        ];
-        $parameters['field_hg_sidebar']             = [
-          'value' => $rawnode['sidebar'],
-          'format' => $format,
-        ];
+
         foreach ($rawnode['related_links'] as $link) {
-          $parameters['field_hg_related_links'][]     = [
+          $elements['field_hg_related_links'][]     = [
             'uri' => $link['url'],
             'title' => $link['title'],
           ];
+        }
 
+        foreach ($rawnode['recent_news'] as $hg_id) {
+          $query = \Drupal::entityQuery('node')
+            ->accessCheck(TRUE)
+            ->condition('field_hg_id', $hg_id);
+            $referenced = $query->execute();
+
+          // This item is in the system already
+          if (!empty($referenced)) {
+            $elements['field_hg_recent_appearances'][] = [
+              'target_id' => reset($referenced)
+            ];
+          } else {
+            // Item is not in the system. We need to import it and add it to the field.
+            $new_node_xml = $this->pull_remote($hg_id, 'item');
+            $new_node_raw = unserialize($this->serialize_xml($new_node_xml, 'Item'));
+            $this->decode($new_node_raw);
+            $new_node = $this->create_node($new_node_raw, $this->id());
+            $elements['field_hg_recent_appearances'][] = $new_node->id();
+          }
+        }
+        break;
+
+      case 'news':
+        $elements['field_hg_dateline']            = substr($rawnode['dateline'], 0, 10);
+        $elements['field_hg_email']               = isset($rawnode['email']) ? $rawnode['email'] : '';
+        $elements['field_hg_location']            = isset($rawnode['location']) ? $rawnode['location'] : '';
+        $elements['field_hg_related_files']       = isset($rawnode['files']) ? $rawnode['files'] : '';
+        $elements['field_hg_subtitle']            = isset($rawnode['subtitle']) ? $rawnode['subtitle'] : '';
+        $elements['field_hg_summary_sentence']    = isset($rawnode['sentence']) ? $rawnode['sentence'] : '';
+        $elements['field_hg_keywords']            = $this->process_terms($rawnode['keywords'], 'hg_keywords') ?: array();
+        $elements['field_hg_categories']          = $this->process_terms($rawnode['categories'], 'hg_categories') ?: array();
+        if (isset($rawnode['news_room_topics'])) {
+          $elements['field_hg_news_room_topics']  = $this->process_terms($rawnode['news_room_topics'], 'hg_news_room_topics') ?: array();
+        }
+        if (isset($rawnode['core_research_areas'])) {
+          $elements['field_hg_core_research_areas']  = $this->process_terms($rawnode['core_research_areas'], 'hg_core_research_areas') ?: array();
+        }
+        // TODO: Fix this.
+        // $elements['field_hg_core_research_areas'] = $this->process_terms($rawnode['core_research_areas']) ?: array();
+        $elements['field_hg_images']              = isset($rawnode['hg_media']) ? $this->process_images($rawnode['hg_media']) : array();
+        $elements['field_hg_youtube_video']       = isset($rawnode['hg_media']) ? $this->process_videos($rawnode['hg_media']) : array();
+
+        $elements['field_hg_contact']             = [
+          'value' => $rawnode['contact'],
+          'format' => $format,
+        ];
+        $elements['field_hg_summary']             = [
+          'value' => $rawnode['summary'],
+          'format' => $format,
+        ];
+        $elements['field_hg_sidebar']             = [
+          'value' => $rawnode['sidebar'],
+          'format' => $format,
+        ];
+        if (isset($rawnode['related_links']) && is_array($rawnode['related_links'])) {
+          foreach ($rawnode['related_links'] as $link) {
+            $elements['field_hg_related_links'][]     = [
+              'uri' => $link['url'],
+              'title' => $link['title'],
+            ];
+          }
         }
 
         break;
     }
-    return $parameters;
+    return $elements;
   }
 
   /**
-   * [update_node description]
-   * @param  [type] $nid [description]
-   * @return [type]      [description]
+   * Updates an existing node from Hg XML
+   *
+   * @param  Int $remote_nid    ID of node in Mercury
+   * @return Object             The new node object
    */
   function update_node($remote_nid) {
     // pull a specific node
@@ -650,18 +749,23 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
       ->execute()
       ->fetchAssoc();
     $node = \Drupal::entityTypeManager()->getStorage('node')->load($nid['entity_id']);
-    $this->modify_node($node, $remote_node);
-    // dpm($node, 'node');
+    if (!$node instanceof Node) { return FALSE; }
+    $this->update_node_helper($node, $remote_node);
     $node->save();
+
+    return $node;
   }
 
   /**
-   * [modify_node description]
-   * @param  [type] $node        [description]
-   * @param  [type] $remote_node [description]
-   * @return [type]              [description]
+   * Offloads the nitty gritty of node updates.
+   * @param  Object $node        The node being updated
+   * @param  Array $remote_node  Node elements parsed from XML
+   * @return Object $node        The updated node
    */
-  function modify_node(&$node, $remote_node) {
+  function update_node_helper(&$node, $remote_node) {
+    // just in case we get a slug
+    if (!$node instanceof Node) { return; }
+
     $format = $this->get_text_format();
 
     // Universal bits
@@ -675,50 +779,79 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
       case 'external_news':
         $node->set('field_hg_article_url', $remote_node['article_url']);
         $node->field_hg_dateline->set(0, [
-          'value' => substr($remote_node['article_dateline'], 0, 10),
+          'value' => isset($remote_node['article_dateline']) ? substr($remote_node['article_dateline'], 0, 10) : '',
         ]);
         $node->set('field_hg_publication', $remote_node['publication']);
-        $node->set('field_hg_related_files', $remote_node['files']);
+        $node->set('field_hg_related_files', isset($remote_node['files']) ? $remote_node['files'] : '');
         break;
 
       case 'event':
+        // Easy fields
         $node->set('field_hg_extras', $remote_node['extras']);
         $node->set('field_hg_fee', $remote_node['fee']);
         $node->set('field_hg_location', $remote_node['location']);
         $node->set('field_hg_location_email', $remote_node['locationemail']);
         $node->set('field_hg_location_phone', $remote_node['locationphone']);
-        $node->set('field_hg_location_url', strpos($remote_node['locationurl'], 'http') != 0 ? 'http://' . $remote_node['locationurl'] : $remote_node['locationurl']);
         $node->set('field_hg_related_files', $remote_node['files']);
         $node->set('field_hg_related_links', $remote_node['links']);
         $node->set('field_hg_summary_sentence', $remote_node['sentence']);
-        // $node->set('field_hg_keywords']         = $this->process_terms($remote_node['keywords']) ?: array();
-        // $node->set('field_hg_event_categories'] = $this->process_terms($remote_node['categories']) ?: array();
+        $node->set('field_hg_keywords', $this->process_terms($remote_node['keywords'], 'hg_keywords') ?: array());
+        $node->set('field_hg_event_categories', $this->process_terms($remote_node['event_categories'], 'hg_event_categories') ?: array());
         $node->set('field_hg_invited_audience', $this->process_terms($remote_node['event_audience'], 'audience') ?: array());
+
+        // Images
         $images = $this->process_images($remote_node['media']);
         if (!empty($images)) {
           foreach ($images as $key => $image) {
             $node->field_hg_images->set($key, $this->process_images($remote_node['media']) ?: array());
           }
         }
+
+        // Groups
+        foreach ($remote_node['groups'] as $key => $group) {
+          $node->field_hg_groups->set($key, $group['name']);
+        }
+
         // TODO: This is not in the serialized array but should be.
         // $node->set('field_hg_sidebar']          = $remote_node['sidebar']);
+
+        // Contact
         $node->field_hg_contact->set(0, [
           'value' => $remote_node['contact'],
           'format' => $format,
         ]);
 
-        $processed_time = $this->process_eventdate($remote_node['times'][0]['startdate'], $remote_node['times'][0]['stopdate'], $remote_hg['times'][0]['timezone']);
-
+        // Event time
+        $processed_time = $this->process_eventdate($remote_node['times'][0]['startdate'], $remote_node['times'][0]['stopdate'], $remote_node['times'][0]['timezone']);
         $node->field_hg_event_time->set(0, $processed_time);
 
+        // Summary
         $node->field_hg_summary->set(0, [
           'value' => $remote_node['summary'],
           'format' => $format,
         ]);
+
+        // Location URL
+        $node->set('field_hg_location_url', [
+          'uri' => strpos($remote_node['locationurl'], 'http') != 0 ? 'http://' . $remote_node['locationurl'] : $remote_node['locationurl'],
+          'title' => $remote_node['locationurltitle'],
+        ]);
+
+        // Links
+        foreach ($remote_node['links'] as $key => $link) {
+          // This is stupid just beyond belief.
+          $link['uri'] = $link['linkurl'];
+          $link['title'] = $link['linktitle'];
+          unset($link['linkurl']);
+          unset($link['linktitle']);
+
+          $node->field_hg_related_links->set($key, $link);
+        }
+
         break;
 
       case 'image':
-          // Image files are not collected in XML; first collect them.
+        // Image files are not collected in XML; first collect them.
         $remote_node['images']['image'] = [
           'image_name' => $remote_node['image_name'],
           'image_path' => $remote_node['image_path'],
@@ -732,55 +865,214 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         break;
 
       case 'news':
-        // $node->set('field_hg_dateline', substr($remote_node['dateline'], 0, 19));
         $node->field_hg_dateline->set(0, [
           'value' => substr($remote_node['dateline'], 0, 10),
         ]);
         $node->set('field_hg_email', $remote_node['contact_email']);
         $node->set('field_hg_location', $remote_node['location']);
         $node->set('field_hg_related_files', $remote_node['files']);
-        $node->set('field_hg_related_links', $remote_node['links']);
         $node->set('field_hg_subtitle', $remote_node['subtitle']);
         $node->set('field_hg_summary_sentence', $remote_node['sentence']);
-        // $node->set('field_hg_keywords']            = $this->process_terms($remote_node['keywords']) ?: array();
-        // $node->set('field_hg_categories']          = $this->process_terms($remote_node['categories']) ?: array();
-        // $node->set('field_hg_news_room_topics']    = $this->process_terms($remote_node['news_terms']) ?: array();
-        // TODO: Fix this.
-        // $node->set('field_hg_core_research_areas'] = $this->process_terms($remote_node['core_research_areas']) ?: array();
-        $images = $this->process_images($remote_node['media']);
+        $node->set('field_hg_keywords', $this->process_terms($remote_node['keywords'], 'hg_keywords') ?: array());
+        $node->set('field_hg_categories', $this->process_terms($remote_node['categories'], 'hg_categories') ?: array());
+        $node->set('field_hg_core_research_areas', $this->process_terms($remote_node['core_research_areas'], 'hg_core_research_areas') ?: array());
+        $node->set('field_hg_news_room_topics', $this->process_terms($remote_node['news_room_topics'], 'hg_news_room_topics') ?: array());
+
+        $images = $this->process_images($remote_node['hg_media']);
         if (!empty($images)) {
-          foreach ($images as $key => $image) {
-            $node->field_hg_images->set($key, $this->process_images($remote_node['media']) ?: array());
+          $i = 0;
+          foreach ($images as $image) {
+            $node->field_hg_images->set($i, $image);
           }
         }
-        $videos = $this->process_videos($remote_node['media']);
+
+        $videos = $this->process_videos($remote_node['hg_media']);
         if (!empty($videos)) {
-          foreach ($videos as $key => $video) {
-            $node->field_hg_youtube_video->set($key, $this->process_videos($remote_node['media']) ?: array());
+          $i = 0;
+          foreach ($videos as $video) {
+            $node->field_hg_youtube_video->set($i, $this->process_videos($remote_node['hg_media']) ?: array());
           }
         }
+
+        // Contact
         $node->field_hg_contact->set(0, [
           'value' => $remote_node['contact'],
           'format' => $format,
         ]);
+
+        // Summary
         $node->field_hg_summary->set(0, [
           'value' => $remote_node['summary'],
           'format' => $format,
         ]);
+
+        // Sidebar
         $node->field_hg_sidebar->set(0, [
           'value' => $remote_node['sidebar'],
           'format' => $format,
         ]);
 
+        // Links
+        foreach ($remote_node['links'] as $key => $link) {
+          // This is stupid just beyond belief.
+          $link['uri'] = $link['linkurl'];
+          $link['title'] = $link['linktitle'];
+          unset($link['linkurl']);
+          unset($link['linktitle']);
+
+          $node->field_hg_related_links->set($key, $link);
+        }
+
         break;
+
+      case 'profile':
+        // The easy fields
+        $node->set('field_hg_department',           $remote_node['department']);
+        $node->set('field_hg_first_name',           $remote_node['firstname']);
+        $node->set('field_hg_middle_name',          $remote_node['middlename']);
+        $node->set('field_hg_last_name',            $remote_node['lastname']);
+        $node->set('field_hg_nickname',             $remote_node['nickname']);
+        $node->set('field_hg_mobile_phone',         $remote_node['cell']);
+        $node->set('field_hg_phone_number',         $remote_node['phone']);
+        $node->set('field_hg_fax_number',           $remote_node['fax']);
+        $node->set('field_hg_primary_email',        $remote_node['primaryemail']);
+        $node->set('field_hg_secondary_email',      $remote_node['secondaryemail']);
+        $node->set('field_hg_street_address',       $remote_node['address']);
+        $node->set('field_hg_city',                 $remote_node['city']);
+        $node->set('field_hg_state',                $remote_node['state']);
+        $node->set('field_hg_zip_code',             $remote_node['zipcode']);
+        $node->set('field_hg_college_school',       $remote_node['college_school']);
+        $node->set('field_hg_job_title',            $remote_node['jobtitle']);
+        $node->set('field_hg_alternate_job_title',  $remote_node['alttitle']);
+        $node->set('field_hg_summary',              $remote_node['summary']);
+        $node->set('field_hg_teaching',             $remote_node['teaching']);
+        $node->set('field_hg_specialty',            $remote_node['specialty']);
+        $node->set('field_hg_research',             $remote_node['research']);
+        $node->set('field_hg_linkedin',             $remote_node['linkedin']);
+        $node->set('field_hg_twitter',              $remote_node['twitter']);
+
+        // These fields need to provide sane defaults
+        $node->set('field_hg_expertise', $this->process_terms($remote_node['expertise'], 'hg_expertise') ?: array());
+        $node->set('field_hg_related_files', $this->process_files($remote_node['files']) ?: array());
+
+        // Convert degree to appropriate taxonomy key
+        $degree = strtolower(preg_replace('/\s+/', '_', $remote_node['degree']));
+        $node->set('field_hg_degree', $degree);
+
+        // Convert classifications to appropriate taxonomy key
+        foreach ($remote_node['classifications'] as $classification) {
+          $classification = strtolower(preg_replace('/\s+/', '_', $classification));
+          $node->set('field_hg_classification', $classification);
+        }
+
+        // Media processing is offloaded to a helper function.
+        $media = $this->process_media($remote_node['hg_media']);
+        if (!empty($media)) {
+          foreach ($media as $key => $item) {
+            $node->field_hg_media->set($key, $item);
+          }
+        }
+
+        // Links
+        foreach ($remote_node['links'] as $key => $link) {
+          $node->field_hg_related_links->set($key, $link);
+        }
+
+        // Recent news field may require importation of additional nodes.
+        foreach ($remote_node['recent_news'] as $hg_id) {
+          $query = \Drupal::entityQuery('node')
+            ->accessCheck(TRUE)
+            ->condition('field_hg_id', $hg_id);
+            $referenced = $query->execute();
+          // This item is in the system already
+          if (!empty($referenced)) {
+            $referenced = reset($referenced);
+            // Do we alrady have this item in the field?
+            $match = FALSE;
+            foreach ($node->field_hg_recent_appearances as $item) {
+              $nid = $item->getValue();
+              if ($referenced == $nid['target_id']) {
+                $match = TRUE;
+              }
+            }
+            // If it's not already in the field, add it.
+            if ($match == FALSE) {
+              $node->field_hg_recent_appearances->set($node->field_hg_recent_appearances->count(), $referenced);
+            }
+          } else {
+            // Item is not in the system. We need to import it and add it to the field.
+            $new_node_xml = $this->pull_remote($hg_id, 'item');
+            $new_node_raw = unserialize($this->serialize_xml($new_node_xml, 'Item'));
+            $this->decode($new_node_raw);
+            $new_node = $this->create_node($new_node_raw, $this->id());
+            $node->field_hg_recent_appearances->set($node->field_hg_recent_appearances->count(), $new_node->id());
+          }
+        }
     }
   }
 
   /**
-   * [process_images description]
+   * Create media entities corresponding to incoming media items and reference
+   * them in the current node.
+   * @param array $media Array of media elements
+   * @param string $type Media type
+   * @return [type] [description]
+   */
+  function process_media($media) {
+    $media_list = [];
+    /** @var FileSystemInterface $file_system */
+    $file_system = \Drupal::service('file_system');
+    /** @var FileRepositoryInterface $file_repository */
+    $file_repository = \Drupal::service('file.repository');
+
+    foreach ($media as $item) {
+      if ($item['type'] == 'image') {
+        $file_data = file_get_contents($item['image_path']);
+        $directory_uri = 'public://' . date('Y-d');
+        $file_system->prepareDirectory($directory_uri, FileSystemInterface::CREATE_DIRECTORY|FileSystemInterface::MODIFY_PERMISSIONS);
+        $file = $file_repository->writeData($file_data, $directory_uri . '/' . $item['image_name'], FileSystemInterface::EXISTS_REPLACE);
+
+        $media_entity = Media::create([
+          'bundle' => 'hg_image',
+          'field_media_hg_image' => [
+              'target_id' => $file->id(),
+              'alt' => $item['title'],
+              'title' => $item['title'],
+            ],
+          ]);
+        $media_entity->setName($item['title'])
+          ->setPublished(TRUE)
+          ->save();
+
+        $media_list[] = [
+          'target_id' => $media_entity->id(),
+        ];
+      } else if ($item['type'] == 'video') {
+        $media_entity = Media::create([
+          'bundle' => 'hg_video',
+          'field_media_hg_video' => [
+              'value' => $item['youtube_id'],
+            ],
+          ]);
+        $media_entity->setName($item['title'])
+          ->setPublished(TRUE)
+          ->save();
+
+        $media_list[] = [
+          'target_id' => $media_entity->id(),
+        ];
+      }
+    }
+    return $media_list;
+  }
+
+  /**
+   * DEPRECATED--we'll be moving everything to media soon.
    * @return [type] [description]
    */
   function process_images($images) {
+    if (is_null($images)) { return FALSE; }
+
     $config = \Drupal::config('hg_reader.settings');
     $hg_url = $config->get('hg_url');
 
@@ -792,8 +1084,10 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
       foreach ($images as $image) {
         if (!empty($image['youtube_id'])) {
           continue;
+        } else if (!isset($image['image_path']) || empty($image['image_path'])) {
+          continue;
         } else if (!$data = @file_get_contents($image['image_path'])) { continue; }
-        $file = file_save_data($data, 'public://' . 'hg_media/' . $image['image_name'], FileSystemInterface::EXISTS_REPLACE);
+        $file = \Drupal::service('file.repository')->writeData($data, 'public://' . 'hg_media/' . $image['image_name'], FileSystemInterface::EXISTS_REPLACE);
         $image_list[$file->id()] = [
           'target_id' => $file->id(),
           'alt' => substr(strip_tags($image['body']), 0, 512),
@@ -810,10 +1104,12 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
   }
 
   /**
-   * [process_videos description]
+   * DEPRECATED--we'll be moving everything to media soon.
    * @return [type] [description]
    */
   function process_videos($videos) {
+    if (is_null($videos)) { return FALSE; }
+
     $video_list = array();
 
     foreach ($videos as $video) {
@@ -826,22 +1122,51 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     return $video_list;
   }
 
+  /**
+   * [process_files description]
+   * @return [type] [description]
+   */
+  function process_files($files) {
+    $config = \Drupal::config('hg_reader.settings');
+    $hg_url = $config->get('hg_url');
+
+    // TODO: File path should be part of the module's configuration.
+    $local_path = 'public://hg_attachments';
+    if (\Drupal::service('file_system')->prepareDirectory($local_path, FileSystemInterface::CREATE_DIRECTORY)) {
+      $file_list = array();
+
+      foreach ($files as $file) {
+        if ($file['filepath'] == '') {
+          continue;
+        } else if (!$data = @file_get_contents($file['filepath'])) { continue; }
+        $raw = \Drupal::service('file.repository')->writeData($data, $local_path . '/' . $file['filename'], FileSystemInterface::EXISTS_REPLACE);
+        $fid = $raw->get('fid')->first()->getValue()['value'];
+        $file_list[] = ['target_id' => $fid];
+      }
+      return $file_list;
+
+    } else {
+      // TODO: Oh Lord
+      \Drupal::messenger()->addMessage(t('Destination directory is faulty.'), 'error');
+      return FALSE;
+    }
+  }
 
   /**
    * [process_terms description]
    * @param  [type] $keywords [description]
    * @return [type]           [description]
    */
-  function process_terms($rawterms, $fieldname = NULL) {
+  function process_terms($rawterms, $vid = NULL) {
     if (empty($rawterms)) { return FALSE; }
     $tids = array();
     foreach ($rawterms as $rawterm) {
-      if (is_array($rawterm)) { $rawterm = $rawterm[$fieldname]; }
-      $terms = taxonomy_term_load_multiple_by_name($rawterm, $fieldname);
+      if (is_array($rawterm)) { $rawterm = $rawterm[$vid] ?: $rawterm['term'] ; }
+      $terms = \Drupal::entityTypeManager()->getStorage("taxonomy_vocabulary")->loadByProperties(["name" => $rawterm, "vid" => $vid]);
       if ($terms == NULL) {
-        $created = $this->create_term($rawterm, $fieldname);
+        $created = $this->create_term($rawterm, $vid);
         if ($created) {
-          $new_terms = taxonomy_term_load_multiple_by_name($rawterm, $fieldname);
+          $new_terms = \Drupal::entityTypeManager()->getStorage("taxonomy_vocabulary")->loadByProperties(["name" => $rawterm, "vid" => $vid]);
           foreach ($new_terms as $key => $term) {
             $tids[] = $key;
           }
@@ -895,12 +1220,26 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
   function delete_nodes($iid) {
     $name = $this->get('name')->first()->getValue();
     $result = \Drupal::entityQuery('node')
+        ->accessCheck(TRUE)
         ->condition('field_hg_importer', $iid)
         ->execute();
 
-    $storage_handler = \Drupal::entityTypeManager()->getStorage('node');
-    $entities = $storage_handler->loadMultiple($result);
-    $storage_handler->delete($entities);
+    // Get entities associated with this feed.
+    $node_storage_handler = \Drupal::entityTypeManager()->getStorage('node');
+    $media_storage_handler = \Drupal::entityTypeManager()->getStorage('media');
+    $entities = $node_storage_handler->loadMultiple($result);
+
+    // Delete all related media items for profiles.
+    foreach ($entities as $entity) {
+      if ($entity->type->getValue()[0]['target_id'] == 'hg_profile') {
+        foreach ($entity->field_hg_media->referencedEntities() as $media) {
+          $media->delete();
+        }
+      }
+    }
+
+    // Delete all feed nodes.
+    $node_storage_handler->delete($entities);
 
     \Drupal::messenger()->addMessage(t('Deleted all content from <em>@name</em>.', array('@name' => $name['value'])), 'status');
   }
@@ -909,8 +1248,9 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
    * Return count of items associated with this importer.
    *
    */
-  function countItems($iid) {
+  function countAllImporterItems($iid) {
     $query = \Drupal::entityQuery('node')
+      ->accessCheck(FALSE)
       ->condition('field_hg_importer', $iid);
     $count = $query->count()->execute();
     return $count;
@@ -1049,6 +1389,15 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     return $fields;
   }
 
+  /**
+   * Helper function for event time processing
+   *
+   * @param  Timestamp $raw_start Timestamp of event start time
+   * @param  Timestamp $raw_end   Timestamp of event end time
+   * @param  String    $timezone  String representation of time zone
+   *
+   * @return Array                Array representation of a time
+   */
   public function process_eventdate($raw_start, $raw_end, $timezone){
     // Timezone check via $raw_start
     $raw_start_tz = (new \DateTime($raw_start))->getTimezone()->getName();

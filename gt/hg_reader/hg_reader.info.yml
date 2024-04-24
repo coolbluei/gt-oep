@@ -2,20 +2,23 @@ name: Mercury Reader
 description: Client-side integration for Mercury
 package: GT
 type: module
-core_version_requirement: ^8.8 || ^9
-version: "2.4"
+core_version_requirement: ^9.4 || ^10
+version: "4.0.2"
 project: 'hg_reader'
-project status url: http://repo.drupal.gatech.edu/release_history/hg_reader/8.x
+project status url: https://repo.drupal.gatech.edu/release_history/hg_reader/4.x
 configure: hg_reader.settings
 dependencies:
   - drupal:datetime
   - drupal:datetime_range
   - drupal:field
   - drupal:field_group
-  - drupal:video_embed_field
+  - drupal:twig_field_value
   - drupal:taxonomy
   - drupal:telephone
-datestamp: 1607029556
-
+  - drupal:twig_tweak
+  - drupal:video_embed_field
+  - drupal:media
+  - drupal:media_library
+datestamp: 1689012875
 libraries:
    - 'hg_reader/global-styling'

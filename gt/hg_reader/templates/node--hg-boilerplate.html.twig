@@ -1,26 +1,24 @@
 {# HG Boilerplate Template #}
+{% set classes = [
+  'row',
+  'mercury',
+  'boilerplate',
+  'mb-5',
+  'clearfix',
+] %}
 
 {# Attached Style Sheet #}
 {{ attach_library('hg_reader/hg_reader') }}
 
-{# Set Row Classes #}
-{% set classRow = 'row mb-5 clearfix' %}
-
-{# Content Start #}
-
-{# Set Div Wrapper ID #}
-<div id="mercury" class="row mb-5 clearfix">
-
+{# Content #}
+<article{{ attributes.setAttribute('id', 'mercury').addClass(classes) }}>
   {# Set Main Container #}
-  <div class="col-md-12 col-sm-12 col-xs-12">
-
+  <div class="col">
     {# Description #}
     {% if content.body is not empty %}
-      <div class="content boilerplate">
+      <div class="content">
         {{ content.body }}
       </div>
     {% endif %}
-
   </div>
-
-</div>
+</article>

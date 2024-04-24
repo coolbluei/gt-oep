@@ -1,0 +1,29 @@
+uuid: 7f759e0b-16ab-4734-8191-fb216fba3e53
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hg_expertise
+    - node.type.hg_profile
+    - taxonomy.vocabulary.hg_areas_of_expertise
+id: node.hg_profile.field_hg_expertise
+field_name: field_hg_expertise
+entity_type: node
+bundle: hg_profile
+label: 'Areas of expertise'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      hg_areas_of_expertise: hg_areas_of_expertise
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

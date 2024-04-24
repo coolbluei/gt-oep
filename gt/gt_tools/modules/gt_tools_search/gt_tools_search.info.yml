@@ -1,0 +1,10 @@
+name: GT Tools Search
+description: Search functionality for GT sites. Search is optional. Uninstall if you are going to use a different search module
+package: GT
+type: module
+core_version_requirement: ^9
+version: "3.0.5"
+project: "GT Tools"
+project status url: http://repo.drupal.gatech.edu/release_history/gt_tools/3.x
+dependencies:
+  - search

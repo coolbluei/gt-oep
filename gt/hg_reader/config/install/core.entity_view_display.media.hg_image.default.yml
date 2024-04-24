@@ -1,0 +1,29 @@
+uuid: ef49c4da-7bb3-492a-b443-383b23727381
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.hg_image.field_media_hg_image
+    - image.style.large
+    - media.type.hg_image
+  module:
+    - image
+id: media.hg_image.default
+targetEntityType: media
+bundle: hg_image
+mode: default
+content:
+  field_media_hg_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: large
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  name: true
+  thumbnail: true
+  uid: true

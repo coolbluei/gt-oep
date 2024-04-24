@@ -1,9 +1,13 @@
 # METADATA
 name: 'GT'
 type: theme
-description: 'GT Bootstrap 4 theme for Drupal 9.'
-core_version_requirement: ^8.8 || ^9
-base theme: stable
+description: 'GT Bootstrap 5 theme for Drupal 9/10.'
+core_version_requirement: ^9.2 || ^10
+package: GT
+project: 'gt_theme'
+project status url: https://repo.drupal.gatech.edu/release_history/gt_theme/4.x
+version: '4.0.2'
+base theme: false
 
 regions:
   alert: 'Alert'
@@ -41,3 +45,4 @@ libraries:
   - 'gt/global-styling'
   - 'gt/fonts'
   - 'gt/bootstrap_cdn'
+  - 'gt/gt-webform'

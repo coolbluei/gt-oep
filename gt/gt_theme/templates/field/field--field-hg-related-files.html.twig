@@ -39,7 +39,6 @@
 {% set title_classes = [
     label_display == 'visually_hidden' ? 'visually-hidden',
 ] %}
-
 {% if label_hidden %}
     {% if multiple %}
         <div{{ attributes }}>
@@ -58,18 +57,16 @@
         {% if multiple %}
         <div>
             {% endif %}
-
             {% for item in items %}
                 <div{{ item.attributes }}>{{ item.content }}
                     {% if item.content['#file'].filename.value|split('.')|last == 'pdf' %}
-                        <a class="download-reader" href="https://get.adobe.com/reader/" target="_blank">Download Acrobat Reader</a>
+                        <a class="download-reader" href="https://get.adobe.com/reader/"
+                           target="_blank">{{ 'Download Acrobat Reader'|t }}</a>
                     {% else %}
                         {# Do Nothing #}
                     {% endif %}
                 </div>
             {% endfor %}
-
-
             {% if multiple %}
         </div>
         {% endif %}

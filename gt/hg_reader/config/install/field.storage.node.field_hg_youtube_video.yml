@@ -2,6 +2,9 @@ uuid: 63c74363-bafa-4fcd-ae18-15ec172550f2
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - hg_reader
   module:
     - node
     - video_embed_field

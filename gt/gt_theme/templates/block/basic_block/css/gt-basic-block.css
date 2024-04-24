@@ -1,0 +1,25 @@
+/* CSS for Basic Blocks */
+.gt-basic-block .field--type-link .field__item a:link,
+.gt-basic-block .field--type-link .field__item a:visited,
+.gt-basic-block .field--type-link .field__item a:active {
+    background: var(--gt-gold);
+    border-radius: 3px;
+    color: var(--gt-black);
+    display: block;
+    font-size: .9rem;
+    padding: .5rem 1rem;
+    margin: .25rem;
+    text-decoration: none !important;
+    width: fit-content;
+}
+
+.gt-basic-block .field--type-link .field__item a:hover {
+    background: var(--gt-navy);
+    color: var(--gt-white);
+    text-decoration: none !important;
+}
+
+.gt-basic-block .field--type-link .field--label {
+    position: absolute;
+    left: -9999px;
+}

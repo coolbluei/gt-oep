@@ -1,0 +1,30 @@
+uuid: 91c1f93a-2092-451f-8a02-e3dad450005b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.hg_video.field_media_hg_video
+    - image.style.medium
+    - media.type.hg_video
+  module:
+    - image
+id: media.hg_video.media_library
+targetEntityType: media
+bundle: hg_video
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: medium
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_media_hg_video: true
+  name: true
+  uid: true

@@ -22,30 +22,31 @@
  */
 #}
 {{ attach_library('gt/status-messages') }}
-
 {% for type, messages in message_list %}
-  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes|without('role', 'aria-label') }}>
+<div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes|without('role', 'aria-label') }}>
     {% if type == 'error' %}
     <div role="alert" class="status-message status-message--error">
-      {% elseif type == 'status' %}
-      <div role="status" class="status-message status-message--status">
-        {% elseif type == 'warning' %}
-        <div role="alert" class="status-message status-message--warning">
-          {% endif %}
-          {% if status_headings[type] %}
-            <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
-          {% endif %}
-          {% if messages|length > 1 %}
-            <ul>
-              {% for drupal_message in messages %}
-                <li>{{ drupal_message }}</li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            {{ messages|first }}
-          {% endif %}
-          {% if type %}
-        </div>
-        {% endif %}
-      </div>
-{% endfor %}
+        {% elseif type == 'status' %}
+        <div role="status" class="status-message status-message--status">
+            {% elseif type == 'warning' %}
+            <div role="alert" class="status-message status-message--warning">
+                {% elseif type %}
+                <div role="info" class="status-message">
+                    {% endif %}
+                    {% if status_headings[type] %}
+                        <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
+                    {% endif %}
+                    {% if messages|length > 1 %}
+                        <ul>
+                            {% for drupal_message in messages %}
+                                <li>{{ drupal_message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ messages|first }}
+                    {% endif %}
+                    {% if type %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}

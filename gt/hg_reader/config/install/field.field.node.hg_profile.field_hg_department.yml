@@ -1,0 +1,19 @@
+uuid: 14209fb0-dfc8-4b5a-9201-23620c564afe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hg_department
+    - node.type.hg_profile
+id: node.hg_profile.field_hg_department
+field_name: field_hg_department
+entity_type: node
+bundle: hg_profile
+label: Department
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

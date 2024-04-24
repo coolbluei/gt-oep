@@ -50,7 +50,7 @@
     <div{{ attributes }}>
       {% for item in items %}
         <div{{ item.attributes.addClass(classes) }}>
-          <a class="btn btn-secondary"
+          <a class="hg-link"
              href="{{ item.content['#url']|render }}" {% if item.content['#options']['external'] %} target="_blank" {% endif %}>{{ item.content['#title'] }}</a>
         </div>
       {% endfor %}
@@ -58,20 +58,22 @@
   {% else %}
     {% for item in items %}
       <div{{ attributes.addClass(classes) }}>
-        <a class="btn btn-secondary"
+        <a class="hg-link"
            href="{{ item.content['#url']|render }}" {% if item.content['#options']['external'] %} target="_blank" {% endif %}>{{ item.content['#title'] }}</a>
       </div>
     {% endfor %}
   {% endif %}
 {% else %}
   <div{{ attributes }}>
-    <div{{ title_attributes }}><h2>{{ label }}</h2></div>
+    <div{{ title_attributes }}>
+        <h4>{{ label }}</h4>
+    </div>
     {% if multiple %}
     <div>
       {% endif %}
       {% for item in items %}
         <div{{ item.attributes.addClass(classes) }}>
-          <a class="btn btn-secondary"
+          <a class="hg-link"
              href="{{ item.content['#url']|render }}" {% if item.content['#options']['external'] %} target="_blank" {% endif %}>{{ item.content['#title'] }}</a>
         </div>
       {% endfor %}

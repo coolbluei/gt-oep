@@ -1,0 +1,50 @@
+uuid: ccca742c-4655-4179-b215-ddcf3eaf7036
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alerts
+    - field.field.block_content.alerts.body
+    - field.field.block_content.alerts.field_alert_style
+    - field.field.block_content.alerts.field_link
+  module:
+    - link
+    - text
+id: block_content.alerts.default
+targetEntityType: block_content
+bundle: alerts
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 2
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+    region: content
+  field_alert_style:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_link:
+    weight: 3
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

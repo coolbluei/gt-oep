@@ -1,0 +1,21 @@
+uuid: 8ee3d0b5-3edd-4f67-8de8-33d8568195df
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - hg_reader
+id: hg_video
+label: 'Mercury video'
+description: 'Media container for videos pulled from Mercury sources.'
+source: 'oembed:video'
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_hg_video
+  thumbnails_directory: 'public://hg_thumbnails/[date:custom:Y-m]'
+  providers:
+    - YouTube
+    - Vimeo
+field_map:
+  title: name

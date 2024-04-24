@@ -7,6 +7,8 @@ dependencies:
     - node.type.hg_profile
   module:
     - file
+_core:
+  default_config_hash: PmNGTxWtiEoamWWCGynjVbI_fvcjsRECKl42FpWJGoM
 id: node.hg_profile.field_hg_related_files
 field_name: field_hg_related_files
 entity_type: node
@@ -18,10 +20,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: 'hg_attachments/[date:custom:Y]-[date:custom:m]'
-  file_extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp svg'
-  max_filesize: '2 MB'
-  description_field: false
   handler: 'default:file'
   handler_settings: {  }
+  file_directory: 'hg_attachments/[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'doc docx jpg jpeg gif odp ods odt pdf png pps ppt svg txt xls'
+  max_filesize: '8 MB'
+  description_field: false
 field_type: file

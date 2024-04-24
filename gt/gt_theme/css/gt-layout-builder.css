@@ -1,4 +1,8 @@
 /* GT Layout Builder CSS */
+.use-ajax.inline-block-create-button {
+  display: none !important;
+}
+
 .layout__region {
   padding: 0 1rem;
   margin: 0 0 2rem;
@@ -215,15 +219,15 @@
 .layout--twocol-section .layout__region,
 .layout--threecol-section .layout__region,
 .layout--fourcol-section .layout__region {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 /* allow height of card or superblock to grow to take up height */
 .layout--twocol-section .layout__region > .card,
-.layout--threecol-section .layout__region  > .card,
+.layout--threecol-section .layout__region > .card,
 .layout--fourcol-section .layout__region > .card {
-	flex-grow: 2;
+  flex-grow: 2;
 }
 
 #node-page-layout-builder-form .layout--onecol .layout__region,
@@ -434,7 +438,9 @@
 }
 
 .placeholder {
-  color: #262626;
+  color: #262626 !important;
+  background: transparent !important;
+  opacity: 1;
 }
 
 #node-page-layout-builder-form .vertical-tabs__menu-item.is-selected,

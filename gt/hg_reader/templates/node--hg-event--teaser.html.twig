@@ -1,0 +1,142 @@
+{# HG Mercury Event Teaser Template #}
+
+{# Attached Style Sheet #}
+{{ attach_library('hg_reader/hg_reader') }}
+
+{# Content Start #}
+<div class="row mercury event-teaser mb-5 clearfix">
+    {% if node.field_hg_event_time.start_date is not null %}
+        {# Set Sidebar Container #}
+        <div class="col">
+        {# Date Wrapper #}
+        <div class="col date-wrapper p-0 w-100">
+            <time datetime='{{ node.field_hg_event_time.start_date|date('c') }}'>
+
+                {# Day #}
+                {% set day_start = node.field_hg_event_time.start_date|date('l') %}
+                {% set day_end = node.field_hg_event_time.end_date|date('l') %}
+
+                <div class="day bg-dark">
+                    <p>
+                        {% if day_start is not empty and day_start is same as(day_end) %}
+                            {{ day_start }}
+                        {% else %}
+                            {# Multi #}
+                            {{ day_start  ~ ' - ' ~ day_end }}
+                        {% endif %}
+                    </p>
+                </div>
+
+                {# Month #}
+                {% set month_start = node.field_hg_event_time.start_date|date('F') %}
+                {% set month_end = node.field_hg_event_time.end_date|date('F') %}
+                <div class="month">
+                    <p>
+                        {% if month_start is not empty and month_start is same as(month_end) %}
+                            {{ month_start }}
+                        {% else %}
+                            {# Multi #}
+                            {{ month_start  ~ ' - ' ~ month_end }}
+                        {% endif %}
+                    </p>
+                </div>
+
+                {# Date #}
+                {% set date_start = node.field_hg_event_time.start_date|date('j', false) %}
+                {% set date_end = node.field_hg_event_time.end_date|date('j', false) %}
+                <div class="date">
+                    <p>
+                        {% if date_start is not empty and date_start is same as(date_end) %}
+                            {# Single #}
+                            {{ date_start }}
+                        {% else %}
+                            {# Multi #}
+                            {{ date_start  ~ ' - ' ~ date_end }}
+                        {% endif %}
+                    </p>
+                </div>
+
+                {# Year #}
+                {% set year_start = node.field_hg_event_time.start_date|date('Y') %}
+                {% set year_end = node.field_hg_event_time.end_date|date('Y') %}
+                <div class="year">
+                    <p>
+                        {% if year_start is not empty and year_start is same as(year_end) %}
+                            {# Single #}
+                            {{ year_start }}
+                        {% else %}
+                            {# Multi #}
+                            {{ year_start  ~ ' - ' ~ year_end }}
+                        {% endif %}
+                    </p>
+                </div>
+
+                {# Time #}
+                {% set allday_start = node.field_hg_event_time.start_date|date('g:iA', false)|join|replace({' ':'', ' - ':'',':':''})|lower %}
+                {% set allday_end = node.field_hg_event_time.end_date|date('g:iA', false)|join|replace({' ':'', ' - ':'',':':''})|lower %}
+                {% set time_start = node.field_hg_event_time.start_date|date('g:iA', false) %}
+                {% set time_end = node.field_hg_event_time.end_date|date('g:iA', false) %}
+                <div class="d-flex justify-content-center time my-4">
+                    {% if allday_start ~ allday_end == '1200am1159pm' %}
+                        {# All Day #}
+                        <p>{{ 'All Day'|t }}</p>
+                    {% elseif time_start is not empty and time_start is same as(time_end) %}
+                        {# Start and End time same #}
+                        <time>{{ time_start }}</time>
+                    {% elseif time_start is not empty and time_end is not empty %}
+                        {# Start and End time #}
+                        <time>{{ time_start }}</time>
+                        <bdi class="mx-1">{{ '-'|t }}</bdi>
+                        <time>{{ time_end }}</time>
+                    {% else %}
+                    {% endif %}
+                </div>
+            </time>
+        </div> <!-- end date-wrapper -->
+
+        {# Sidebar #}
+        {% if content.field_hg_sidebar|render is not empty %}
+            <div class="sidebar sidebar-left my-4 mx-2">
+                {{ content.field_hg_sidebar }}
+            </div>
+        {% endif %}
+
+        </div>{# End Sidebar #}
+    {% endif %}
+
+    {# Main Content  #}
+    <div class="col">
+        <div class="row">
+            <div class="hg-title w-100 ml-3 mb-3">
+                <h3><a href="{{ path('entity.node.canonical', {'node': node.id}) }}">{{ node.title.value }}</a></h3>
+            </div>
+            {% if content.field_hg_summary_sentence[0] is not empty and content.field_hg_images[0] is empty %}
+                <div class="col description">
+                    {% if content.field_hg_summary[0] is not empty and content.field_hg_summary[0] is same as(content.field_hg_summary[0]) %}
+                        {{ content.field_hg_summary_sentence[0] }}
+                    {% else %}
+                        {# Multi #}
+                        {{ content.field_hg_summary_sentence[0] }}<br>{{ content.field_hg_summary[0] }}
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="col hg-teaser-image">
+                    <a href="{{ path('entity.node.canonical', {'node': node.id}) }}">
+                        {{ content.field_hg_images[0] }}
+                    </a>
+                </div>
+                <div class="col description">
+                    {% if content.field_hg_summary[0] is not empty and content.field_hg_summary[0] is same as(content.field_hg_summary[0]) %}
+                        {{ content.field_hg_summary_sentence[0] }}
+                    {% else %}
+                        {# Multi #}
+                        {{ content.field_hg_summary_sentence[0] }}<br>{{ content.field_hg_summary[0] }}
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{# End Mercury Event Template #}
+

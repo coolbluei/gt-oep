@@ -2,7 +2,9 @@
 
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\block_content\Entity\BlockContentType;
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\SortArray;
+use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 
 /**
@@ -11,47 +13,14 @@ use Drupal\taxonomy\Entity\Term;
  * Place your custom PHP code in this file.
  */
 
-function gt_preprocess_page(&$variables) {
-  // GT images needs to be placed within specified folder on the root level
-  $variables['gt_path'] = '/' . drupal_get_path('theme','gt') . '/images' .'/';
-  $variables['contact_title'] = theme_get_setting('contact_title');
-  $variables['contact_address'] = theme_get_setting('contact_address');
-  $variables['contact_address_2'] = theme_get_setting('contact_address_2');
-  $variables['contact_city'] = theme_get_setting('contact_city');
-  $variables['contact_state'] = theme_get_setting('contact_state');
-  $variables['contact_zip_code'] = theme_get_setting('contact_zip_code');
-  $variables['contact_telephone'] = theme_get_setting('contact_telephone');
-  $variables['contact_map_url'] = theme_get_setting('contact_map_url');
-  $variables['cas_login'] = theme_get_setting('cas_login');
-  $variables['super_footer'] = theme_get_setting('super_footer');
-  $variables['footer_01_size'] = (!theme_get_setting('footer_01_size') || theme_get_setting('footer_01_size') == 0) ? 3 : theme_get_setting('footer_01_size');
-  $variables['footer_02_size'] = (!theme_get_setting('footer_02_size') || theme_get_setting('footer_02_size') == 0) ? 3 : theme_get_setting('footer_02_size');
-  $variables['footer_03_size'] = (!theme_get_setting('footer_03_size') || theme_get_setting('footer_03_size') == 0) ? 3 : theme_get_setting('footer_03_size');
-  $variables['footer_04_size'] = (!theme_get_setting('footer_04_size') || theme_get_setting('footer_04_size') == 0) ? 3 : theme_get_setting('footer_04_size');
-}
-
-/**
- * Implementation of hook_form_alter().
- *
- *
- */
-function gt_suggestions_form_alter(array &$suggestions, array $variables) {
-  if ($variables['element']['#form_id'] == 'search_block_form') {
-    $suggestions[] = 'form__search_block_form';
-  }
-}
-
-/**
- * Implementation of block_form_alter().
- *
- *
- */
-function gt_form_search_block_form_alter(&$form, &$form_state)
+function gt_preprocess_page(&$variables)
 {
-  $form['keys']['#attributes']['placeholder'][] = t('Search here...');
-  $form['actions']['submit']['#value'] = html_entity_decode('GO');
-  $form['actions']['submit']['#attributes']['alt'] = "Search submit";
-  $form['actions']['submit']['#attributes']['class'][] = 'btn btn-default';
+    $variables['cas_login'] = theme_get_setting('cas_login');
+    $variables['super_footer'] = theme_get_setting('super_footer');
+    $variables['footer_01_size'] = (!theme_get_setting('footer_01_size') || theme_get_setting('footer_01_size') == 0) ? 3 : theme_get_setting('footer_01_size');
+    $variables['footer_02_size'] = (!theme_get_setting('footer_02_size') || theme_get_setting('footer_02_size') == 0) ? 3 : theme_get_setting('footer_02_size');
+    $variables['footer_03_size'] = (!theme_get_setting('footer_03_size') || theme_get_setting('footer_03_size') == 0) ? 3 : theme_get_setting('footer_03_size');
+    $variables['footer_04_size'] = (!theme_get_setting('footer_04_size') || theme_get_setting('footer_04_size') == 0) ? 3 : theme_get_setting('footer_04_size');
 }
 
 /**
@@ -60,64 +29,59 @@ function gt_form_search_block_form_alter(&$form, &$form_state)
  *
  */
 function gt_preprocess_menu_local_task(&$variables) {
-  $variables['link']['#options']['attributes']['class'][] = 'btn btn-secondary';
+    $variables['link']['#options']['attributes']['class'][] = 'btn btn-secondary';
 }
 
 function gt_preprocess_region(&$variables) {
-  $theme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+    $theme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
 
-  // Branding elements
-  $variables['site_name'] = \Drupal::config('system.site')->get('name');
-  $variables['site_slogan'] = \Drupal::config('system.site')->get('slogan');
+    // Branding elements
+    $variables['site_name'] = \Drupal::config('system.site')->get('name');
+    $variables['site_slogan'] = \Drupal::config('system.site')->get('slogan');
 
-  if (function_exists('gt_tools_installed')) {
-    // dpm(\Drupal\block\Entity\Block::loadMultiple());
-    // Utility navigation
-    //$block = \Drupal\block\Entity\Block::load('archimedes_account_menu');
-    //$block_content = \Drupal::entityTypeManager()
-    //  ->getViewBuilder('block')
-    //  ->view($block);
-    // $variables['utility_navigation'] = $block_content;
-
-    // Search form
-    // $block = \Drupal\block\Entity\Block::load($theme . '_search');
-    // $block_content = \Drupal::entityTypeManager()
-    //   ->getViewBuilder('block')
-    //   ->view($block);
-    // $variables['search_form'] = $block_content;
-
-    // Main menu
-    $block = \Drupal\block\Entity\Block::load($theme . '_main_menu');
-    if (isset($block)) {
-      $block_content = \Drupal::entityTypeManager()
-        ->getViewBuilder('block')
-        ->view($block);
-      $variables['main_navigation'] = $block_content;
+    if (function_exists('gt_tools_installed')) {
+        // Main menu
+        $block = \Drupal\block\Entity\Block::load($theme . '_main_menu');
+        if (isset($block)) {
+            $block_content = \Drupal::entityTypeManager()
+                ->getViewBuilder('block')
+                ->view($block);
+            $variables['main_navigation'] = $block_content;
+        }
+    } else {
+        \Drupal::messenger()->addError(t('You must <a href="@extend">install GT Tools</a> in order for the GT Theme to work properly.', array('@extend' => '/admin/modules')));
     }
-  } else {
-    \Drupal::messenger()->addError(t('You must <a href="@extend">install GT Tools</a> in order for the GT Theme to work properly.', array('@extend' => '/admin/modules')));
-  }
 }
+
 /**
- * Implementation of hook_preprocess_html().
+ * Implements hook_preprocess_html().
  *
- *
+ * Allow CSS/Footer Customization and add path alias to body class.
  */
-/* Allow CSS/Footer Customization and add path alias to body class */
 function gt_preprocess_html(&$variables) {
-  $variables['attributes']['class'][] = theme_get_setting('hide-breadcrumb');
+    $variables['attributes']['class'][] = theme_get_setting('hide-breadcrumb');
+    /* Add body class to nodes */
+    $current_path = \Drupal::service('path.current')->getPath();
+    $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+    $path_alias = ltrim($path_alias, '/');
+    $variables['attributes']['class'][] = 'path-' . Html::cleanCssIdentifier($path_alias);
 
-  if (theme_get_setting('customize_css')) {
-    $custom_style = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', theme_get_setting('customize_css'));
-    $custom_style = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '   ', '    '), '', $custom_style);
-    $variables['customize_css'] = $custom_style;
-  }
+    $node = \Drupal::request()->attributes->get('node');
+    if ($node instanceof Node) {
+        $variables['attributes']['class'][] = 'page-node-' . $node->id();
+    }
 
-  $account = \Drupal::currentUser();
-  $roles = $account->getRoles();
-  foreach ($roles as $role) {
-    $variables['attributes']['class'][] = 'role-' . $role;
-  }
+    if (theme_get_setting('customize_css')) {
+        $custom_style = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', theme_get_setting('customize_css'));
+        $custom_style = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '   ', '    '), '', $custom_style);
+        $variables['customize_css'] = $custom_style;
+    }
+
+    $account = \Drupal::currentUser();
+    $roles = $account->getRoles();
+    foreach ($roles as $role) {
+        $variables['attributes']['class'][] = 'role-' . $role;
+    }
 }
 
 /**
@@ -126,41 +90,42 @@ function gt_preprocess_html(&$variables) {
  *
  */
 function gt_preprocess_views_view_grid(&$variables) {
-  $view = $variables['view'];
-  $rows = $variables['rows'];
-  $style = $view->style_plugin;
-  $options = $style->options;
-  $variables['gt_masonry']['class'] = '';
-  $variables['gt_masonry']['class_item'] = '';
-  if (strpos($options['row_class_custom'], 'masonry') || $options['row_class_custom'] == 'masonry') {
-    $variables['gt_masonry']['class'] = 'post-masonry-style row';
-    $variables['gt_masonry']['class_item'] = 'item-masonry';
-  }
+    $view = $variables['view'];
+    $rows = $variables['rows'];
+    $style = $view->style_plugin;
+    $options = $style->options;
+    $variables['gt_masonry']['class'] = '';
+    $variables['gt_masonry']['class_item'] = '';
+    if (strpos($options['row_class_custom'], 'masonry') || $options['row_class_custom'] == 'masonry') {
+        $variables['gt_masonry']['class'] = 'post-masonry-style row';
+        $variables['gt_masonry']['class_item'] = 'item-masonry';
+    }
 }
 
-function gt_preprocess_block(&$variables) {
-  $content = isset($variables['elements']['content']) ? $variables['elements']['content'] : NULL;
-  if (isset($content['#block_content']) && $content['#block_content'] instanceof BlockContent) {
-    $type = $content['#block_content']->bundle();
-    if ($type === 'banner' or $type === 'call_to_action' or $type === 'image_with_copy') {
-      $term = Term::load($content['#block_content']->get('field_style')->getString());
-      $variables['color_background'] = str_replace(' ', '-', strtolower(Term::load($term->get('field_background_color')->getString())->getName()));
-      $variables['color_text'] = str_replace(' ', '-', strtolower(Term::load($term->get('field_text_color')->getString())->getName()));
-      $variables['color_text_background'] = str_replace(' ', '-', strtolower(Term::load($term->get('field_text_background_color')->getString())->getName()));
-      $variables['color_button'] = str_replace(' ', '-', strtolower(Term::load($term->get('field_button_color')->getString())->getName()));
+function gt_preprocess_block(&$variables)
+{
+    $content = $variables['elements']['content'] ?? NULL;
+    if (isset($content['#block_content']) && $content['#block_content'] instanceof BlockContent) {
+        $type = $content['#block_content']->bundle();
+        if ($type === 'banner' or $type === 'call_to_action' or $type === 'image_with_copy') {
+            $term = Term::load($content['#block_content']->get('field_style')->getString());
+            $variables['color_background'] = str_replace(' ', '-', strtolower(Term::load($term->get('field_background_color')->getString())->getName()));
+            $variables['color_text'] = str_replace(' ', '-', strtolower(Term::load($term->get('field_text_color')->getString())->getName()));
+            $variables['color_text_background'] = str_replace(' ', '-', strtolower(Term::load($term->get('field_text_background_color')->getString())->getName()));
+            $variables['color_button'] = str_replace(' ', '-', strtolower(Term::load($term->get('field_button_color')->getString())->getName()));
+        }
     }
-  }
-  $variables['hide_breadcrumb'] = theme_get_setting('hide_breadcrumb');
-  $variables['title_one_url'] = theme_get_setting('title_one_url');
-  $variables['title_two_url'] = theme_get_setting('title_two_url');
+    $variables['hide_breadcrumb'] = theme_get_setting('hide_breadcrumb');
+    $variables['title_one_url'] = theme_get_setting('title_one_url');
+    $variables['title_two_url'] = theme_get_setting('title_two_url');
 }
 
 function gt_preprocess_block__inline_block__modal_image(&$variables) {
-  $image_list = $variables['elements']['content']['#block_content']->get('field_image');
-  while (!$image_list->isEmpty()) {
-    $variables['images'][] = $image_list->first();
-    $image_list->removeItem(0);
-  }
+    $image_list = $variables['elements']['content']['#block_content']->get('field_image');
+    while (!$image_list->isEmpty()) {
+        $variables['images'][] = $image_list->first();
+        $image_list->removeItem(0);
+    }
 }
 
 /**
@@ -169,10 +134,10 @@ function gt_preprocess_block__inline_block__modal_image(&$variables) {
  * @param array $variables
  */
 function gt_theme_suggestions_block_alter(array &$suggestions, array $variables) {
-  // Block suggestions for custom block bundles.
-  if (isset($variables['elements']['content']['#block_content'])) {
-    array_splice($suggestions, 1, 0, 'block__bundle__' . $variables['elements']['content']['#block_content']->bundle());
-  }
+    // Block suggestions for custom block bundles.
+    if (isset($variables['elements']['content']['#block_content'])) {
+        array_splice($suggestions, 1, 0, 'block__bundle__' . $variables['elements']['content']['#block_content']->bundle());
+    }
 }
 
 
@@ -183,23 +148,32 @@ function gt_theme_suggestions_block_alter(array &$suggestions, array $variables)
  * @param array $extra
  */
 function gt_plugin_filter_block__layout_builder_alter(&$definitions, array $extra) {
-  # Load in all Custom Block Types.
-  $block_types = BlockContentType::loadMultiple();
-  $block_prefix = "inline_block";
+    # Load in all Custom Block Types.
+    $block_types = BlockContentType::loadMultiple();
+    $block_prefix = "inline_block";
 
-  # Sort alphabetically by label?
-  uasort($block_types, function($a, $b) {
-    return SortArray::sortByKeyString($a, $b, 'label');
-  });
+    # Sort alphabetically by label?
+    uasort($block_types, function ($a, $b) {
+        return SortArray::sortByKeyString($a, $b, 'label');
+    });
 
-  # 'Add GT Blocks'
-  foreach ($block_types as $block_type => $block) {
-    # Append prefix.
-    $definition = &$definitions["$block_prefix:$block_type"];
+    # 'Add GT Blocks'
+    foreach ($block_types as $block_type => $block) {
+        # Append prefix.
+        $definition = &$definitions["$block_prefix:$block_type"];
 
-    # Add 'Add GT Blocks'
-    $definition['category'] = t('Add GT Blocks');
-    # And sync block->label with definition.
-    $definition['admin_label'] = $block->label();
-  }
+        # Add 'Add GT Blocks'
+        $definition['category'] = t('Add GT Blocks');
+        # And sync block->label with definition.
+        $definition['admin_label'] = $block->label();
+    }
+}
+
+/**
+ * Apply layout builder css to layout builder ONLY because it's leaky as shit 
+ * and anyway why would we load it on every page?
+ *
+ */
+function gt_form_node_page_layout_builder_form_alter(&$form, $form_state, $form_id) {
+  $form['#attached']['library'][] = 'layout-builder';
 }

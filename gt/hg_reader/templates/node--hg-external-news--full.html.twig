@@ -3,34 +3,21 @@
 {# Attached Style Sheet #}
 {{ attach_library('hg_reader/hg_reader') }}
 
-{# Set Div ID #}
-{% set hg_id = 'mercury' %}
-
-{# Set Row Classes #}
-{% set classRow = 'row mb-5 clearfix' %}
-
-{# Bootstrap Col Width classes #}
-{% set colFull = "col-md-12 col-sm-12 col-xs-12" %}
-
 {# Set Content CSS Classes #}
 {% set classes = [
     'label',
     'content',
+    'external-news',
     'pt-1',
     'pb-1',
 ] %}
 
-{# Content Start # }
-
 {# Set Div Wrapper ID #}
-<div {{ attributes.setAttribute('id', hg_id) }}>
-
+<div{{ attributes.setAttribute('id', 'mercury').addClass(classes) }}>
     {# Set Row Container #}
-    <div class="{{ classRow }}">
-
+    <div class="row mb-5">
         {# Set Main Container #}
-        <div class="{{ colFull }}">
-
+        <div class="col">
             {# Article URL #}
             {% if content.field_hg_article_url|render is not empty %}
                 {# label #}
@@ -42,7 +29,6 @@
                     {{ content.field_hg_article_url }}
                 </div>
             {% endif %}
-
             {# Dateline #}
             {% if content.field_hg_dateline|render is not empty %}
                 {# label #}
@@ -54,14 +40,12 @@
                     {{ content.field_hg_dateline[0] }}
                 </div>
             {% endif %}
-
             {# Description #}
             {% if content.body|render is not empty %}
                 <div{{ attributes.addClass('description', classes).removeClass('label', 'dateline') }}>
                     {{ content.body[0] }}
                 </div>
             {% endif %}
-
             {# Publication #}
             {% if content.field_hg_publication|render is not empty %}
                 {# label #}
@@ -73,7 +57,6 @@
                     {{ content.field_hg_publication[0] }}
                 </div>
             {% endif %}
-
             {# Related Files #}
             {% if content.field_hg_related_files|render is not empty %}
                 {# label #}
@@ -85,12 +68,9 @@
                     {{ content.field_hg_related_files }}
                 </div>
             {% endif %}
-
         </div>
         {# End Main Container #}
-
     </div>
     {# End Row  #}
-
 </div>
 {# End Mercury External News Template   #}

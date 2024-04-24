@@ -16,7 +16,7 @@
             <xsl:text>;</xsl:text>
 
             <xsl:if test="type = 'news'">
-                <xsl:text>a:30:{</xsl:text>
+                <xsl:text>a:31:{</xsl:text>
 
                 <xsl:call-template name="general_element">
                     <xsl:with-param name="element_name" select="string('nid')" />
@@ -152,13 +152,15 @@
 
                 <xsl:call-template name="news_room_topics" />
 
+                <xsl:call-template name="core_research_areas" />
+
                 <xsl:call-template name="keywords" />
 
                 <xsl:text>}</xsl:text>
             </xsl:if>
 
             <xsl:if test="type = 'event'">
-                <xsl:text>a:32:{</xsl:text>
+                <xsl:text>a:33:{</xsl:text>
 
                 <xsl:call-template name="general_element">
                     <xsl:with-param name="element_name" select="string('nid')" />
@@ -206,6 +208,12 @@
                     <xsl:with-param name="element_name" select="string('phone')" />
                     <xsl:with-param name="element_format" select="string('string')" />
                     <xsl:with-param name="element_value" select="phone" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('event_url_title')" />
+                    <xsl:with-param name="element_format" select="string('string')" />
+                    <xsl:with-param name="element_value" select="location_url/title" />
                 </xsl:call-template>
 
                 <xsl:call-template name="general_element">
@@ -548,6 +556,242 @@
                 <xsl:text>}</xsl:text>
             </xsl:if>
 
+            <xsl:if test="type = 'profile'">
+                <xsl:text>a:43:{</xsl:text>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('body')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="body" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('nid')" />
+                    <xsl:with-param name="element_format" select="string('numeric')" />
+                    <xsl:with-param name="element_value" select="@id" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('type')" />
+                    <xsl:with-param name="element_format" select="string('string')" />
+                    <xsl:with-param name="element_value" select="type" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('title')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="title" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('summary')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="summary" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('firstname')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="firstname" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('middlename')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="middlename" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('lastname')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="lastname" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('nickname')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="nickname" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('college_school')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="college_school" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('department')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="department" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('specialty')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="specialty" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('degree')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="degree" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('address')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="address" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('city')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="city" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('state')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="state" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('zipcode')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="zipcode" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('primaryemail')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="primaryemail" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('secondaryemail')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="secondaryemail" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('url')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="url" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('url_title')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="url_title" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('phone')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="phone" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('fax')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="fax" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('cell')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="cell" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('jobtitle')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="jobtitle" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('alttitle')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="alttitle" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('research')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="research" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('teaching')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="teaching" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('author')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="author" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('created')" />
+                    <xsl:with-param name="element_format" select="string('string')" />
+                    <xsl:with-param name="element_value" select="created" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('changed')" />
+                    <xsl:with-param name="element_format" select="string('string')" />
+                    <xsl:with-param name="element_value" select="changed" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('release')" />
+                    <xsl:with-param name="element_format" select="string('string')" />
+                    <xsl:with-param name="element_value" select="release" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('expire')" />
+                    <xsl:with-param name="element_format" select="string('string')" />
+                    <xsl:with-param name="element_value" select="expire" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('image')" />
+                    <xsl:with-param name="element_format" select="string('numeric')" />
+                    <xsl:with-param name="element_value" select="image" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('linkedin')" />
+                    <xsl:with-param name="element_format" select="string('string')" />
+                    <xsl:with-param name="element_value" select="linkedin/link/url" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('twitter')" />
+                    <xsl:with-param name="element_format" select="string('string')" />
+                    <xsl:with-param name="element_value" select="twitter/link/url" />
+                </xsl:call-template>
+
+                <xsl:call-template name="areas_of_expertise" />
+
+                <xsl:call-template name="classifications" />
+
+                <xsl:call-template name="recent_news" />
+
+                <xsl:call-template name="hg_media" />
+
+                <xsl:call-template name="files" />
+
+                <xsl:call-template name="related_links" />
+
+                <xsl:call-template name="groups" />
+
+                <xsl:text>}</xsl:text>
+            </xsl:if>
+
             <xsl:if test="type = 'video'">
                 <xsl:text>a:13:{</xsl:text>
 
@@ -611,6 +855,78 @@
         </xsl:for-each>
         <xsl:text>}</xsl:text>
 
+    </xsl:template>
+
+    <xsl:template name="classifications">
+        <xsl:text>s:15:"classifications";</xsl:text>
+        <xsl:text>a:</xsl:text>
+        <xsl:value-of select="count(classifications/classification)"/>
+        <xsl:text>:{</xsl:text>
+        <xsl:for-each select="classifications/classification">
+            <xsl:text>i:</xsl:text>
+            <xsl:value-of select="(position() - 1)"/>
+            <xsl:text>;</xsl:text>
+
+            <xsl:text>a:2:{</xsl:text>
+            <xsl:call-template name="format_base64" />
+            <xsl:text>s:5:"value";</xsl:text>
+            <xsl:text>s:</xsl:text>
+            <xsl:value-of select="string-length(php:functionString('base64_encode',self::node()))"/>
+            <xsl:text>:"</xsl:text>
+            <xsl:value-of select="php:functionString('base64_encode',self::node())"/>
+            <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+        </xsl:for-each>
+        <xsl:text>}</xsl:text>
+    </xsl:template>
+
+    <xsl:template name="areas_of_expertise">
+        <xsl:text>s:18:"areas_of_expertise";</xsl:text>
+        <xsl:text>a:</xsl:text>
+        <xsl:value-of select="count(areas_of_expertise/area)"/>
+        <xsl:text>:{</xsl:text>
+        <xsl:for-each select="areas_of_expertise/area">
+            <xsl:text>i:</xsl:text>
+            <xsl:value-of select="(position() - 1)"/>
+            <xsl:text>;</xsl:text>
+
+            <xsl:text>a:2:{</xsl:text>
+            <xsl:call-template name="format_base64" />
+            <xsl:text>s:5:"value";</xsl:text>
+            <xsl:text>s:</xsl:text>
+            <xsl:value-of select="string-length(php:functionString('base64_encode',self::node()))"/>
+            <xsl:text>:"</xsl:text>
+            <xsl:value-of select="php:functionString('base64_encode',self::node())"/>
+            <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+        </xsl:for-each>
+        <xsl:text>}</xsl:text>
+    </xsl:template>
+
+    <xsl:template name="recent_news">
+        <xsl:text>s:11:"recent_news";</xsl:text>
+        <xsl:text>a:</xsl:text>
+        <xsl:value-of select="count(recent_news/item)"/>
+        <xsl:text>:{</xsl:text>
+        <xsl:for-each select="recent_news/item">
+            <xsl:text>i:</xsl:text>
+            <xsl:value-of select="(position() - 1)"/>
+            <xsl:text>;</xsl:text>
+
+            <xsl:text>a:2:{</xsl:text>
+            <xsl:call-template name="format_numeric" />
+            <xsl:text>s:5:"value";</xsl:text>
+            <xsl:text>s:</xsl:text>
+            <xsl:value-of select="string-length(nid)"/>
+            <xsl:text>:"</xsl:text>
+            <xsl:value-of select="nid"/>
+            <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+        </xsl:for-each>
+        <xsl:text>}</xsl:text>
     </xsl:template>
 
     <xsl:template name="format_numeric">
@@ -971,6 +1287,30 @@
         <xsl:text>}</xsl:text>
     </xsl:template>
 
+    <xsl:template name="core_research_areas">
+        <xsl:text>s:19:"core_research_areas";</xsl:text>
+        <xsl:text>a:</xsl:text>
+        <xsl:value-of select="count(core_research_areas/area)"/>
+        <xsl:text>:{</xsl:text>
+        <xsl:for-each select="core_research_areas/area">
+            <xsl:text>i:</xsl:text>
+            <xsl:value-of select="(position() - 1)"/>
+            <xsl:text>;</xsl:text>
+
+            <xsl:text>a:2:{</xsl:text>
+            <xsl:call-template name="format_base64" />
+            <xsl:text>s:5:"value";</xsl:text>
+            <xsl:text>s:</xsl:text>
+            <xsl:value-of select="string-length(php:functionString('base64_encode',self::node()))"/>
+            <xsl:text>:"</xsl:text>
+            <xsl:value-of select="php:functionString('base64_encode',self::node())"/>
+            <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+        </xsl:for-each>
+        <xsl:text>}</xsl:text>
+    </xsl:template>
+
     <xsl:template name="keywords">
         <xsl:text>s:8:"keywords";</xsl:text>
         <xsl:text>a:</xsl:text>
@@ -1161,7 +1501,7 @@
             <xsl:text>i:</xsl:text>
             <xsl:value-of select="(position() - 1)"/>
             <xsl:text>;</xsl:text>
-            <xsl:text>a:6:{</xsl:text>
+            <xsl:text>a:5:{</xsl:text>
 
             <xsl:call-template name="general_element">
                 <xsl:with-param name="element_name" select="string('fid')" />
@@ -1170,33 +1510,27 @@
             </xsl:call-template>
 
             <xsl:call-template name="general_element">
-                <xsl:with-param name="element_name" select="string('file_name')" />
+                <xsl:with-param name="element_name" select="string('filename')" />
                 <xsl:with-param name="element_format" select="string('base64')" />
                 <xsl:with-param name="element_value" select="name" />
             </xsl:call-template>
 
             <xsl:call-template name="general_element">
-                <xsl:with-param name="element_name" select="string('file_size')" />
+                <xsl:with-param name="element_name" select="string('filesize')" />
                 <xsl:with-param name="element_format" select="string('numeric')" />
                 <xsl:with-param name="element_value" select="size" />
             </xsl:call-template>
 
             <xsl:call-template name="general_element">
-                <xsl:with-param name="element_name" select="string('file_mime')" />
+                <xsl:with-param name="element_name" select="string('mime')" />
                 <xsl:with-param name="element_format" select="string('string')" />
                 <xsl:with-param name="element_value" select="mime" />
             </xsl:call-template>
 
             <xsl:call-template name="general_element">
-                <xsl:with-param name="element_name" select="string('file_path')" />
+                <xsl:with-param name="element_name" select="string('filepath')" />
                 <xsl:with-param name="element_format" select="string('string')" />
-                <xsl:with-param name="element_value" select="path" />
-            </xsl:call-template>
-
-            <xsl:call-template name="general_element">
-                <xsl:with-param name="element_name" select="string('file_description')" />
-                <xsl:with-param name="element_format" select="string('base64')" />
-                <xsl:with-param name="element_value" select="description" />
+                <xsl:with-param name="element_value" select="full_path" />
             </xsl:call-template>
 
             <xsl:text>}</xsl:text>
