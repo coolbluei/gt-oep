@@ -1,0 +1,20 @@
+uuid: e6a94cd5-430f-46eb-885f-9ef7c1156880
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.hg_video.field_media_hg_video
+    - media.type.hg_video
+id: media.hg_video.media_library
+targetEntityType: media
+bundle: hg_video
+mode: media_library
+content: {  }
+hidden:
+  created: true
+  field_media_hg_video: true
+  name: true
+  path: true
+  status: true
+  uid: true

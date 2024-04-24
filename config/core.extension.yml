@@ -8,8 +8,7 @@ module:
   block_content: 0
   breakpoint: 0
   cas: 0
-  ckeditor: 0
-  color: 0
+  ckeditor5: 0
   config: 0
   contact: 0
   contextual: 0
@@ -49,6 +48,7 @@ module:
   migrate_plus: 0
   migrate_tools: 0
   migrate_upgrade: 0
+  mysql: 0
   node: 0
   options: 0
   page_cache: 0
@@ -67,7 +67,10 @@ module:
   token: 0
   toolbar: 0
   tour: 0
+  twig_field_value: 0
+  twig_tweak: 0
   update: 0
+  upgrade_status: 0
   user: 0
   video_embed_field: 0
   video_embed_media: 0

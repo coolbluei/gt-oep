@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.hg_event.field_hg_event_time
     - field.field.node.hg_event.field_hg_extras
     - field.field.node.hg_event.field_hg_fee
+    - field.field.node.hg_event.field_hg_groups
     - field.field.node.hg_event.field_hg_id
     - field.field.node.hg_event.field_hg_images
     - field.field.node.hg_event.field_hg_importer
@@ -88,6 +89,14 @@ content:
     third_party_settings: {  }
     weight: 110
     region: content
+  field_hg_groups:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 122
+    region: content
   field_hg_id:
     type: number_integer
     label: above
@@ -103,6 +112,8 @@ content:
     settings:
       image_link: ''
       image_style: ''
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 119
     region: content
