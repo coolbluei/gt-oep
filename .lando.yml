@@ -9,6 +9,11 @@ config:
     php: lando.php.ini
 services:
   appserver:
+    build_as_root:
+      - apt-get update -y
+      - apt-get install libxslt1-dev -y
+      - docker-php-ext-install xsl
+      - docker-php-ext-enable xsl
     overrides:
       environment:
         DRUSH_OPTIONS_URI: "https://prepare.lndo.site"
