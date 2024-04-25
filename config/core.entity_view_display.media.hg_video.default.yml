@@ -1,9 +1,10 @@
-uuid: e12f4e53-283c-4172-b9b7-5ebe2b36a452
+uuid: e0f1c1e5-6044-4d90-b191-6654193a5064
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.media.hg_video.field_media_hg_video
+    - field.field.media.hg_video.field_mercury_id
     - media.type.hg_video
   module:
     - media
@@ -22,6 +23,15 @@ content:
         attribute: eager
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_mercury_id:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   created: true

@@ -1,10 +1,11 @@
-uuid: e6a94cd5-430f-46eb-885f-9ef7c1156880
+uuid: 46cf12a1-0198-41e7-8b75-23b68fc8509b
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_form_mode.media.media_library
     - field.field.media.hg_video.field_media_hg_video
+    - field.field.media.hg_video.field_mercury_id
     - media.type.hg_video
 id: media.hg_video.media_library
 targetEntityType: media
@@ -14,6 +15,7 @@ content: {  }
 hidden:
   created: true
   field_media_hg_video: true
+  field_mercury_id: true
   name: true
   path: true
   status: true

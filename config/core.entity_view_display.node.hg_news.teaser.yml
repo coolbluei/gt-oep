@@ -1,4 +1,4 @@
-uuid: bc184b68-747c-40e7-bc6b-ce5f0a6240a4
+uuid: 952e2681-9057-44fe-9f96-fbf62a1c2e91
 langcode: en
 status: true
 dependencies:
@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.hg_news.field_hg_importer
     - field.field.node.hg_news.field_hg_keywords
     - field.field.node.hg_news.field_hg_location
+    - field.field.node.hg_news.field_hg_media
     - field.field.node.hg_news.field_hg_news_room_topics
     - field.field.node.hg_news.field_hg_related_files
     - field.field.node.hg_news.field_hg_related_links
@@ -38,40 +39,40 @@ mode: teaser
 content:
   field_hg_dateline:
     type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
     weight: 1
     region: content
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
   field_hg_images:
     type: image
-    weight: 0
-    region: content
     label: above
     settings:
-      image_style: ''
       image_link: ''
+      image_style: ''
       image_loading:
         attribute: lazy
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_hg_location:
     type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 2
     region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_hg_summary_sentence:
     type: string
-    weight: 3
-    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 3
+    region: content
 hidden:
   body: true
   field_hg_categories: true
@@ -81,6 +82,7 @@ hidden:
   field_hg_id: true
   field_hg_importer: true
   field_hg_keywords: true
+  field_hg_media: true
   field_hg_news_room_topics: true
   field_hg_related_files: true
   field_hg_related_links: true

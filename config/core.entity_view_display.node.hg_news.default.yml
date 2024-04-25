@@ -1,4 +1,4 @@
-uuid: a8ebc3e2-79c4-4c3a-b8d2-f2f41d706502
+uuid: cfecb3a9-ee8b-47d8-b163-981c8a584dbe
 langcode: en
 status: true
 dependencies:
@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.hg_news.field_hg_importer
     - field.field.node.hg_news.field_hg_keywords
     - field.field.node.hg_news.field_hg_location
+    - field.field.node.hg_news.field_hg_media
     - field.field.node.hg_news.field_hg_news_room_topics
     - field.field.node.hg_news.field_hg_related_files
     - field.field.node.hg_news.field_hg_related_links
@@ -128,6 +129,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 11
+    region: content
+  field_hg_media:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 20
     region: content
   field_hg_news_room_topics:
     type: entity_reference_label

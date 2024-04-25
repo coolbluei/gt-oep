@@ -1,4 +1,4 @@
-uuid: 69508d4f-ede7-487b-ac9b-4bcfc191c586
+uuid: dd39be0a-7604-4fe0-8e25-a2ff913c8881
 langcode: en
 status: true
 dependencies:
@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.hg_event.field_hg_location_email
     - field.field.node.hg_event.field_hg_location_phone
     - field.field.node.hg_event.field_hg_location_url
+    - field.field.node.hg_event.field_hg_media
     - field.field.node.hg_event.field_hg_related_files
     - field.field.node.hg_event.field_hg_related_links
     - field.field.node.hg_event.field_hg_sidebar
@@ -112,8 +113,6 @@ content:
     settings:
       image_link: ''
       image_style: ''
-      image_loading:
-        attribute: lazy
     third_party_settings: {  }
     weight: 119
     region: content
@@ -176,6 +175,14 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 107
+    region: content
+  field_hg_media:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 20
     region: content
   field_hg_related_files:
     type: file_default

@@ -1,4 +1,4 @@
-uuid: c39294bc-8d70-480a-9037-f57bbe2b67e8
+uuid: 608dc6e0-9967-4760-86bf-341687f3f321
 langcode: en
 status: true
 dependencies:
@@ -8,7 +8,7 @@ dependencies:
   module:
     - file
 _core:
-  default_config_hash: VfeGaTTZD8cGZb5aJdHoIkTPs9mllBsnJtQ261rap-4
+  default_config_hash: F--9ful2k2RUV1G12-s4KbJOLk2PVu3LNBPpN9qcshY
 id: node.hg_external_news.field_hg_related_files
 field_name: field_hg_related_files
 entity_type: node
@@ -23,7 +23,7 @@ settings:
   handler: 'default:file'
   handler_settings: {  }
   file_directory: 'hg_attachments/[date:custom:Y]-[date:custom:m]'
-  file_extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp svg'
+  file_extensions: 'doc docx jpg jpeg gif odp ods odt pdf png pps ppt svg txt xls'
   max_filesize: '2 MB'
   description_field: false
 field_type: file

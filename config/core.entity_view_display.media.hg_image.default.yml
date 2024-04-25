@@ -1,18 +1,28 @@
-uuid: ef49c4da-7bb3-492a-b443-383b23727381
+uuid: 674fca8d-99c4-4ca2-aaab-a863e21f7653
 langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.hg_image.field_hg_media_description
     - field.field.media.hg_image.field_media_hg_image
+    - field.field.media.hg_image.field_mercury_id
     - image.style.large
     - media.type.hg_image
   module:
     - image
+    - text
 id: media.hg_image.default
 targetEntityType: media
 bundle: hg_image
 mode: default
 content:
+  field_hg_media_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_media_hg_image:
     type: image
     label: visually_hidden
@@ -23,6 +33,15 @@ content:
         attribute: lazy
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_mercury_id:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
     region: content
 hidden:
   created: true

@@ -1,0 +1,20 @@
+uuid: 8774af1f-a191-4d3c-9c1e-59f4b9cc0e19
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.field_mercury_id
+field_name: field_mercury_id
+entity_type: media
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

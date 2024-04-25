@@ -1,4 +1,4 @@
-uuid: 9fe76c4c-7f81-4f74-bd1e-ff69595b9860
+uuid: fba1b373-b4dd-4522-9fef-83e41279fefd
 langcode: en
 status: true
 dependencies:
@@ -8,7 +8,7 @@ dependencies:
   module:
     - file
 _core:
-  default_config_hash: O8VgnEhfCsQ33tsd_dcjyR9HvUscx-fLYv7dknPtk1U
+  default_config_hash: kxvHy46xbWMHS6ziKFY3bPe0F0Er096vzp7mDPbQ_F0
 id: node.hg_event.field_hg_related_files
 field_name: field_hg_related_files
 entity_type: node
@@ -23,7 +23,7 @@ settings:
   handler: 'default:file'
   handler_settings: {  }
   file_directory: 'hg_attachments/[date:custom:Y]-[date:custom:m]'
-  file_extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp svg'
+  file_extensions: 'doc docx jpg jpeg gif odp ods odt pdf png pps ppt svg txt xls'
   max_filesize: 2MB
   description_field: false
 field_type: file
