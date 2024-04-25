@@ -1,15 +1,15 @@
-uuid: 73145272-b5a5-44a8-a695-24bcf49e9ba5
+uuid: a7d4ae3d-e13c-48dd-9e36-5ff2eeab94ca
 langcode: en
 status: true
 dependencies:
   module:
     - system
   theme:
-    - seven
+    - claro
 _core:
-  default_config_hash: fFuE-VexRpFYMlMO1B4bmxwceSiep8XniIS8xkpshII
-id: seven_messages
-theme: seven
+  default_config_hash: '-Ac3ISpIT0PQ-whzD7_dw0SdKi6dAbRFNWdSjOiVDqg'
+id: claro_messages
+theme: claro
 region: highlighted
 weight: 0
 provider: null

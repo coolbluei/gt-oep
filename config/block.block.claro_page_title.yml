@@ -1,15 +1,15 @@
-uuid: f6e3c52b-4a47-4610-9b15-9fefa37276c0
+uuid: e42b611c-5d27-48bf-a0f2-1193e77220f3
 langcode: en
 status: true
 dependencies:
   theme:
-    - gt
+    - claro
 _core:
-  default_config_hash: VBRYwZr4yLyIcrudB-UbUG57FxGPIKj-0g9VRKeRi-s
-id: gt_page_title
-theme: gt
-region: content
-weight: -50
+  default_config_hash: fNwDdW063tk_ktzSWzZVeQS9wzvLooVO280BQ9WrsIs
+id: claro_page_title
+theme: claro
+region: header
+weight: -30
 provider: null
 plugin: page_title_block
 settings:

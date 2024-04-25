@@ -1,17 +1,17 @@
-uuid: 2e2af2af-42cf-4e65-b1e4-f3f6facabfee
+uuid: b222870d-213d-4165-9495-fb05ffe7e54b
 langcode: en
 status: true
 dependencies:
   module:
     - help
   theme:
-    - gtpd_subtheme
+    - claro
 _core:
-  default_config_hash: ud6UEfIf9lp1r2TfsSktD6_MJ4OjMa12x03DSyuDfc8
-id: gtpd_subtheme_help
-theme: gtpd_subtheme
+  default_config_hash: jccFSSVqV0WCDb6NtML1VWAWTtDbZ-zn5YgTRMgMrIM
+id: claro_help
+theme: claro
 region: help
-weight: -5
+weight: 0
 provider: null
 plugin: help_block
 settings:

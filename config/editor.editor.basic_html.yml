@@ -1,4 +1,4 @@
-uuid: 5bcf8154-afac-4438-bd49-1034e38ed060
+uuid: 981e7782-2600-46c3-b4e8-b0e3528380d3
 langcode: en
 status: true
 dependencies:
@@ -6,8 +6,6 @@ dependencies:
     - filter.format.basic_html
   module:
     - ckeditor
-_core:
-  default_config_hash: PKgPCPFA2hH82LD1fqzNTmaizZdA1VyQFsrlSs-m6o8
 format: basic_html
 editor: ckeditor
 settings:
@@ -19,9 +17,8 @@ settings:
           items:
             - Bold
             - Italic
-            - Underline
         -
-          name: Linking
+          name: Links
           items:
             - DrupalLink
             - DrupalUnlink
@@ -34,40 +31,18 @@ settings:
           name: Media
           items:
             - Blockquote
-            - DrupalMediaLibrary
-        -
-          name: 'Block Formatting'
-          items:
-            - Styles
-            - Format
+            - DrupalImage
         -
           name: Tools
           items:
             - Source
-        -
-          name: Align
-          items:
-            - JustifyLeft
-            - JustifyCenter
-            - JustifyRight
-            - JustifyBlock
-        -
-          name: Indent
-          items:
-            - Indent
-            - Outdent
-        -
-          name: Undo
-          items:
-            - Undo
-            - Redo
   plugins:
     language:
       language_list: un
     stylescombo:
       styles: ''
 image_upload:
-  status: true
+  status: false
   scheme: public
   directory: inline-images
   max_size: ''

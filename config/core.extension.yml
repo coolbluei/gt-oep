@@ -9,6 +9,7 @@ module:
   breakpoint: 0
   cas: 0
   ckeditor: 0
+  ckeditor5: 0
   color: 0
   config: 0
   contact: 0
@@ -83,4 +84,5 @@ theme:
   gt: 0
   classy: 0
   gtpd_subtheme: 0
+  claro: 0
 profile: gt_profile

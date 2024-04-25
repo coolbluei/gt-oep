@@ -17,7 +17,7 @@ filters:
     status: true
     weight: -10
     settings:
-      allowed_html: '<a href hreflang> <em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <p class=""> <br> <span> <img src alt height width data-entity-type data-entity-uuid data-align data-caption> <drupal-media data-entity-type data-entity-uuid data-view-mode data-align data-caption alt title> <u>'
+      allowed_html: '<br> <p class=""> <h2 id class="text-align-left text-align-center text-align-right text-align-justify"> <h3 id class="text-align-left text-align-center text-align-right text-align-justify"> <h4 id class="text-align-left text-align-center text-align-right text-align-justify"> <h5 id class="text-align-left text-align-center text-align-right text-align-justify"> <h6 id class="text-align-left text-align-center text-align-right text-align-justify"> <cite> <dl class="text-align-left text-align-center text-align-right text-align-justify"> <dt> <dd class="text-align-left text-align-center text-align-right text-align-justify"> <img src alt height width data-entity-type data-entity-uuid data-align data-caption> <a hreflang href> <blockquote cite class="text-align-left text-align-center text-align-right text-align-justify"> <ul type class="text-align-left text-align-center text-align-right text-align-justify"> <ol start type class="text-align-left text-align-center text-align-right text-align-justify"> <drupal-media data-view-mode title data-entity-type data-entity-uuid alt data-caption data-align> <strong> <em> <u> <code> <li> <span lang dir>'
       filter_html_help: false
       filter_html_nofollow: false
   filter_align:
