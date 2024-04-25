@@ -1,0 +1,11 @@
+uuid: 94fc674e-8b9c-4c2e-bb47-7456e89eb2ac
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - hg_reader
+name: 'Areas of expertise'
+vid: hg_areas_of_expertise
+description: 'Areas of expertise for Mercury profiles'
+weight: 0

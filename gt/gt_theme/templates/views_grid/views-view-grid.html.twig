@@ -37,7 +37,6 @@
     'clearfix',
 ]
 %}
-
   {% if options.columns == '1' %}
       {% set xclass = ['col-lg-12 col-md-12 col-sm-12 col-xs-12'] %}
   {% elseif options.columns == '2' %}
@@ -51,7 +50,6 @@
   {% else %}
       {% set xclass = ['col-lg-4 col-md-4 col-sm-4 col-xs-12'] %}
   {% endif %}
-
 {% if options.row_class_default %}
     {%
         set row_classes = [
@@ -71,25 +69,20 @@
 {% if title %}
   <h3>{{ title }}</h3>
 {% endif %}
-
 <div{{ attributes.addClass(classes) }}>
     {% if options.alignment == 'horizontal' %}
         {% for row in items %}
-
             {% if gt_masonry.class == '' %}
               <div{{ row.attributes.addClass(row_classes, options.row_class_default ? 'row-' ~ loop.index) }}>
             {% endif %}
-
             {% for column in row.content %}
               <div{{ column.attributes.addClass(col_classes, options.col_class_default ? 'col-' ~ loop.index, xclass, gt_masonry.class_item) }}>
                   {{ column.content }}
               </div>
             {% endfor %}
-
             {% if gt_masonry.class == '' %}
               </div>
             {% endif %}
-
         {% endfor %}
     {% else %}
         {% for column in items %}

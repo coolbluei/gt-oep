@@ -1,0 +1,265 @@
+uuid: 37640706-7794-4edc-a2ae-48cc826a93f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.feature.body
+    - field.field.node.feature.field_author
+    - field.field.node.feature.field_content_section
+    - field.field.node.feature.field_credits
+    - field.field.node.feature.field_dateline
+    - field.field.node.feature.field_header_image
+    - field.field.node.feature.field_header_image_width
+    - field.field.node.feature.field_title_treatment
+    - image.style.thumbnail
+    - node.type.feature
+  module:
+    - datetime
+    - field_group
+    - image
+    - paragraphs
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_title:
+      children:
+        - title
+        - field_title_treatment
+      parent_name: group_title_dateline_author
+      weight: 1
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: feature-title-wrapper
+        classes: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        required_fields: false
+        attributes: ''
+        effect: none
+        speed: fast
+        description: ''
+      label: Title
+    group_dateline_author_wrapper:
+      children:
+        - field_author
+        - field_dateline
+      parent_name: group_title_dateline_author
+      weight: 2
+      format_type: html_element
+      region: content
+      format_settings:
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+        id: dateline-author-wrapper
+        classes: ''
+      label: dateline-author-wrapper
+    group_title_dateline_author:
+      children:
+        - group_title
+        - group_dateline_author_wrapper
+        - field_newsroom_topic
+      parent_name: ''
+      weight: 0
+      format_type: html_element
+      region: content
+      format_settings:
+        id: title-dateline-author
+        classes: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+      label: title-dateline-author
+    group_header_image_wrapper:
+      children:
+        - group_header_image_and_width
+        - field_thumbnail_image
+      parent_name: ''
+      weight: 4
+      format_type: html_element
+      region: content
+      format_settings:
+        id: feature-header-image-wrapper
+        classes: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Header image wrapper'
+    group_header_image_and_width:
+      children:
+        - field_header_image
+        - field_header_image_width
+      parent_name: group_header_image_wrapper
+      weight: 5
+      format_type: html_element
+      region: content
+      format_settings:
+        id: header-image-and-width
+        classes: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Header image and width'
+id: node.feature.default
+targetEntityType: node
+bundle: feature
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 7
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+    region: content
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_author:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_content_section:
+    type: entity_reference_paragraphs
+    weight: 8
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_credits:
+    weight: 29
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_dateline:
+    weight: 4
+    settings:
+      increment: 15
+      date_order: YMD
+      time_type: '24'
+    third_party_settings: {  }
+    type: datetime_datelist
+    region: content
+  field_header_image:
+    weight: 26
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_header_image_width:
+    weight: 27
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_newsroom_topic:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_thumbnail_image:
+    weight: 28
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_title_treatment:
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  path:
+    type: path
+    weight: 14
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 11
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 15
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 12
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete_tags
+    weight: 9
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+hidden:
+  field_is_spotlight: true

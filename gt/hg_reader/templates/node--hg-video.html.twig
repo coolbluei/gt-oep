@@ -1,62 +1,42 @@
-{# HG Event Template #}
+{# HG Event Video Template #}
 
 {# Attached Style Sheet #}
 {{ attach_library('hg_reader/hg_reader') }}
 
-{# Set Div ID #}
-{% set hg_id = 'mercury' %}
-
 {# Set Content CSS Classes #}
 {% set classes = [
-    'pt-1',
-    'pb-1',
+    'hg-video',
+    'py-2',
+    'mb-5',
+    'clearfix',
 ] %}
 
-{% set classVideo = [
-    'hg-video-container',
-] %}
-
-{# Set Row Class #}
-{% set classRow = 'row mb-5 clearfix' %}
-
-{# Bootstrap Col Width classes #}
-{% set colFull = "col-md-12 col-sm-12 col-xs-12" %}
-
-{# Content Start # }
-
-{# Set Div wrapper ID #}
-
-<div {{ attributes.setAttribute('id', hg_id) }}>
-    <div class="{{ colFull }}">
-
-        {# YouTube #}
-        {% if content.field_hg_youtube_id|render is not empty %}
-            <div{{ attributes.addClass(classVideo) }}>
-                <iframe src="{{ content.field_hg_youtube_id }}" frameborder="0"
-                        allowfullscreen width="560" height="315"></iframe>
-            </div>
-        {% endif %}
-
-        {# Image/s #}
-        {% if content.field_hg_images|render is not empty %}
-            <div{{ attributes.addClass(classes, 'hg-image' ).removeClass('hg-video-container') }}>
-                <picture>
-                    {% if content.field_hg_images is defined %}
+{# Content #}
+<div{{ attributes.setAttribute('id', 'mercury').addClass(classes) }}>
+    <div class="row">
+        <div class="col">
+            {# YouTube #}
+            {% if content.field_hg_youtube_id is not empty %}
+                <div class="hg-video-container">
+                    <iframe width="560" height="315" src="{{ content.field_hg_youtube_id }}" title="Video"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+            {% endif %}
+            {# Image #}
+            {% if content.field_hg_images is not empty %}
+                <div class="hg-image">
+                    <picture>
                         {{ content.field_hg_images }}
-                    {% else %}
-                    {% endif %}
-                </picture>
-            </div>
-        {% endif %}
-
-        {# Description #}
-        {% if content.body|render is not empty %}
-            {# content #}
-            <div{{ attributes.addClass(classes, 'description', 'p').removeClass('hg-image' ) }}>
-                {{ content.body[0] }}
-            </div>
-        {% endif %}
-
-    </div>{# End Main Container #}
-
-</div> {# End Event Template  #}
+                    </picture>
+                </div>
+            {% endif %}
+            {# Description #}
+            {% if content.body|render is not empty %}
+                <div class="description">
+                    <p>{{ content.body[0] }}</p>
+                </div>
+            {% endif %}
+        </div>{# End Main Container #}
+    </div> {# End Event Template  #}
+</div>

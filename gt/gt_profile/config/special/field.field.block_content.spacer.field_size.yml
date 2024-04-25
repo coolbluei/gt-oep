@@ -12,7 +12,7 @@ field_name: field_size
 entity_type: block_content
 bundle: spacer
 label: Size
-description: "small|Small\r\nmedium|Medium\r\nlarge|Large\r\nxlarge|X-Large"
+description: ''
 required: false
 translatable: true
 default_value:

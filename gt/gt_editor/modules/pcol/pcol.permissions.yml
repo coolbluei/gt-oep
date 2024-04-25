@@ -1,0 +1,15 @@
+administer pcols:
+  title: 'Administer paragraph columns'
+  description: 'Administer paragraph columns'
+
+add pcols:
+  title: 'Add paragraph columns'
+  description: 'Add paragraph columns'
+
+edit pcols:
+  title: 'Edit paragraph columns'
+  description: 'Edit paragraph columns'
+
+delete pcols:
+  title: 'Delete paragraph columns'
+  description: 'Delete paragraph columns'

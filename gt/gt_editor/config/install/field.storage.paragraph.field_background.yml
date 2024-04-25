@@ -1,0 +1,42 @@
+uuid: 28fa7947-c80d-48e9-b238-afd923a49124
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_background
+field_name: field_background
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: bg-white
+      label: White
+    -
+      value: bg-tech-gold
+      label: 'Tech gold'
+    -
+      value: bg-tech-light-gold
+      label: 'Tech light gold'
+    -
+      value: bg-navy
+      label: Navy
+    -
+      value: bg-pimile
+      label: Pimile
+    -
+      value: bg-pimile-medium-light
+      label: 'Pimile medium light'
+    -
+      value: bg-pimile-light
+      label: 'Pimile light'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

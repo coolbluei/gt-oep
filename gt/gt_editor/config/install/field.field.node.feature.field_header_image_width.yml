@@ -1,0 +1,28 @@
+uuid: 66f82c40-5aed-42a2-99e7-9bb13c741ff6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_header_image_width
+    - node.type.feature
+  module:
+    - custom_add_another
+    - options
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.feature.field_header_image_width
+field_name: field_header_image_width
+entity_type: node
+bundle: feature
+label: 'Header image width'
+description: 'Chose "normal width" for a max-width of <b>col-12 col-sm-12 col-md-9</b> (75% of 12-column-width on medium and large screens, 100% width on small screens.)'
+required: false
+translatable: false
+default_value:
+  -
+    value: full-width
+default_value_callback: ''
+settings: {  }
+field_type: list_string

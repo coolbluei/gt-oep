@@ -36,38 +36,36 @@
 {% set link_title = (content.field_link.0['#title']) %}
 
 {# Set CSS Classes #}
-{%
-  set classes = [
-	'my-3',
-  'block',
-  'block-' ~ configuration.provider|clean_class,
-  'block-' ~ plugin_id|clean_class,
-]
-%}
+{% set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+    'my-3',
+] %}
 
 {# Content #}
 <div{{ attributes.addClass(classes|join(' ')) }}>
-  <div id="gt-image-wrapper">
-    {# Title #}
-    {{ title_prefix }}
-    {% if label %}
-      <h3>{{ label }}</h3>
-    {% endif %}
-    {{ title_suffix }}
-    {# Content with image link #}
-    {% if image and content.field_link[0]['#url']|render is not empty %}
-      <a href="{{ field_link }}" aria-labelledby="{{ link_title }}" >
-        {{ image }}
-      </a>
-    {# Image without Link  #}
-    {% else %}
-      {{ image }}
-    {% endif %}
-    {# Description #}
-    {% if body %}
-      <div class="cutline mt-2 mb-4">
-        {{ body }}
-      </div>
-     {% endif %}
-  </div>
+    <div id="gt-image-wrapper">
+        {# Title #}
+        {{ title_prefix }}
+        {% if label %}
+            <h3>{{ label }}</h3>
+        {% endif %}
+        {{ title_suffix }}
+        {# Content with image link #}
+        {% if image and content.field_link[0]['#url']|render is not empty %}
+            <a href="{{ field_link }}" aria-label="{{ link_title }}">
+                <picture>{{ image }}</picture>
+            </a>
+            {# Image without Link  #}
+        {% else %}
+        <picture>{{ image }}</picture>
+        {% endif %}
+        {# Description #}
+        {% if body %}
+            <div class="cutline mt-2 mb-4">
+                {{ body }}
+            </div>
+        {% endif %}
+    </div>
 </div>

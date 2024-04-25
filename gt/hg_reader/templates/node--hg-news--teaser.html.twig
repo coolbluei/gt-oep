@@ -1,0 +1,45 @@
+{# HG Mercury News Teaser Template #}
+
+{# Attached Style Sheet #}
+{{ attach_library('hg_reader/hg_reader') }}
+
+{# Main Content  #}
+<div class="mercury news-teaser clearfix mb-5">
+    <div class="row">
+        {# Title #}
+        <div class="hg-title w-100 ml-3 mb-3">
+            <p><a href="{{ path('entity.node.canonical', {'node': node.id}) }}" title="{{ node.title.value }}">{{ node.title.value }}</a></p>
+        </div>
+        {% if content.field_hg_summary_sentence is not empty and content.field_hg_images[0] is empty %}
+            {# Content #}
+            <div class="col description">
+                {# Dateline #}
+                {% if content.field_hg_dateline|render is not empty or content.field_hg_location|render is not empty %}
+                    <div class="dateline w-100">
+                        {{ node.field_hg_dateline.value|date('M d, Y') }} {{ ' - '|t }} {{ content.field_hg_location[0] }}
+                    </div>
+                {% endif %}
+                {# Copy #}
+                {{ content.field_hg_summary_sentence[0] }}
+            </div>
+        {% else %}
+            {# Image #}
+            <div class="col hg-teaser-image">
+                <a href="{{ path('entity.node.canonical', {'node': node.id}) }}" title="{{ node.title.value }}">
+                    {{ content.field_hg_images[0] }}
+                </a>
+            </div>
+            <div class="col description">
+                {# Dateline #}
+                {% if content.field_hg_dateline|render is not empty or content.field_hg_location|render is not empty %}
+                    <div class="dateline w-100">
+                        {{ node.field_hg_dateline.value|date('M d, Y') }} {{ ' - '|t }} {{ content.field_hg_location[0] }}
+                    </div>
+                {% endif %}
+                {# Copy #}
+                {{ content.field_hg_summary_sentence[0] }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{# End Mercury Event Template #}

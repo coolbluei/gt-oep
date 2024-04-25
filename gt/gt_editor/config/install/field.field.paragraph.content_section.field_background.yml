@@ -1,0 +1,28 @@
+uuid: aef91398-03a6-4bd9-80f9-f5d9d582e0f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_background
+    - paragraphs.paragraphs_type.content_section
+  module:
+    - custom_add_another
+    - options
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: paragraph.content_section.field_background
+field_name: field_background
+entity_type: paragraph
+bundle: content_section
+label: Background
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: bg-white
+default_value_callback: ''
+settings: {  }
+field_type: list_string

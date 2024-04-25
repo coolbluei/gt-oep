@@ -20,6 +20,6 @@ default_value:
     value: 0
 default_value_callback: ''
 settings:
-  on_label: float-left
-  off_label: float-right
+  on_label: float-end
+  off_label: float-start
 field_type: boolean

@@ -1,0 +1,31 @@
+uuid: cba981af-311a-41e4-8e9d-c8228b49e802
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hg_media
+    - media.type.hg_image
+    - media.type.hg_video
+    - node.type.hg_profile
+id: node.hg_profile.field_hg_media
+field_name: field_hg_media
+entity_type: node
+bundle: hg_profile
+label: Media
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      hg_image: hg_image
+      hg_video: hg_video
+    sort:
+      field: changed
+      direction: DESC
+    auto_create: false
+    auto_create_bundle: hg_image
+field_type: entity_reference

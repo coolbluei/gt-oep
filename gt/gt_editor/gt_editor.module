@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Classes for feature page editors
+ *
+ */
+function gt_editor_preprocess_html(&$variables) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  if ($current_path == '/node/add/feature') {
+    $variables['attributes']['class'][] = 'page-node-type-feature';
+  }
+}
+
+/**
+ * Implements hook_page_attachments() to add custom css to admin pages.
+ *
+ */
+function gt_editor_page_attachments(&$attachments) {
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  if ($theme == 'seven') {
+    $module_handler = \Drupal::service('module_handler');
+    $module_path = $module_handler->getModule('gt_editor')->getPath();
+
+    $attachments['#attached']['library'][] = 'gt_editor/extra.admin';
+    $attachments['#attached']['drupalSettings']['editor_path'] = $module_path;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function gt_editor_theme($existing, $type, $theme, $path) {
+  return [
+    'field__paragraph__content_section' => [
+      'template' => 'field/field--paragraph--content-section',
+      'base hook' => 'field'
+    ],
+    'field__paragraph__field_columns__content_section' => [
+      'template' => 'paragraphs/field--paragraph--field-columns--content-section',
+      'base hook' => 'field'
+    ]
+  ];
+}

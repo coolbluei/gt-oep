@@ -9,22 +9,30 @@
  * @ingroup themeable
  */
 #}
-<div id="gt-copyright" aria-labelledby="georgia tech logo and copyright">
+{# GT Footer #}
+{% set class_cas_login = '' %}
+  {% if cas_login == 1 %}
+    {% set class_cas_login = 'cas-login' %}
+  {% endif %}
+<div id="gt-copyright" aria-label="georgia tech logo and copyright">
   <div class="gt-footer-logo float-md-right float-sm-left">
     <a href="https://www.gatech.edu/" title="{{ 'Georgia Tech'|t }}">
       <img src="{{ logo_path }}" alt="{{ 'Georgia Tech'|t }}" role="presentation"
-        aria-label="logo link to main campus site"/>
+           aria-label="logo link to main campus site" width="191.08px" height="34px"/>
     </a>
   </div>
-
   <div class="gt-footer-copy d-none d-sm-block float-md-right float-sm-left">
-    <p class="p-1 mt-2 copyright-hide">© {{ 'now'|date('Y') }} Georgia Institute of
-      Technology</p>
+    <p class="p-1 mt-2 copyright-hide">© {{ 'now'|date('Y') }} {{ 'Georgia Institute of
+      Technology'|t }}</p>
   </div>
-
   <div class="gt-footer-login mt-5 d-none d-sm-block float-md-right float-sm-left">
-    <p class="gt-login {{ class_cas_login }} d-sm-none d-md-block">
-      <a class="gt-login" href="{{ url('<front>') }}cas" aria-label="admin login">GT LOGIN</a>
+    <p class="gt-login cas-{{ cas_login }}">
+      <a class="gt-login" href="{{ url('<front>') }}cas" aria-label="admin login">{{ 'GT LOGIN'|t }}</a>
+    </p>
+    {% if logged_in %}
+    <p class="gt-logout">
+      <a class="gt-logout" href="/user/logout" data-drupal-link-system-path="user/logout">{{ 'GT LOGOUT'|t }}</a>
+      {% endif %}
     </p>
   </div>
 </div>

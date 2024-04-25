@@ -1,0 +1,5 @@
+{
+    "name": "gt/gt_editor",
+    "description": "Provides the gt_editor module, forthwith!",
+    "type": "drupal-module"
+}

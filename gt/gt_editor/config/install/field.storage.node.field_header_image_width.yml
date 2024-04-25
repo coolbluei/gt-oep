@@ -1,0 +1,27 @@
+uuid: 763faee2-e062-47d8-8661-6ac797f66ab9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_header_image_width
+field_name: field_header_image_width
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: full-width
+      label: 'Full Width'
+    -
+      value: normal-width
+      label: 'Normal Width'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

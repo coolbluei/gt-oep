@@ -1,0 +1,36 @@
+uuid: 69840da9-4a94-43ef-98a4-e5df52158aac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_section
+    - node.type.feature
+    - paragraphs.paragraphs_type.content_section
+  module:
+    - custom_add_another
+    - entity_reference_revisions
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.feature.field_content_section
+field_name: field_content_section
+entity_type: node
+bundle: feature
+label: 'Custom layout content rows'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      content_section: content_section
+    target_bundles_drag_drop:
+      content_section:
+        enabled: true
+        weight: 4
+field_type: entity_reference_revisions

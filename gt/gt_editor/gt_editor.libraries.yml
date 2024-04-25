@@ -1,0 +1,10 @@
+extra.admin:
+  css:
+    theme:
+      css/extra.admin.css: {}
+      //fonts.googleapis.com/css?family=Roboto+Slab:400,700: { type: external, minified: true }
+      //stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css: { type: external }
+  js:
+    js/features.js: {}
+  dependencies:
+    - core/drupalSettings

@@ -1,0 +1,15 @@
+name: GT Editor
+description: Bootstrap-aware page builder
+package: GT
+type: module
+core_version_requirement: ^8.8 || ^9 | ^10
+version: "4.0-alpha.1"
+project: 'gt_editor'
+project status url:
+configure: gt_editor.settings
+dependencies:
+  - drupal:custom_add_another
+  - drupal:entity_reference_revisions
+  - drupal:inline_entity_form
+  - drupal:paragraphs
+  - pcol

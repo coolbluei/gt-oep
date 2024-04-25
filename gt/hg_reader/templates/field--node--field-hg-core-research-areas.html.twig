@@ -36,43 +36,46 @@
  * @see template_preprocess_field()
  */
 #}
-{%
-  set title_classes = [
-  label_display == 'visually_hidden' ? 'visually-hidden',
-]
-%}
+{% set title_classes = [
+    label_display == 'visually_hidden' ? 'visually-hidden',
+] %}
 
 {# Set Content CSS Classes #}
 {% set classes = [
-  'mb-3 float-left',
+    'mb-3 float-left',
 ] %}
 
 {% if label_hidden %}
-  {% if multiple %}
-    <div{{ attributes }}>
-      {% for item in items %}
-        <div{{ item.attributes.addClass(classes)  }}><a class="btn btn-secondary"
-                                                        href="{{ item.content['#url']|render }}" {% if item.content['#options']['external'] %} target="_blank" {% endif %}>{{ item.content['#title'] }}</a></div>
-      {% endfor %}
-    </div>
-  {% else %}
-    {% for item in items %}
-      <div{{ attributes.addClass(classes) }}><a class="btn btn-secondary"
-                                                href="{{ item.content['#url']|render }}" {% if item.content['#options']['external'] %} target="_blank" {% endif %}>{{ item.content['#title'] }}</a></div>
-    {% endfor %}
-  {% endif %}
-{% else %}
-  <div{{ attributes }}>
-    <div{{ title_attributes }}><h2>{{ label }}</h2></div>
     {% if multiple %}
-    <div>
-      {% endif %}
-      {% for item in items %}
-        <div{{ item.attributes.addClass(classes) }}><a class="btn btn-secondary"
-                                                       href="{{ item.content['#url']|render }}" {% if item.content['#options']['external'] %} target="_blank" {% endif %}>{{ item.content['#title'] }}</a></div>
-      {% endfor %}
-      {% if multiple %}
-    </div>
+        <div{{ attributes }}>
+            {% for item in items %}
+                <div{{ item.attributes.addClass(classes) }}>
+                    <a class="hg-link"
+                       href="{{ item.content['#url']|render }}" {% if item.content['#options']['external'] %} target="_blank" {% endif %}>{{ item.content['#title'] }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% for item in items %}
+            <div{{ attributes.addClass(classes) }}>
+                <a class="hg-link"
+                   href="{{ item.content['#url']|render }}" {% if item.content['#options']['external'] %} target="_blank" {% endif %}>{{ item.content['#title'] }}</a>
+            </div>
+        {% endfor %}
     {% endif %}
-  </div>
+{% else %}
+    <div{{ attributes }}>
+        <div{{ title_attributes }}><h4>{{ label }}</h4></div>
+        {% if multiple %}
+        <div>
+            {% endif %}
+            {% for item in items %}
+                <div{{ item.attributes.addClass(classes) }}><a class="hg-link"
+                                                               href="{{ item.content['#url']|render }}" {% if item.content['#options']['external'] %} target="_blank" {% endif %}>{{ item.content['#title'] }}</a>
+                </div>
+            {% endfor %}
+            {% if multiple %}
+        </div>
+        {% endif %}
+    </div>
 {% endif %}

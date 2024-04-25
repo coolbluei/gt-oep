@@ -1,224 +1,206 @@
-/********* GT Official Web Colors *********/
-:root {
-  /*** Primary Colors ***/
-  --gt-black: #262626;
-  --gt-white: #ffffff;
-  --gt-gold: #b3a369;
-  --gt-blue: #004f9f;
-  --gt-light-grey: #ccc;
-  --gt-md-grey: #545454;
-  --gt-dark-gray: #3b3b3b;
-  --gt-buzz-gold: #eeb211;
-
-  /* Primary (tech gold) */
-  --gt-primary-gold: #b3a369;
-
-  /* Secondary (gt pimile) */
-  --gt-secondary: #d6dbd4;
-
-  /* Success  */
-  --gt-success: #349e08;
-
-  /* Danger (horizon) */
-  --gt-danger: #f95e10;
-
-  /* Warning */
-  --gt-warning: #9d0000;
-
-  /* Information (gt navy) */
-  --gt-info: #003057;
-
-  /* Light (gt pimile light) */
-  --gt-light: #f2f3f1;
-
-  /* Dark Grey */
-  --gt-dark: #3b3b3b;
-
-  /*** Primary Font  ***/
-  --font-roboto: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  --font-roboto-condensed: 'Roboto Condensed', sans-serif;
-  --font-roboto-slab: "Roboto Slab", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  --font-abel: 'Abel', sans-serif;
+/* GT Alerts */
+.gt-alert p {
+    margin-bottom: .2rem;
+    line-height: 1.3;
+    font-size: .9rem;
 }
 
-/* GT Alerts */
-#gt-alert p {
-  margin-bottom: .2rem;
-  line-height: 1.3;
-  font-size: .9rem;
+.gt-alert .btn-close {
+    position: absolute;
+    right: .25rem;
+    top: .25rem;
+    padding: .5rem;
+    box-sizing: content-box;
+    width: 1em;
+    height: 1em;
+    color: var(--gt-black);
+    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+    border: 0;
+    border-radius: .375rem;
+    opacity: .5;
 }
 
 .alert {
-  position: relative;
-  padding: .75rem 1.25rem;
-  margin-bottom: 0;
-  border: 1px solid transparent;
-  border-radius: .25rem;
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    border: 1px solid transparent;
+    border-radius: 0;
 }
 
-a.primary,
-a.secondary,
-a.success,
-a.danger,
-a.warning,
-a.info,
-a.light,
-a.dark {
-  display: block;
-  font-weight: 300 !important;
-  padding: .25rem 1.5rem;
-  text-decoration: none !important;
-  margin: 1rem 0 .25rem;
-  width: max-content;
+.gt-alert a.primary,
+.gt-alert a.secondary,
+.gt-alert a.success,
+.gt-alert a.danger,
+.gt-alert a.warning,
+.gt-alert a.info,
+.gt-alert a.light,
+.gt-alert a.dark {
+    display: block;
+    font-weight: 400 !important;
+    padding: .25rem 1.5rem;
+    text-decoration: none !important;
+    margin: 1rem 0 .25rem;
+    width: max-content;
 }
+
 /* Alert Colors */
+
+/* Primary */
 .alert-primary {
-  color: var(--gt-white);
-  background-color: var(--gt-blue);
-  border-color: var(--gt-blue);
+    color: var(--gt-white);
+    background-color: var(--gt-blue);
+    border-color: var(--gt-blue);
 }
 
 .alert-primary p {
-  color: var(--gt-white);
+    color: var(--gt-white);
 }
 
 .alert-primary a.primary {
-  color: var(--gt-white) !important;
-  border: 1px solid var(--gt-white) !important;
+    color: var(--gt-white) !important;
+    border: 1px solid var(--gt-white) !important;
 }
 
 .alert-primary a.primary:hover {
-  color: var(--gt-black) !important;
-  border: 1px solid var(--gt-black) !important;
+    color: var(--gt-black) !important;
+    border: 1px solid var(--gt-black) !important;
 }
 
+/* Secondary */
 .alert-secondary {
-  color: var(--gt-dark-gray);
-  background-color: var(--gt-light);
-  border-color: var(--gt-light);
+    color: var(--gt-dark-gray);
+    background-color: var(--gt-light);
+    border-color: var(--gt-light);
 }
 
 .alert-secondary a.secondary {
-  color: var(--gt-dark-gray) !important;
-  border: 1px solid var(--gt-dark-gray) !important;
+    color: var(--gt-dark-gray) !important;
+    border: 1px solid var(--gt-dark-gray) !important;
 }
 
+/* Success */
 .alert-success {
-  color: var(--gt-white);
-  background-color: var(--gt-success);
-  border-color: var(--gt-success);
+    color: var(--gt-white);
+    background-color: var(--gt-success);
+    border-color: var(--gt-success);
 }
 
 .alert-success a.success {
-  color: var(--gt-white);
-  background-color: var(--gt-success);
-  border: 1px solid var(--gt-white);
+    color: var(--gt-white);
+    background-color: var(--gt-success);
+    border: 1px solid var(--gt-white);
 }
 
 .alert-success a.success:hover {
-  color: var(--gt-success);
-  background-color: var(--gt-white);
+    color: var(--gt-success);
+    background-color: var(--gt-white);
 }
 
 .alert-success p {
-  color: var(--gt-white);
+    color: var(--gt-white);
 }
 
+/* Danger */
 .alert-danger {
-  color: var(--gt-black);
-  background-color: var(--gt-warning);
-  border-color: var(--gt-warning);
+    color: var(--gt-white);
+    background-color: var(--gt-warning);
+    border-color: var(--gt-warning);
 }
 
 .alert-danger a.danger {
-  border: 2px solid var(--gt-black);
-  font-weight: bold !important;
+    color: var(--gt-white);
+    border: 1px solid var(--gt-white);
 }
 
 .alert-danger a.danger:hover {
-  color: var(--gt-warning);
-  background-color: var(--gt-black);
-  border-color: var(--gt-warning);
+    color: var(--gt-warning);
+    background-color: var(--gt-white);
+    border-color: var(--gt-warning);
 }
 
 .alert-danger p {
-  color: var(--gt-black);
+    color: var(--gt-white);
 }
 
+/* Warning */
 .alert-warning {
-  color: var(--gt-black);
-  background-color: var(--gt-buzz-gold);
-  border-color: var(--gt-buzz-gold);
+    color: var(--gt-black);
+    background-color: var(--gt-yellow);
+    border-color: var(--gt-yellow);
 }
 
 .alert-warning a.warning {
-  color: #383d41 !important;
-  border: 1px solid #383d41 !important;
+    color: var(--gt-black) !important;
+    border: 1px solid var(--gt-black) !important;
 }
 
 .alert-warning a.warning:hover {
-  color:  var(--gt-buzz-gold) !important;
-  background-color:var(--gt-black);
-  border: 1px solid var(--gt-buzz-gold) !important;
+    color: var(--gt-yellow) !important;
+    background-color: var(--gt-black);
+    border: 1px solid var(--gt-yellow) !important;
 }
 
 .alert-warning p {
-  color: var(--gt-black);
+    color: var(--gt-black);
 }
 
+/* Info */
 .alert-info {
-  color: var(--gt-white);
-  background-color: var(--gt-info);
-  border-color: var(--gt-info);
+    color: var(--gt-white);
+    background-color: var(--gt-info);
+    border-color: var(--gt-info);
 }
 
 .alert-info a.info {
-  color: var(--gt-white);
-  background-color:  transparent;
-  border:1px solid var(--gt-white);
+    color: var(--gt-white);
+    background-color: transparent;
+    border: 1px solid var(--gt-white);
 }
 
 .alert-info a.info:hover {
-  color: var(--gt-info);
-  background-color: var(--gt-white);
-  border-color:  var(--gt-white);
+    color: var(--gt-info);
+    background-color: var(--gt-white);
+    border-color: var(--gt-white);
 }
 
 .alert-info p {
-  color: var(--gt-white);
+    color: var(--gt-white);
 }
 
+/* Light */
 .alert-light {
-  color: var(--gt-md-grey);
-  background-color: var(--gt-light);
+    color: var(--gt-md-grey);
+    background-color: var(--gt-light);
 }
 
 .alert-light a.light {
-  color: var(--gt-md-grey);
-  background-color: transparent;
-  border: 1px solid var(--gt-md-grey);
+    color: var(--gt-md-grey);
+    background-color: transparent;
+    border: 1px solid var(--gt-md-grey);
 }
 
 .alert-light a.light:hover {
-  color: var(--gt-black);
-  background-color: var(--gt-md-grey);
-  border: 1px solid var(--gt-black);
+    color: var(--gt-white);
+    background-color: var(--gt-md-grey);
+    border: 1px solid var(--gt-black);
 }
 
+/* Dark */
 .alert-dark {
-  color: var(--gt-black);
-  background-color: var(--gt-light-grey);
-  border-color: var(--gt-light-grey);
+    color: var(--gt-black);
+    background-color: var(--gt-light-grey);
+    border-color: var(--gt-light-grey);
 }
 
 .alert-dark a.dark {
-  color: var(--gt-black);
-  background-color: transparent;
-  border:1px solid  var(--gt-black);
+    color: var(--gt-black);
+    background-color: transparent;
+    border: 1px solid var(--gt-black);
 }
 
 .alert-dark a.dark:hover {
-  color: var(--gt-light-grey);
-  background-color: var(--gt-black);
-  border:1px solid  var(--gt-black);
+    color: var(--gt-light-grey);
+    background-color: var(--gt-black);
+    border: 1px solid var(--gt-black);
 }

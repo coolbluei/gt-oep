@@ -1,0 +1,15 @@
+pcols.view:
+  route_name: entity.pcols.canonical
+  base_route: entity.pcols.canonical
+  title: View
+
+pcols.page_edit:
+  route_name: entity.pcols.edit_form
+  base_route: entity.pcols.canonical
+  title: Edit
+
+pcols.delete_confirm:
+  route_name:  entity.pcols.delete_form
+  base_route:  entity.pcols.canonical
+  title: Delete
+  weight: 10

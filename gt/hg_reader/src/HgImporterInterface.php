@@ -13,5 +13,3 @@ use Drupal\Core\Entity\EntityChangedInterface;
 interface HgImporterInterface extends ContentEntityInterface, EntityOwnerInterface, EntityChangedInterface {
 
 }
-
-?>

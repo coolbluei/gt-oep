@@ -11,10 +11,10 @@ function gt_profile_install() {
   include_once DRUPAL_ROOT . '/core/profiles/standard/standard.install';
   standard_install();
 
-  // Set the GT 3.x Theme as the Default Theme and the Seven Theme as the Admin Theme
+  // Set the GT 4.x Theme as the Default Theme and the Claro Theme as the Admin Theme
   $themes = \Drupal::service('config.factory')->getEditable('system.theme');
   $themes->set('default', 'gt');
-  $themes->set('admin', 'seven');
+  $themes->set('admin', 'claro');
   $themes->save();
 
   // Set User Creation Option to Administrators Only
@@ -132,6 +132,11 @@ function gt_profile_install() {
     \Drupal::service('module_installer')->install(['social_media_links']);
   }
 
+   // Install Metatag
+  if (file_exists(DRUPAL_ROOT . '/modules/contrib/metatag/metatag.module')) {
+    \Drupal::service('module_installer')->install(['metatag','metatag_open_graph','metatag_twitter_cards']);
+  }
+
   /**
    * Install a bunch of configs that rely on the above modules.
    */
@@ -145,7 +150,7 @@ function gt_profile_install() {
   $source = new \Drupal\Core\Config\FileStorage($config_dir);
   $config_storage = \Drupal::service('config.storage');
   foreach ($files as $file) {
-    $components = explode(DIRECTORY_SEPARATOR, $file);
+    $components = explode('/', $file);
     $config_name = str_replace('.yml', '', end($components));
     $config_storage->write($config_name, $source->read($config_name));
   }

@@ -17,7 +17,7 @@ hg_reader.admin_settings:
 entity.hg_reader_importer:
   title: 'Mercury importers'
   parent: system.admin_structure
-  description: 'Create and manage Mercury feeds to import content from the <a href="https://hg.gatech.edu">Georgia Tech Mercury syndication service</a>.'
+  description: 'Create and manage Mercury feeds to import content from the Georgia Tech Mercury syndication service.'
   route_name: entity.hg_reader_importer
   weight: 0
 

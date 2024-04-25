@@ -34,6 +34,7 @@
 {{ attach_library('gt/views-table') }}
 {%
   set classes = [
+    'table',
     'cols-' ~ header|length,
     responsive ? 'responsive-enabled',
     sticky ? 'sticky-enabled',

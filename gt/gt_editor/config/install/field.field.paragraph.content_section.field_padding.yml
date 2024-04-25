@@ -1,0 +1,28 @@
+uuid: e35e8d6b-df0a-423c-b861-98f7803a8000
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_padding
+    - paragraphs.paragraphs_type.content_section
+  module:
+    - custom_add_another
+    - options
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: paragraph.content_section.field_padding
+field_name: field_padding
+entity_type: paragraph
+bundle: content_section
+label: Padding
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: padding-default
+default_value_callback: ''
+settings: {  }
+field_type: list_string

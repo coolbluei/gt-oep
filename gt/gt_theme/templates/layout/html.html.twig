@@ -23,31 +23,25 @@
  * @see template_preprocess_html()
  */
 #}
-
 <!DOCTYPE html>
 <html{{ html_attributes }}>
 <head>
     <head-placeholder token="{{ placeholder_token|raw }}">
         <title>{{ head_title|safe_join(' | ') }}</title>
         <css-placeholder token="{{ placeholder_token|raw }}">
-
             <js-placeholder token="{{ placeholder_token|raw }}">
-
                 {% if customize_css %}
-                    <style type="text/css">
+                    <style>
                         {{ customize_css|raw }}
                     </style>
                 {% endif %}
-
                 </head>
-
                 {% set body_classes = [
                     logged_in ? 'logged-in',
                     not root_path ? 'frontpage' : 'path-' ~ root_path|clean_class,
                     node_type ? 'node--type-' ~ node_type|clean_class,
                     node_id ? 'node-' ~ node_id|clean_class,
                 ] %}
-
 <body{{ attributes.addClass(body_classes) }}>
 <a href="#main-navigation" class="visually-hidden focusable">
     {{ 'Skip to main navigation'|t }}

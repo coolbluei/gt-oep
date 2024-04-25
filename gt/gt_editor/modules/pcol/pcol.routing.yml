@@ -1,0 +1,47 @@
+Paragraph columnentity.pcols:
+  path: '/admin/content/pcols'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Paragraph columns'
+  requirements:
+    _permission: 'administer pcols'
+
+entity.pcol.canonical:
+  path: '/admin/content/pcols/{pcol}'
+  defaults:
+    _entity_view: 'pcol'
+    _title: 'Paragraph columns'
+  requirements:
+    _permission: 'administer pcols'
+
+entity.pcol.collection:
+  path: '/admin/content/pcols/list'
+  defaults:
+    _entity_list: 'pcol'
+    _title: 'Paragraph columns'
+  requirements:
+    _permission: 'administer pcols'
+
+entity.pcol.add:
+  path: '/admin/content/pcols/add'
+  defaults:
+    _entity_form: pcol.add
+    _title: 'Add Paragraph column'
+  requirements:
+    _permission: 'administer pcols'
+
+entity.pcol.edit_form:
+  path: '/admin/content/pcols/{pcol}/edit'
+  defaults:
+    _entity_form: pcol.edit
+    _title: 'Edit Paragraph column'
+  requirements:
+    _permission: 'administer pcols'
+
+entity.pcol.delete_form:
+  path: '/admin/content/pcols/{pcol}/delete'
+  defaults:
+    _entity_form: pcol.delete
+    _title: 'Delete Paragraph column'
+  requirements:
+    _permission: 'administer pcols'

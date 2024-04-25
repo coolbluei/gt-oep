@@ -57,7 +57,9 @@ function gt_tools_swap_out_curie_theme($current_theme) {
     ->set('default', 'gt')
     ->save();
   }
-  $theme_installer->uninstall(['curie']);
+  if(\Drupal::service('theme_handler')->themeExists('curie')){
+    $theme_installer->uninstall(['curie']);
+  }
   \Drupal::state()->set('gt_profile', 'profiles/contrib/gt_profile/gt_profile.info.yml');
 }
 
@@ -70,7 +72,7 @@ function gt_tools_create_footer_blocks($op) {
   $source = new \Drupal\Core\Config\FileStorage($config_dir);
   $config_storage = \Drupal::service('config.storage');
   foreach ($files as $file) {
-    $components = explode(DIRECTORY_SEPARATOR, $file);
+    $components = explode('/', $file);
     $config_name = str_replace('.yml', '', end($components));
     $config_storage->write($config_name, $source->read($config_name));
   }
@@ -81,7 +83,7 @@ function gt_tools_reconfigure_system_blocks() {
   $blocks_were_altered = FALSE;
   foreach ($block_names as $block_name) {
     $block = \Drupal\block\Entity\Block::load($block_name);
-    if ($block) {
+    if ($block && $block->status()) {
       $block->setStatus(FALSE);
       $block->save();
       $blocks_were_altered = TRUE;
@@ -115,7 +117,7 @@ function gt_tools_reconfigure_user_blocks($current_theme) {
   // Remove stock gt blocks
   $database = \Drupal::database();
   $query = $database->delete('config');
-  $query->condition('config.data', '%s:5:"theme";a:1:{i:0;s:2:"gt";}%');
+  $query->condition('data', '%s:5:"theme";a:1:{i:0;s:2:"gt";}%');
   $result = $query->execute();
 
   // If blocks belong to a subtheme, let them remain that way.

@@ -1,12 +1,17 @@
 /* GT Title */
+#block-gt-calendar-categories h2 {
+	font-size: 1.5rem !important;
+	color: var(--gt-navy) !important;
+}
+
+.gt-sub-heading {
+  color: var(--gt-md-grey);
+}
+
 .heading-title h2:before {
 	content: ' ';
 	display: block;
 	width: 100%;
 	height: 17px;
   border-top: 10px solid var(--gt-warm-gray-medium);
-}
-
-.gt-sub-heading {
-  color: var(--gt-md-grey);
 }

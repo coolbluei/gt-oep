@@ -1,0 +1,46 @@
+uuid: a2b10e04-e0a2-4c9c-8fa8-971200a6ea73
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_header_image
+    - node.type.feature
+  module:
+    - custom_add_another
+    - image
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.feature.field_header_image
+field_name: field_header_image
+entity_type: node
+bundle: feature
+label: 'Header image'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: 'features/[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: 500kb
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+    caption: ''
+  caption_field: 0
+  caption_field_required: 0
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

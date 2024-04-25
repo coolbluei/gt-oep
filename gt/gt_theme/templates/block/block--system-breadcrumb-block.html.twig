@@ -31,6 +31,12 @@
     {% set class_hide = 'hide-breadcrumb' %}
 {% endif %}
 
-<div class="{{ class_hide }}">
-    {{ content }}
-</div>
+{% if class_hide == 'hide-breadcrumb' %}
+    <div class="{{ class_hide }}">
+        {{ content }}
+    </div>
+{% else %}
+    <div class="gt-breadcrumb">
+        {{ content }}
+    </div>
+{% endif %}

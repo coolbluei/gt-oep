@@ -1,0 +1,30 @@
+uuid: 0acc98a3-1b51-418f-bf03-0e190d7f512d
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_width
+field_name: field_width
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: container
+      label: 'Container (normal width)'
+    -
+      value: container-fluid
+      label: 'Container fluid (full width w/margins)'
+    -
+      value: full-bleed
+      label: 'Full width (no margins)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

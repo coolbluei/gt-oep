@@ -2,7 +2,13 @@
 
 `gt_theme` is the official Georgia Tech theme (https://theme.gatech.edu) for the Drupal 9+ content management system.
 
-The GT theme ^3.0.0 is compatible with Drupal ^9.0.0 and above.
+The GT theme ^4.0.0 is compatible with Drupal ^9.0.0 and above.
+
+## Bootstrap 5
+The GT theme ^4.0.0 is running Bootstrap v5 and can negativly effect older sites. Make sure to backup your work and test.
+https://getbootstrap.com/docs/5.2/getting-started/introduction/
+
+Internet Explorer is not supported. If you require Internet Explorer support, please use Bootstrap v4.
 
 ## Requirements
 

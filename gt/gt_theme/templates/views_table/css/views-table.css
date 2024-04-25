@@ -1,6 +1,6 @@
 /* Table CSS */
 table {
-  font-family: var(--font-abel);
+  font-family: "din-2014",sans-serif;
   font-size: 1rem;
   line-height: 1.2;
   margin: 10px 0 20px 0;

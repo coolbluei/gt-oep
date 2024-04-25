@@ -11,19 +11,18 @@
 {# Set CSS Classes #}
 {%
   set classes = [
-  'm-4',
   'block',
   'block-' ~ configuration.provider|clean_class,
   'block-' ~ plugin_id|clean_class,
 ]
 %}
 {# Content #}
-<div{{ attributes.addClass(classes|join(' ')) }}>
+<div{{ attributes.addClass('gt-accordion', classes|join(' ')) }}>
   {# title #}
   {{ title_prefix }}
-    {% if label %}
-      <h2 class={{ title_attributes }}>{{ label }}</h2>
-    {% endif %}
+  {% if label %}
+    <h2 class={{ title_attributes }}>{{ label }}</h2>
+  {% endif %}
   {{ title_suffix }}
   {# body #}
   {% if body %}

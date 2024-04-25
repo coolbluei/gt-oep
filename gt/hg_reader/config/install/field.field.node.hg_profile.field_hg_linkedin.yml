@@ -1,0 +1,23 @@
+uuid: 0acccc89-ef56-4a9f-906a-9d323cc4e5e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hg_linkedin
+    - node.type.hg_profile
+  module:
+    - link
+id: node.hg_profile.field_hg_linkedin
+field_name: field_hg_linkedin
+entity_type: node
+bundle: hg_profile
+label: 'Linked In'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

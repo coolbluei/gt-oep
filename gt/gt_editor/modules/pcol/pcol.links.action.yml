@@ -1,0 +1,5 @@
+entity.pcol.add:
+  route_name: entity.pcol.add
+  title: 'Add a paragraph column'
+  appears_on:
+    - entity.pcol.collection

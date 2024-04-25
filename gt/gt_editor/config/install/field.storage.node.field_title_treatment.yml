@@ -1,0 +1,30 @@
+uuid: 0dd1d3f2-7dde-4a71-a8fc-ed5dd62de1b3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_title_treatment
+field_name: field_title_treatment
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: default
+      label: Default
+    -
+      value: centered
+      label: Centered
+    -
+      value: hidden
+      label: Hidden
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

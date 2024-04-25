@@ -1,50 +1,38 @@
 {# GT Footer #}
-{% set class_cas_login = '' %}
-  {% if cas_login == 1 %}
-      {% set class_cas_login = 'cas-login' %}
-  {% endif %}
-
 {# Top Footer Gradient Bar #}
 <div class="container-fluid footer-top-bar d-none d-lg-block">
 </div>
-
 {# Bottom Footer Section #}
 <div id="gt-footer" class="container-fluid footer-bottom-bar">
     <div class="container pt-3">
         <div class="row footer-content">
-
             {# Address Section  > MOBILE 2 #}
             {% if page.footer_05 %}
                 <div id="address_text" class="col-md-3 col-sm-12 my-2 order-md-1 order-2">
                     {{ page.footer_05 }}
                 </div>
             {% endif %}
-
             {# General Section   > MOBILE 3 #}
             {% if page.footer_06 %}
                 <div class="col-md-3 col-sm-12 my-2 order-md-2 order-3">
                     {{ page.footer_06 }}
                 </div>
             {% endif %}
-
             {# Legal Section  > MOBILE 4 #}
             {% if page.footer_07 %}
                 <div class="col-md-3 col-sm-12 my-2 order-md-3 order-4">
                     {{ page.footer_07 }}
                 </div>
             {% endif %}
-
             {# Logo Section > MOBILE 1 #}
             {% if page.footer_08 %}
                 <div id="gt-logo-footer" class="col-md-3 col-sm-12 my-2 order-md-4 order-1">
                     {{ page.footer_08 }}
                 </div>
             {% endif %}
-
         </div> {# end row #}
-         
         <div class="row footer-bg-row">
-        	<div class="col-12 col-sm-12 col-md-9 footer-bg-col"></div>
+            <div class="col-12 col-sm-12 col-md-9 footer-bg-col"></div>
         </div>
     </div> {# end container #}
 </div> {# end container-fluid #}

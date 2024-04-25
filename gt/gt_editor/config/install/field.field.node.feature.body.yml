@@ -1,0 +1,28 @@
+uuid: 7fc363c4-288e-48b2-b8d4-4942fc953e9f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.feature
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.feature.body
+field_name: body
+entity_type: node
+bundle: feature
+label: Body
+description: 'Intro body text is <b>col-12 col-sm-12 col-md-8</b> (66.6% of 12-column-width on medium and large screens, 100% width on small screens.)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

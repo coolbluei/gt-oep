@@ -1,0 +1,108 @@
+uuid: 69de8efd-105a-4798-9cf7-acc25afa259b
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.feature.body
+    - field.field.node.feature.field_author
+    - field.field.node.feature.field_content_section
+    - field.field.node.feature.field_credits
+    - field.field.node.feature.field_dateline
+    - field.field.node.feature.field_header_image
+    - field.field.node.feature.field_header_image_width
+    - field.field.node.feature.field_title_treatment
+    - node.type.feature
+  module:
+    - datetime
+    - entity_reference_revisions
+    - field_formatter_class
+    - field_group
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_author_date:
+      children:
+        - field_author
+        - field_dateline
+      parent_name: ''
+      weight: 1
+      format_type: html_element
+      region: content
+      format_settings:
+        id: feature-author-date
+        classes: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+      label: author-date
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.feature.full
+targetEntityType: node
+bundle: feature
+mode: full
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_author:
+    weight: 2
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      field_formatter_class:
+        class: cutline-text
+    type: string
+    region: content
+  field_content_section:
+    type: entity_reference_revisions_entity_view
+    weight: 3
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_credits:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_dateline:
+    weight: 3
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: fullmonth_xx_20xx
+    third_party_settings:
+      field_formatter_class:
+        class: ''
+    type: datetime_default
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_header_image: true
+  field_header_image_width: true
+  field_is_spotlight: true
+  field_newsroom_topic: true
+  field_thumbnail_image: true
+  field_title_treatment: true

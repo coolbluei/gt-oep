@@ -1,0 +1,28 @@
+uuid: b68cd8b4-5849-45a1-a704-9933fbc28acd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_title_treatment
+    - node.type.feature
+  module:
+    - custom_add_another
+    - options
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.feature.field_title_treatment
+field_name: field_title_treatment
+entity_type: node
+bundle: feature
+label: 'Title treatment'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: default
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -143,8 +143,8 @@ function gt_form_system_theme_settings_alter(&$form, &$form_state)
         '#default_value' => theme_get_setting('cas_login'),
         '#group' => 'general',
         '#options' => array(
-            '0' => t('Enable'),
-            '1' => t('Disable')
+            '1' => t('Enable'),
+            '0' => t('Disable')
         )
     );
 

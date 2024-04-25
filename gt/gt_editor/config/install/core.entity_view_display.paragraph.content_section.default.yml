@@ -1,0 +1,28 @@
+uuid: 387bcc28-4b52-42ce-bf3b-675e1913e023
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_section.field_background
+    - field.field.paragraph.content_section.field_columns
+    - field.field.paragraph.content_section.field_padding
+    - field.field.paragraph.content_section.field_width
+    - paragraphs.paragraphs_type.content_section
+id: paragraph.content_section.default
+targetEntityType: paragraph
+bundle: content_section
+mode: default
+content:
+  field_columns:
+    weight: 0
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+hidden:
+  field_background: true
+  field_padding: true
+  field_width: true

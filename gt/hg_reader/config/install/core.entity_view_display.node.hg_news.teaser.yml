@@ -5,50 +5,86 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.hg_news.body
+    - field.field.node.hg_news.field_hg_categories
     - field.field.node.hg_news.field_hg_contact
+    - field.field.node.hg_news.field_hg_core_research_areas
     - field.field.node.hg_news.field_hg_dateline
     - field.field.node.hg_news.field_hg_email
+    - field.field.node.hg_news.field_hg_id
     - field.field.node.hg_news.field_hg_images
     - field.field.node.hg_news.field_hg_importer
+    - field.field.node.hg_news.field_hg_keywords
     - field.field.node.hg_news.field_hg_location
+    - field.field.node.hg_news.field_hg_news_room_topics
     - field.field.node.hg_news.field_hg_related_files
     - field.field.node.hg_news.field_hg_related_links
     - field.field.node.hg_news.field_hg_sidebar
+    - field.field.node.hg_news.field_hg_source_updated
     - field.field.node.hg_news.field_hg_subtitle
     - field.field.node.hg_news.field_hg_summary
     - field.field.node.hg_news.field_hg_summary_sentence
+    - field.field.node.hg_news.field_hg_youtube_video
     - node.type.hg_news
   module:
-    - text
+    - datetime
+    - image
     - user
 _core:
-  default_config_hash: o1YnJwGD1dqrOPrr1aLxp_SJoUf8Qdx4Z1w4sWk0KAY
+  default_config_hash: w6tW3r3LaGRZ07b-CyQIYNhKNCDd8fSGUX_WopwAk_4
 id: node.hg_news.teaser
 targetEntityType: node
 bundle: hg_news
 mode: teaser
 content:
-  body:
-    label: hidden
-    type: text_summary_or_trimmed
-    weight: 101
+  field_hg_dateline:
+    type: datetime_default
+    weight: 1
+    region: content
+    label: above
     settings:
-      trim_length: 600
+      format_type: medium
+      timezone_override: ''
     third_party_settings: {  }
+  field_hg_images:
+    type: image
+    weight: 0
     region: content
-  links:
-    weight: 100
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+  field_hg_location:
+    type: string
+    weight: 2
     region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_hg_summary_sentence:
+    type: string
+    weight: 3
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
 hidden:
+  body: true
+  field_hg_categories: true
   field_hg_contact: true
-  field_hg_dateline: true
+  field_hg_core_research_areas: true
   field_hg_email: true
-  field_hg_images: true
+  field_hg_id: true
   field_hg_importer: true
-  field_hg_location: true
+  field_hg_keywords: true
+  field_hg_news_room_topics: true
   field_hg_related_files: true
   field_hg_related_links: true
   field_hg_sidebar: true
+  field_hg_source_updated: true
   field_hg_subtitle: true
   field_hg_summary: true
-  field_hg_summary_sentence: true
+  field_hg_youtube_video: true
+  links: true

@@ -33,6 +33,7 @@ class HgImporterSettingsForm extends FormBase {
     $config = $this->config('hg_reader.settings');
     // get all y'all's text formats
     $formats = \Drupal::entityQuery('filter_format')
+        ->accessCheck(FALSE)
         ->execute();
     // use limited_html if it exists
     $default_format = array_search('limited_html', $formats) ? 'limited_html' : 'plain_text';

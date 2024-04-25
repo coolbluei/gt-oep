@@ -34,28 +34,28 @@
 {% set link_color = content.field_button_style[0]['#taxonomy_term'].getName()|clean_class|replace({' ': '-'}) %}
 {% set nav_style = (content.field_link_styling.0) %}
 {% set style_rules  = link_color|render ~ ''  ~ ' ' ~ nav_style|render %}
-{% set link_id = 'custom-links' %}
 
-{# Set CSS Classes #}
-{%
-  set classes = [
-  'my-3',
-  'block',
-  'block-' ~ configuration.provider|clean_class,
-  'block-' ~ plugin_id|clean_class,
-]
-%}
+
+{# Set CSS Container Classes #}
+{% set container_classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+    'custom-links',
+    'my-3',
+    'clearfix'
+] %}
 
 {# Content #}
-<div{{ attributes.setAttribute('id', link_id).addClass(classes|join(' ')) }}>
-  {{ title_prefix }}
-  {% if label %}
-    <h4{{ title_attributes }}>{{ label }}</h4>
-  {% endif %}
-  {{ title_suffix }}
-  {% block content %}
-    <ul class="{{ style_rules }}">
-      {{ link }}
-    </ul>
-  {% endblock %}
+<div{{ attributes.addClass(container_classes) }}>
+    {{ title_prefix }}
+    {% if label %}
+        <label{{ title_attributes }}>{{ label }}</label>
+    {% endif %}
+    {{ title_suffix }}
+    {% block content %}
+        <ul class="{{ style_rules }} w-100">
+            {{ link }}
+        </ul>
+    {% endblock %}
 </div>

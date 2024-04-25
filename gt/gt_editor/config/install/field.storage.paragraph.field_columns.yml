@@ -1,0 +1,20 @@
+uuid: f049f7ac-49bc-4821-9433-8a6764c4c775
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - pcol
+id: paragraph.field_columns
+field_name: field_columns
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: pcol
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

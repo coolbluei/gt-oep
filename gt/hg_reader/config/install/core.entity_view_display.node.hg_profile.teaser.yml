@@ -5,24 +5,93 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.hg_profile.body
+    - field.field.node.hg_profile.field_hg_alternate_job_title
+    - field.field.node.hg_profile.field_hg_city
+    - field.field.node.hg_profile.field_hg_classification
+    - field.field.node.hg_profile.field_hg_college_school
+    - field.field.node.hg_profile.field_hg_degree
+    - field.field.node.hg_profile.field_hg_department
+    - field.field.node.hg_profile.field_hg_expertise
+    - field.field.node.hg_profile.field_hg_fax_number
+    - field.field.node.hg_profile.field_hg_first_name
+    - field.field.node.hg_profile.field_hg_id
+    - field.field.node.hg_profile.field_hg_importer
+    - field.field.node.hg_profile.field_hg_job_title
+    - field.field.node.hg_profile.field_hg_last_name
+    - field.field.node.hg_profile.field_hg_linkedin
+    - field.field.node.hg_profile.field_hg_middle_name
+    - field.field.node.hg_profile.field_hg_mobile_phone
+    - field.field.node.hg_profile.field_hg_nickname
+    - field.field.node.hg_profile.field_hg_phone_number
+    - field.field.node.hg_profile.field_hg_primary_email
+    - field.field.node.hg_profile.field_hg_recent_appearances
+    - field.field.node.hg_profile.field_hg_related_files
+    - field.field.node.hg_profile.field_hg_related_links
+    - field.field.node.hg_profile.field_hg_research
+    - field.field.node.hg_profile.field_hg_secondary_email
+    - field.field.node.hg_profile.field_hg_source_updated
+    - field.field.node.hg_profile.field_hg_specialty
+    - field.field.node.hg_profile.field_hg_state
+    - field.field.node.hg_profile.field_hg_street_address
+    - field.field.node.hg_profile.field_hg_summary
+    - field.field.node.hg_profile.field_hg_teaching
+    - field.field.node.hg_profile.field_hg_twitter
+    - field.field.node.hg_profile.field_hg_url
+    - field.field.node.hg_profile.field_hg_zip_code
     - node.type.hg_profile
   module:
     - text
     - user
+_core:
+  default_config_hash: jrmvs4x_BumpzdTNLoGkO2uZGH6AT5_NlVh9s0GMUDI
 id: node.hg_profile.teaser
 targetEntityType: node
 bundle: hg_profile
 mode: teaser
 content:
   body:
-    label: hidden
     type: text_summary_or_trimmed
-    weight: 101
+    label: hidden
     settings:
       trim_length: 600
     third_party_settings: {  }
+    weight: 101
     region: content
   links:
     weight: 100
     region: content
-hidden: {  }
+hidden:
+  field_hg_alternate_job_title: true
+  field_hg_city: true
+  field_hg_classification: true
+  field_hg_college_school: true
+  field_hg_degree: true
+  field_hg_department: true
+  field_hg_expertise: true
+  field_hg_fax_number: true
+  field_hg_first_name: true
+  field_hg_id: true
+  field_hg_importer: true
+  field_hg_job_title: true
+  field_hg_last_name: true
+  field_hg_linkedin: true
+  field_hg_media: true
+  field_hg_middle_name: true
+  field_hg_mobile_phone: true
+  field_hg_nickname: true
+  field_hg_phone_number: true
+  field_hg_primary_email: true
+  field_hg_recent_appearances: true
+  field_hg_related_files: true
+  field_hg_related_links: true
+  field_hg_research: true
+  field_hg_secondary_email: true
+  field_hg_source_updated: true
+  field_hg_specialty: true
+  field_hg_state: true
+  field_hg_street_address: true
+  field_hg_summary: true
+  field_hg_teaching: true
+  field_hg_twitter: true
+  field_hg_url: true
+  field_hg_zip_code: true

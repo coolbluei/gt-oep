@@ -1,0 +1,28 @@
+uuid: e12f4e53-283c-4172-b9b7-5ebe2b36a452
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.hg_video.field_media_hg_video
+    - media.type.hg_video
+  module:
+    - media
+id: media.hg_video.default
+targetEntityType: media
+bundle: hg_video
+mode: default
+content:
+  field_media_hg_video:
+    type: oembed
+    label: visually_hidden
+    settings:
+      max_width: 0
+      max_height: 0
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  name: true
+  thumbnail: true
+  uid: true

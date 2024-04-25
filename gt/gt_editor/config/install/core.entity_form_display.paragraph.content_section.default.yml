@@ -1,0 +1,75 @@
+uuid: 13ee8beb-8672-4cb1-ab59-c8efc375fbe5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_section.field_background
+    - field.field.paragraph.content_section.field_columns
+    - field.field.paragraph.content_section.field_padding
+    - field.field.paragraph.content_section.field_width
+    - paragraphs.paragraphs_type.content_section
+  module:
+    - field_group
+    - inline_entity_form
+third_party_settings:
+  field_group:
+    group_content_row_options:
+      children:
+        - field_background
+        - field_padding
+        - field_width
+      parent_name: ''
+      weight: 0
+      format_type: html_element
+      region: content
+      format_settings:
+        id: content-row-options
+        classes: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Content Row Options'
+id: paragraph.content_section.default
+targetEntityType: paragraph
+bundle: content_section
+mode: default
+content:
+  field_background:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_columns:
+    weight: 4
+    settings:
+      form_mode: default
+      revision: false
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+    third_party_settings: {  }
+    type: inline_entity_form_simple
+    region: content
+  field_padding:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_width:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  status: true

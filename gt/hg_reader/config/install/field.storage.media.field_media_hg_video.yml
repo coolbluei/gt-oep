@@ -1,0 +1,24 @@
+uuid: e4a28dd2-f6b9-4b23-ae6f-537fa6c2c8ed
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - hg_reader
+  module:
+    - media
+id: media.field_media_hg_video
+field_name: field_media_hg_video
+entity_type: media
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,16 +1,23 @@
 {# HG Mercury Image Template #}
 
+{# Set Content CSS Classes #}
+{% set classes = [
+  'mercury',
+  'mercury-image',
+  'row',
+  'mb-5',
+  'clearfix',
+] %}
+
 {# Attached Style Sheet #}
 {{ attach_library('hg_reader/hg_reader') }}
 
-{# Content Start #}
-<div id="mercury" class="row mb-5 clearfix">
-
-  {# Set Main Container #}
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    {# Image/s #}
+{# Content #}
+<div{{ attributes.setAttribute('id', 'mercury').addClass(classes) }}>
+  <div class="col">
+    {# Image #}
     {% if content.field_hg_images is not empty %}
-      <div class="hg-images px-1">
+      <div class="hg-images p-1">
         <picture>
           {% if content.field_hg_images is defined %}
             {{ content.field_hg_images }}
@@ -21,8 +28,7 @@
     {% endif %}
     {# Description #}
     {% if content.body is not empty %}
-      {# content #}
-      <div class="description px-1">
+      <div class="description p-1">
         {{ content.body[0] }}
       </div>
     {% endif %}
