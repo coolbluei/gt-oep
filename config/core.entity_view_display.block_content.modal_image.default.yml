@@ -6,6 +6,8 @@ dependencies:
     - block_content.type.modal_image
     - field.field.block_content.modal_image.field_image
     - field.field.block_content.modal_image.field_quote
+    - field.field.block_content.modal_image.field_video
+    - field.field.block_content.modal_image.field_video_provider
     - field.field.block_content.modal_image.field_video_url
     - image.style.large
   module:
@@ -23,6 +25,8 @@ content:
     settings:
       image_link: ''
       image_style: large
+      image_loading:
+        attribute: lazy
     third_party_settings:
       field_formatter_class:
         class: ''
