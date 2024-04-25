@@ -32,6 +32,9 @@ mercury:
 accordion:
   js:
     js/accordion.js: {}
+  css:
+    theme:
+      css/accordion.css: { }
   dependencies:
     - gt_theme/gt-accordion
     - jquery_ui_accordion/accordion

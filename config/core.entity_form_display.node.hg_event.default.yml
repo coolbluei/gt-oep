@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.hg_event.field_hg_event_time
     - field.field.node.hg_event.field_hg_extras
     - field.field.node.hg_event.field_hg_fee
+    - field.field.node.hg_event.field_hg_groups
     - field.field.node.hg_event.field_hg_id
     - field.field.node.hg_event.field_hg_images
     - field.field.node.hg_event.field_hg_importer
@@ -125,6 +126,7 @@ content:
       rows: 9
       summary_rows: 3
       placeholder: ''
+      show_summary: false
     third_party_settings: {  }
   created:
     type: datetime_timestamp
@@ -170,9 +172,17 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_hg_groups:
+    type: string_textfield
+    weight: 17
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_hg_id:
     type: number
-    weight: 26
+    weight: 16
     region: content
     settings:
       placeholder: ''
@@ -268,7 +278,7 @@ content:
     third_party_settings: {  }
   field_hg_source_updated:
     type: datetime_timestamp
-    weight: 27
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -290,7 +300,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 30
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
