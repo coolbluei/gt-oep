@@ -58,7 +58,7 @@ function hg_reader_post_update_rebuild_terms(&$sandbox) {
         if (is_null($term) || $term->bundle() == $vid) { continue; }
 
         // Check to see if term exists in the current vocabulary
-        $term_exists_in_vocab = taxonomy_term_load_multiple_by_name($term->getName(), $vid);
+        $term_exists_in_vocab = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $term->getName(), 'vid' => $vid]);
         // If empty, then term does not exist in vocab, so build
         if (empty($term_exists_in_vocab)) {
           $term_new = Term::create([
@@ -149,7 +149,8 @@ function hg_reader_post_update_remove_duplicate_terms(&$sandbox) {
         if (is_null($term)) { continue; }
 
         // Find the authoritative term for the meta.
-        $term_authoritative = array_shift(taxonomy_term_load_multiple_by_name($term->getName(),$vid));
+        $temp_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $term->getName(), 'vid' => $vid]);
+        $term_authoritative = array_shift($temp_terms);
         // Reference authoritative term and delete the dupe.
         if ($term->id() == $term_authoritative->id()) { continue; }
 
@@ -208,7 +209,7 @@ function hg_reader_post_update_remove_orphaned_terms(&$sandbox) {
       $term = Term::load($vocabulary_term->id());
       // If term doesn't exist, it's probably already been deleted.
       if (empty($term)) { continue; }
-      $terms_to_delete = taxonomy_term_load_multiple_by_name($term->getName(),$vocabulary->id());
+      $terms_to_delete = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $term->getName(), 'vid' => $vocabulary->id()]);
       $term_authoritative = array_shift($terms_to_delete);
       // If we have no terms to delete, continue on.
       if (empty($terms_to_delete)) { continue; }

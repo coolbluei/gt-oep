@@ -61,3 +61,21 @@ body.gtpd-theme .main-nav .dropdown-item.menu-item--level-2 > a:visited {
   color: var(--gt-drk-gold);
   font-weight: 700;
 }
+.field--name-field-link {
+  padding: 10px 0 0 0;
+}
+.field--name-field-link a {
+  background: var(--gt-gold);
+  border: 0 transparent;
+  border-radius: 2px;
+  color: var(--gt-black);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: .5em .75em;
+  text-decoration: none;
+  background: var(--gt-gold);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+.field--name-field-link a:hover {
+  background: var(--gt-tech-light-gold);
+}

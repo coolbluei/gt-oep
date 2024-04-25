@@ -240,6 +240,9 @@ function hg_reader_preprocess_node(&$vars) {
 
   $vars['content']['extra_media']['images'] = [];
   $vars['content']['extra_media']['videos'] = [];
+  if (!isset($vars['content']['field_hg_media']) || !is_array($vars['content']['field_hg_media'])) {
+    return;
+  }
   foreach ($vars['content']['field_hg_media'] as $key => $element) {
     if (is_int($key)) {
       if ($key == 0) { $vars['content']['hero_media'] = $element; }
