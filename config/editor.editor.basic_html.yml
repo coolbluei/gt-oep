@@ -1,47 +1,69 @@
-uuid: 981e7782-2600-46c3-b4e8-b0e3528380d3
+uuid: 693520f0-2a6f-481f-8c88-1d8da2459af0
 langcode: en
 status: true
 dependencies:
   config:
     - filter.format.basic_html
   module:
-    - ckeditor
+    - ckeditor5
 format: basic_html
-editor: ckeditor
+editor: ckeditor5
 settings:
   toolbar:
-    rows:
-      -
-        -
-          name: Formatting
-          items:
-            - Bold
-            - Italic
-        -
-          name: Links
-          items:
-            - DrupalLink
-            - DrupalUnlink
-        -
-          name: Lists
-          items:
-            - BulletedList
-            - NumberedList
-        -
-          name: Media
-          items:
-            - Blockquote
-            - DrupalImage
-        -
-          name: Tools
-          items:
-            - Source
-  plugins: {  }
+    items:
+      - bold
+      - italic
+      - '|'
+      - link
+      - '|'
+      - bulletedList
+      - numberedList
+      - '|'
+      - blockQuote
+      - drupalInsertImage
+      - '|'
+      - sourceEditing
+      - '|'
+      - heading
+      - underline
+      - code
+  plugins:
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_sourceEditing:
+      allowed_tags:
+        - '<cite>'
+        - '<dt>'
+        - '<h2 id class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<h3 id class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<h4 id class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<h5 id class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<h6 id class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<dl class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<dd class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<img data-entity-type data-entity-uuid>'
+        - '<a hreflang>'
+        - '<blockquote cite>'
+        - '<ul type>'
+        - '<ol type>'
+        - '<drupal-media title>'
+    ckeditor5_list:
+      reversed: false
+      startIndex: true
+    ckeditor5_imageResize:
+      allow_resize: true
+    media_media:
+      allow_view_mode_override: false
 image_upload:
   status: false
   scheme: public
   directory: inline-images
   max_size: ''
   max_dimensions:
-    width: null
-    height: null
+    width: 0
+    height: 0
