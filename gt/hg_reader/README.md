@@ -6,7 +6,7 @@ If you used the gt_installer you will already have the module and it will alread
 
 CONFIGURATION
 
-Extreme caveat: hg_reader looks for a text format named limited_html and uses that as its default. If you don't have such a format, it will use plain text, which is not good unless you like to see your pages decorated with HTML tags. Before you make any importers, go to admin/config/hg-reader/settings and select a text format. A future version of the module will create -- if the user approves -- a default text format upon installation.
+Extreme caveat: hg_reader looks for a text format named basic_html and uses that as its default. If you don't have such a format, it will use plain text, which is not good unless you like to see your pages decorated with HTML tags. Before you make any importers, go to admin/config/hg-reader/settings and select a text format. A future version of the module will create -- if the user approves -- a default text format upon installation.
 
 The other fields on the configuration page are mostly useful for development. You can stick with the defaults.
 

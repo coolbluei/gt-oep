@@ -10,35 +10,51 @@
         <div class="hg-title w-100 ml-3 mb-3">
             <p><a href="{{ path('entity.node.canonical', {'node': node.id}) }}" title="{{ node.title.value }}">{{ node.title.value }}</a></p>
         </div>
-        {% if content.field_hg_summary_sentence is not empty and content.field_hg_images[0] is empty %}
+        {% if content.field_hg_summary_sentence is not empty %}
+          {% if content.field_hg_images[0] is empty and content.field_hg_media[0] is empty%}
             {# Content #}
             <div class="col description">
                 {# Dateline #}
                 {% if content.field_hg_dateline|render is not empty or content.field_hg_location|render is not empty %}
-                    <div class="dateline w-100">
-                        {{ node.field_hg_dateline.value|date('M d, Y') }} {{ ' - '|t }} {{ content.field_hg_location[0] }}
-                    </div>
+                  <div class="dateline w-100">
+                    {{ node.field_hg_dateline.value|date('M d, Y') }} {{ ' - '|t }} {{ content.field_hg_location[0] }}
+                  </div>
                 {% endif %}
                 {# Copy #}
                 {{ content.field_hg_summary_sentence[0] }}
             </div>
-        {% else %}
+          {% else %}
             {# Image #}
-            <div class="col hg-teaser-image">
+            {% if content.field_hg_images[0] is not empty %}
+              <div class="col hg-teaser-image">
                 <a href="{{ path('entity.node.canonical', {'node': node.id}) }}" title="{{ node.title.value }}">
-                    {{ content.field_hg_images[0] }}
+                  {{ content.field_hg_images[0] }}
                 </a>
-            </div>
+              </div>
+            {% endif %}
+            {% if content.field_hg_media[0] is not empty %}
+              <div class="col hg-teaser-image">
+                <a href="{{ path('entity.node.canonical', {'node': node.id}) }}" title="{{ node.title.value }}">
+                  {{ content.field_hg_media[0] }}
+                </a>
+              </div>
+            {% endif %}
+
             <div class="col description">
-                {# Dateline #}
-                {% if content.field_hg_dateline|render is not empty or content.field_hg_location|render is not empty %}
-                    <div class="dateline w-100">
-                        {{ node.field_hg_dateline.value|date('M d, Y') }} {{ ' - '|t }} {{ content.field_hg_location[0] }}
-                    </div>
-                {% endif %}
-                {# Copy #}
-                {{ content.field_hg_summary_sentence[0] }}
+              {# Dateline #}
+              {% if content.field_hg_dateline|render is not empty or content.field_hg_location|render is not empty %}
+                <div class="dateline w-100">
+                  {{ node.field_hg_dateline.value|date('M d, Y') }} {{ ' - '|t }} {{ content.field_hg_location[0] }}
+                </div>
+              {% elseif content.field_hg_location|render is empty %}
+                <div class="dateline w-100">
+                  {{ node.field_hg_dateline.value|date('M d, Y') }}
+                </div>
+              {% endif %}
+              {# Copy #}
+              {{ content.field_hg_summary_sentence[0] }}
             </div>
+          {% endif %}
         {% endif %}
     </div>
 </div>

@@ -72,10 +72,10 @@
                 </div>
 
                 {# Time #}
-                {% set allday_start = node.field_hg_event_time.start_date|date('g:iA', false)|join|replace({' ':'', ' - ':'',':':''})|lower %}
-                {% set allday_end = node.field_hg_event_time.end_date|date('g:iA', false)|join|replace({' ':'', ' - ':'',':':''})|lower %}
-                {% set time_start = node.field_hg_event_time.start_date|date('g:iA', false) %}
-                {% set time_end = node.field_hg_event_time.end_date|date('g:iA', false) %}
+                {% set allday_start = node.field_hg_event_time.start_date|date('g:iA', 'America/New_York')|join|replace({' ':'', ' - ':'',':':''})|lower %}
+                {% set allday_end = node.field_hg_event_time.end_date|date('g:iA', 'America/New_York')|join|replace({' ':'', ' - ':'',':':''})|lower %}
+                {% set time_start = node.field_hg_event_time.start_date|date('g:iA', 'America/New_York') %}
+                {% set time_end = node.field_hg_event_time.end_date|date('g:iA', 'America/New_York') %}
                 <div class="d-flex justify-content-center time my-4">
                     {% if allday_start ~ allday_end == '1200am1159pm' %}
                         {# All Day #}

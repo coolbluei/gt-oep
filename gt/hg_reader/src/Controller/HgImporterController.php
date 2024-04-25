@@ -30,16 +30,20 @@ class HgImporterController extends ControllerBase {
    */
   protected $messenger;
   protected $database;
+  protected $full_deleted_list;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(MessengerInterface $messenger = NULL, Connection $database = NULL) {
+  public function __construct(MessengerInterface $messenger = NULL, Connection $database = NULL, $full_deleted_list = [], ) {
     if ($messenger) {
       $this->messenger = $messenger;
     }
     if ($database) {
       $this->database = $database;
+    }
+    if ($full_deleted_list) {
+      $this->full_deleted_list = $full_deleted_list;
     }
   }
 
@@ -127,6 +131,8 @@ class HgImporterController extends ControllerBase {
 
     // pull data for this importer
     $xml = $hg_reader_importer->pull_remote($fid);
+    #kpr($hg_reader_importer->serialize_xml($xml));
+    #exit();
 
     // TODO: Error handling here. Ha ha ha.
     // if (!$xml) { continue; }

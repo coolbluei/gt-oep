@@ -44,14 +44,19 @@
 }
 
 /********* Images *********/
-.mercury .image {
-  margin: 0 0 1rem 0;
-}
+.mercury .hg-media-leftovers, .mercury-event .hg-media-leftovers { margin-top: 2rem; }
+.mercury .hg-media-leftover-image, .mercury-event .hg-media-leftover-image { margin-bottom: 1rem; }
+.mercury .image, .mercury-event .image { margin: 0 0 1rem 0; }
 
 .mercury img {
   height: auto;
   max-width: 100%;
   padding: 0;
+}
+
+.mercury figcaption p {
+  font-size: 0.85rem;
+  font-style: italic;
 }
 
 .mercury .hg-image-fullsize-link {
@@ -76,9 +81,6 @@ article#mercury,
   clear: both;
 }
 
-.mercury p {
-  margin-bottom: 0;
-}
 /********* Labels *********/
 .mercury .label {
   clear: both;

@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.hg_event.field_hg_location_email
     - field.field.node.hg_event.field_hg_location_phone
     - field.field.node.hg_event.field_hg_location_url
+    - field.field.node.hg_event.field_hg_media
     - field.field.node.hg_event.field_hg_related_files
     - field.field.node.hg_event.field_hg_related_links
     - field.field.node.hg_event.field_hg_sidebar
@@ -68,6 +69,7 @@ hidden:
   field_hg_location_email: true
   field_hg_location_phone: true
   field_hg_location_url: true
+  field_hg_media: true
   field_hg_related_files: true
   field_hg_related_links: true
   field_hg_sidebar: true

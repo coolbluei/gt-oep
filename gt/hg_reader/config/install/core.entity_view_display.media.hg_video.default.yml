@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.media.hg_video.field_media_hg_video
+    - field.field.media.hg_video.field_mercury_id
     - media.type.hg_video
   module:
     - media
@@ -18,8 +19,19 @@ content:
     settings:
       max_width: 0
       max_height: 0
+      loading:
+        attribute: eager
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_mercury_id:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   created: true

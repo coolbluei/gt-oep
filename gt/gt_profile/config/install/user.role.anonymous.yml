@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - contact
     - filter
 id: anonymous
 label: 'Anonymous user'
@@ -11,5 +10,4 @@ weight: 0
 is_admin: false
 permissions:
   - 'access content'
-  - 'access site-wide contact form'
   - 'use text format restricted_html'

@@ -441,12 +441,12 @@
             <xsl:text>s:10:"image_name";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
               <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
+              <xsl:text>s:6:"base64";</xsl:text>
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_image/item/filename)"/>
+              <xsl:value-of select="string-length(php:functionString('base64_encode',image_name))"/>
               <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_image/item/filename"/>
+              <xsl:value-of select="php:functionString('base64_encode',image_name)"/>
               <xsl:text>";</xsl:text>
             <xsl:text>}</xsl:text>
 
@@ -500,15 +500,15 @@
               <xsl:text>";</xsl:text>
             <xsl:text>}</xsl:text>
 
-            <xsl:text>s:10:"youtube_id";</xsl:text>
+            <xsl:text>s:9:"video_url";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"string";</xsl:text>
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_youtube/item/value)"/>
+              <xsl:value-of select="string-length(nid/node/field_video/item/video_url)"/>
               <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_youtube/item/value"/>
+              <xsl:value-of select="nid/node/field_video/item/video_url"/>
               <xsl:text>";</xsl:text>
             <xsl:text>}</xsl:text>
 
@@ -861,7 +861,7 @@
         </xsl:for-each>
       <xsl:text>}</xsl:text>
 
-      <xsl:text>s:14:"event_audience";</xsl:text>
+      <xsl:text>s:19:"hg_invited_audience";</xsl:text>
       <xsl:text>a:</xsl:text>
       <xsl:value-of select="count(field_audience/item)"/>
       <xsl:text>:{</xsl:text>
@@ -1200,7 +1200,7 @@
         </xsl:for-each>
       <xsl:text>}</xsl:text>
 
-      <xsl:text>s:5:"media";</xsl:text>
+      <xsl:text>s:8:"hg_media";</xsl:text>
       <xsl:text>a:</xsl:text>
       <xsl:value-of select="count(field_media/item)"/>
       <xsl:text>:{</xsl:text>
@@ -1208,39 +1208,93 @@
           <xsl:text>i:</xsl:text>
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
-          <xsl:text>a:18:{</xsl:text>
+          <xsl:text>a:12:{</xsl:text>
 
-            <xsl:text>s:6:"nodeid";</xsl:text>
+            <xsl:text>s:3:"nid";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:7:"numeric";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(nid/node/nid)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="nid/node/nid"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:4:"type";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"string";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(nid/node/type)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="nid/node/type"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:5:"title";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:6:"base64";</xsl:text>
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(php:functionString('base64_encode',nid/node/title))"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="php:functionString('base64_encode',nid/node/title)"/>
+              <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+            <xsl:text>s:4:"body";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:6:"base64";</xsl:text>
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(php:functionString('base64_encode',nid/node/body))"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="php:functionString('base64_encode',nid/node/body)"/>
+              <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+            <xsl:text>s:10:"image_name";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:6:"base64";</xsl:text>
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(php:functionString('base64_encode',image_name))"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="php:functionString('base64_encode',image_name)"/>
+              <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+            <xsl:text>s:10:"image_path";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:7:"numeric";</xsl:text>
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(nid/node/field_image/item/file_full_path)"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="nid/node/field_image/item/file_full_path"/>
+              <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+            <xsl:text>s:10:"image_mime";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:6:"string";</xsl:text>
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(nid/node/field_image/item/filemime)"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="nid/node/field_image/item/filemime"/>
+              <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+            <xsl:text>s:10:"video_name";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
 
               <xsl:text>s:6:"format";</xsl:text>
@@ -1252,236 +1306,57 @@
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="php:functionString('base64_encode',nid/node/title)"/>
               <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:4:"body";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"base64";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(php:functionString('base64_encode',nid/node/body))"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="php:functionString('base64_encode',nid/node/body)"/>
-              <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:5:"video";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_video/item/filename)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_video/item/filename"/>
-              <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:9:"video_fid";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:7:"numeric";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_video/item/fid)"/>
+              <xsl:value-of select="string-length(nid/node/nid)"/>
               <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_video/item/fid"/>
+              <xsl:value-of select="nid/node/nid"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
-            <xsl:text>s:9:"videomime";</xsl:text>
+            <xsl:text>s:10:"youtube_id";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"string";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_video/item/filemime)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_video/item/filemime"/>
-              <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:9:"videopath";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_video/item/filepath)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_video/item/filepath"/>
-              <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:5:"flash";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_flash/item/filename)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_flash/item/filename"/>
-              <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:9:"flash_fid";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:7:"numeric";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_flash/item/fid)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_flash/item/fid"/>
-              <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:9:"flashpath";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_flash/item/filepath)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_flash/item/filepath"/>
-              <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:10:"videothumb";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_thumbnail/item/filename)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_thumbnail/item/filename"/>
-              <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:14:"videothumb_fid";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:7:"numeric";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_thumbnail/item/fid)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_thumbnail/item/fid"/>
-              <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:14:"videothumbpath";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_thumbnail/item/filepath)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_thumbnail/item/filepath"/>
-              <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:14:"videothumbmime";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(nid/node/field_thumbnail/item/filemime)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="nid/node/field_thumbnail/item/filemime"/>
-              <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:7:"youtube";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(nid/node/field_youtube/item/value)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="nid/node/field_youtube/item/value"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
-            <xsl:text>s:5:"width";</xsl:text>
+            <xsl:text>s:11:"video_width";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:7:"numeric";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(nid/node/field_width/item/value)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="nid/node/field_width/item/value"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
-            <xsl:text>s:6:"height";</xsl:text>
+            <xsl:text>s:12:"video_height";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:7:"numeric";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(nid/node/field_height/item/value)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="nid/node/field_height/item/value"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
-
-          <xsl:text>}</xsl:text>
-        </xsl:for-each>
+        <xsl:text>}</xsl:text>
+      </xsl:for-each>
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:5:"files";</xsl:text>
@@ -2335,8 +2210,6 @@
 
 
 
-
-
   <xsl:if test="type = 'profile'">
     <xsl:text>a:40:{</xsl:text>
 
@@ -2365,6 +2238,34 @@
         <xsl:value-of select="string-length(type)"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="type"/>
+        <xsl:text>";</xsl:text>
+      <xsl:text>}</xsl:text>
+
+      <xsl:text>s:7:"created";</xsl:text>
+      <xsl:text>a:2:{</xsl:text>
+
+        <xsl:text>s:6:"format";</xsl:text>
+        <xsl:text>s:6:"string";</xsl:text>
+
+        <xsl:text>s:5:"value";</xsl:text>
+        <xsl:text>s:</xsl:text>
+        <xsl:value-of select="string-length(created)"/>
+        <xsl:text>:"</xsl:text>
+        <xsl:value-of select="created"/>
+        <xsl:text>";</xsl:text>
+      <xsl:text>}</xsl:text>
+
+      <xsl:text>s:7:"changed";</xsl:text>
+      <xsl:text>a:2:{</xsl:text>
+
+        <xsl:text>s:6:"format";</xsl:text>
+        <xsl:text>s:6:"string";</xsl:text>
+
+        <xsl:text>s:5:"value";</xsl:text>
+        <xsl:text>s:</xsl:text>
+        <xsl:value-of select="string-length(changed)"/>
+        <xsl:text>:"</xsl:text>
+        <xsl:value-of select="changed"/>
         <xsl:text>";</xsl:text>
       <xsl:text>}</xsl:text>
 
@@ -2452,34 +2353,6 @@
         <xsl:text>";</xsl:text>
       <xsl:text>}</xsl:text>
 
-      <xsl:text>s:7:"created";</xsl:text>
-      <xsl:text>a:2:{</xsl:text>
-
-        <xsl:text>s:6:"format";</xsl:text>
-        <xsl:text>s:6:"string";</xsl:text>
-
-        <xsl:text>s:5:"value";</xsl:text>
-        <xsl:text>s:</xsl:text>
-        <xsl:value-of select="string-length(created)"/>
-        <xsl:text>:"</xsl:text>
-        <xsl:value-of select="created"/>
-        <xsl:text>";</xsl:text>
-      <xsl:text>}</xsl:text>
-
-      <xsl:text>s:7:"changed";</xsl:text>
-      <xsl:text>a:2:{</xsl:text>
-
-        <xsl:text>s:6:"format";</xsl:text>
-        <xsl:text>s:6:"string";</xsl:text>
-
-        <xsl:text>s:5:"value";</xsl:text>
-        <xsl:text>s:</xsl:text>
-        <xsl:value-of select="string-length(changed)"/>
-        <xsl:text>:"</xsl:text>
-        <xsl:value-of select="changed"/>
-        <xsl:text>";</xsl:text>
-      <xsl:text>}</xsl:text>
-
       <xsl:text>s:8:"nickname";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
 
@@ -2493,6 +2366,7 @@
         <xsl:value-of select="php:functionString('base64_encode',field_nickname/item/value)"/>
         <xsl:text>";</xsl:text>
       <xsl:text>}</xsl:text>
+
 
       <xsl:text>s:14:"college_school";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
@@ -2530,9 +2404,9 @@
 
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
-        <xsl:value-of select="string-length(php:functionString('base64_encode',field_specialty/item/value))"/>
+        <xsl:value-of select="string-length(php:functionString('base64_encode',field_specialty))"/>
         <xsl:text>:"</xsl:text>
-        <xsl:value-of select="php:functionString('base64_encode',field_summary_specialty/item/value)"/>
+        <xsl:value-of select="php:functionString('base64_encode',field_specialty)"/>
         <xsl:text>";</xsl:text>
       <xsl:text>}</xsl:text>
 
@@ -2688,6 +2562,7 @@
         <xsl:text>";</xsl:text>
       <xsl:text>}</xsl:text>
 
+
       <xsl:text>s:8:"jobtitle";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
 
@@ -2772,11 +2647,11 @@
         <xsl:text>";</xsl:text>
       <xsl:text>}</xsl:text>
 
-      <xsl:text>s:15:"classifications";</xsl:text>
+      <xsl:text>s:9:"expertise";</xsl:text>
       <xsl:text>a:</xsl:text>
-      <xsl:value-of select="count(field_classification/item)"/>
+      <xsl:value-of select="count(field_areas_of_expertise/item)"/>
       <xsl:text>:{</xsl:text>
-        <xsl:for-each select="field_classification/item">
+        <xsl:for-each select="field_areas_of_expertise/item">
           <xsl:text>i:</xsl:text>
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
@@ -2796,11 +2671,11 @@
         </xsl:for-each>
       <xsl:text>}</xsl:text>
 
-      <xsl:text>s:9:"expertise";</xsl:text>
+      <xsl:text>s:15:"classifications";</xsl:text>
       <xsl:text>a:</xsl:text>
-      <xsl:value-of select="count(field_areas_of_expertise/item)"/>
+      <xsl:value-of select="count(field_classification/item)"/>
       <xsl:text>:{</xsl:text>
-        <xsl:for-each select="field_areas_of_expertise/item">
+        <xsl:for-each select="field_classification/item">
           <xsl:text>i:</xsl:text>
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
@@ -2864,58 +2739,96 @@
         </xsl:for-each>
       <xsl:text>}</xsl:text>
 
-      <xsl:text>s:4:"gids";</xsl:text>
+      <xsl:text>s:11:"recent_news";</xsl:text>
       <xsl:text>a:</xsl:text>
-      <xsl:value-of select="count(og_groups/item)"/>
+      <xsl:value-of select="count(recent_news/item)"/>
       <xsl:text>:{</xsl:text>
-        <xsl:for-each select="og_groups/item">
-          <xsl:text>i:</xsl:text>
-          <xsl:value-of select="(position() - 1)"/>
-          <xsl:text>;</xsl:text>
-          <xsl:text>a:1:{</xsl:text>
-
-            <xsl:text>s:3:"gid";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:7:"numeric";</xsl:text>
-
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(self::node())"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="self::node()"/>
-              <xsl:text>";</xsl:text>
-
-            <xsl:text>}</xsl:text>
-
-          <xsl:text>}</xsl:text>
-        </xsl:for-each>
+      <xsl:for-each select="recent_news/item">
+        <xsl:text>i:</xsl:text>
+        <xsl:value-of select="(position() - 1)"/>
+        <xsl:text>;</xsl:text>
+        <xsl:text>a:2:{</xsl:text>
+          <xsl:text>s:6:"format";</xsl:text>
+          <xsl:text>s:7:"numeric";</xsl:text>
+          <xsl:text>s:5:"value";</xsl:text>
+          <xsl:text>s:</xsl:text>
+          <xsl:value-of select="string-length(nid)"/>
+          <xsl:text>:"</xsl:text>
+          <xsl:value-of select="nid"/>
+          <xsl:text>";</xsl:text>
+        <xsl:text>}</xsl:text>
+      </xsl:for-each>
       <xsl:text>}</xsl:text>
 
-      <xsl:text>s:6:"groups";</xsl:text>
+
+      <xsl:text>s:5:"files";</xsl:text>
       <xsl:text>a:</xsl:text>
-      <xsl:value-of select="count(og_groups_both/item)"/>
+      <xsl:value-of select="count(files/file)"/>
       <xsl:text>:{</xsl:text>
-        <xsl:for-each select="og_groups_both/item">
+        <xsl:for-each select="files/file">
           <xsl:text>i:</xsl:text>
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
-          <xsl:text>a:1:{</xsl:text>
+          <xsl:text>a:5:{</xsl:text>
 
-            <xsl:text>s:4:"name";</xsl:text>
+            <xsl:text>s:3:"fid";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"base64";</xsl:text>
-
+              <xsl:text>s:7:"numeric";</xsl:text>
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(php:functionString('base64_encode',self::node()))"/>
+              <xsl:value-of select="string-length(@id)"/>
               <xsl:text>:"</xsl:text>
-              <xsl:value-of select="php:functionString('base64_encode',self::node())"/>
+              <xsl:value-of select="@id"/>
               <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
 
+            <xsl:text>s:8:"filename";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:6:"string";</xsl:text>
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(name)"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="name"/>
+              <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+            <xsl:text>s:8:"filepath";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:6:"string";</xsl:text>
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(full_path)"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="full_path"/>
+              <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+            <xsl:text>s:4:"mime";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:6:"string";</xsl:text>
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(mime)"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="mime"/>
+              <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
+            <xsl:text>s:8:"filesize";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:7:"numeric";</xsl:text>
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(size)"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="size"/>
+              <xsl:text>";</xsl:text>
             <xsl:text>}</xsl:text>
 
           <xsl:text>}</xsl:text>
@@ -3148,101 +3061,6 @@
               <xsl:text>";</xsl:text>
             <xsl:text>}</xsl:text>
 
-        <xsl:text>}</xsl:text>
-      </xsl:for-each>
-      <xsl:text>}</xsl:text>
-
-      <xsl:text>s:11:"recent_news";</xsl:text>
-      <xsl:text>a:</xsl:text>
-      <xsl:value-of select="count(field_previous_events/item)"/>
-      <xsl:text>:{</xsl:text>
-      <xsl:for-each select="field_previous_events/item">
-        <xsl:text>i:</xsl:text>
-        <xsl:value-of select="(position() - 1)"/>
-        <xsl:text>;</xsl:text>
-        <xsl:text>a:2:{</xsl:text>
-          <xsl:text>s:6:"format";</xsl:text>
-          <xsl:text>s:7:"numeric";</xsl:text>
-          <xsl:text>s:5:"value";</xsl:text>
-          <xsl:text>s:</xsl:text>
-          <xsl:value-of select="string-length(nid)"/>
-          <xsl:text>:"</xsl:text>
-          <xsl:value-of select="nid"/>
-          <xsl:text>";</xsl:text>
-        <xsl:text>}</xsl:text>
-      </xsl:for-each>
-      <xsl:text>}</xsl:text>
-
-      <xsl:text>s:5:"files";</xsl:text>
-      <xsl:text>a:</xsl:text>
-      <xsl:value-of select="count(files/file)"/>
-      <xsl:text>:{</xsl:text>
-        <xsl:for-each select="files/file">
-          <xsl:text>i:</xsl:text>
-          <xsl:value-of select="(position() - 1)"/>
-          <xsl:text>;</xsl:text>
-          <xsl:text>a:5:{</xsl:text>
-
-            <xsl:text>s:3:"fid";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:7:"numeric";</xsl:text>
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(@id)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="@id"/>
-              <xsl:text>";</xsl:text>
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:8:"filename";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(name)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="name"/>
-              <xsl:text>";</xsl:text>
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:8:"filepath";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(full_path)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="full_path"/>
-              <xsl:text>";</xsl:text>
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:4:"mime";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:6:"string";</xsl:text>
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(mime)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="mime"/>
-              <xsl:text>";</xsl:text>
-            <xsl:text>}</xsl:text>
-
-            <xsl:text>s:8:"filesize";</xsl:text>
-            <xsl:text>a:2:{</xsl:text>
-              <xsl:text>s:6:"format";</xsl:text>
-              <xsl:text>s:7:"numeric";</xsl:text>
-              <xsl:text>s:5:"value";</xsl:text>
-              <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(size)"/>
-              <xsl:text>:"</xsl:text>
-              <xsl:value-of select="size"/>
-              <xsl:text>";</xsl:text>
-            <xsl:text>}</xsl:text>
-
           <xsl:text>}</xsl:text>
         </xsl:for-each>
       <xsl:text>}</xsl:text>
@@ -3287,6 +3105,63 @@
         </xsl:for-each>
       <xsl:text>}</xsl:text>
 
+      <xsl:text>s:4:"gids";</xsl:text>
+      <xsl:text>a:</xsl:text>
+      <xsl:value-of select="count(og_groups/item)"/>
+      <xsl:text>:{</xsl:text>
+        <xsl:for-each select="og_groups/item">
+          <xsl:text>i:</xsl:text>
+          <xsl:value-of select="(position() - 1)"/>
+          <xsl:text>;</xsl:text>
+          <xsl:text>a:1:{</xsl:text>
+
+            <xsl:text>s:3:"gid";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:7:"numeric";</xsl:text>
+
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(self::node())"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="self::node()"/>
+              <xsl:text>";</xsl:text>
+
+            <xsl:text>}</xsl:text>
+
+          <xsl:text>}</xsl:text>
+        </xsl:for-each>
+      <xsl:text>}</xsl:text>
+
+      <xsl:text>s:6:"groups";</xsl:text>
+      <xsl:text>a:</xsl:text>
+      <xsl:value-of select="count(og_groups_both/item)"/>
+      <xsl:text>:{</xsl:text>
+        <xsl:for-each select="og_groups_both/item">
+          <xsl:text>i:</xsl:text>
+          <xsl:value-of select="(position() - 1)"/>
+          <xsl:text>;</xsl:text>
+          <xsl:text>a:1:{</xsl:text>
+
+            <xsl:text>s:4:"name";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:6:"base64";</xsl:text>
+
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(php:functionString('base64_encode',self::node()))"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="php:functionString('base64_encode',self::node())"/>
+              <xsl:text>";</xsl:text>
+
+            <xsl:text>}</xsl:text>
+
+          <xsl:text>}</xsl:text>
+        </xsl:for-each>
+      <xsl:text>}</xsl:text>
     <xsl:text>}</xsl:text>
   </xsl:if>
 

@@ -14,23 +14,38 @@ filters:
     id: filter_align
     provider: filter
     status: true
-    weight: 8
+    weight: 0
     settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
     status: true
-    weight: 9
+    weight: 0
     settings: {  }
   filter_htmlcorrector:
     id: filter_htmlcorrector
     provider: filter
     status: true
-    weight: 10
+    weight: 9
     settings: {  }
   editor_file_reference:
     id: editor_file_reference
     provider: editor
     status: true
-    weight: 11
+    weight: -50
+    settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: false
+    weight: -10
+    settings:
+      allowed_html: ''
+      filter_html_help: true
+      filter_html_nofollow: false
+  filter_image_lazy_load:
+    id: filter_image_lazy_load
+    provider: filter
+    status: false
+    weight: -49
     settings: {  }

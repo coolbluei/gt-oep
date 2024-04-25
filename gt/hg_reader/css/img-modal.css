@@ -1,0 +1,62 @@
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding: 0;
+  margin: 0;
+  left: 0;
+  top: 0;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  box-sizing: border-box;
+}
+
+/* Modal Content */
+img.modal-content {
+  -o-object-fit: contain;
+     object-fit: contain;
+  background-color: none;
+  max-width: 80%;
+  max-height: 70%;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* The Close Button */
+.close {
+  color: #ffffff;
+  margin-left: auto;
+  font-size: 2em;
+  position: absolute;
+  right: 4rem;
+  top: 4rem;
+}
+
+#caption {
+  margin-top: 1rem;
+  padding: 1rem;
+  color: var(--gt-light-gray);
+  font-weight: 800;
+  border-radius: 0.35rem;
+  font-size: 1.3rem;
+  background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+  text-align: center;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}/* sourceMappingURL=img-modal.css.map */

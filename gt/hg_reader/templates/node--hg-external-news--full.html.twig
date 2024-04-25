@@ -18,54 +18,51 @@
     <div class="row mb-5">
         {# Set Main Container #}
         <div class="col">
-            {# Article URL #}
-            {% if content.field_hg_article_url|render is not empty %}
-                {# label #}
-                <div{{ attributes.addClass('article-url', classes).removeClass('content').removeAttribute('id') }}>
-                    {{ content.field_hg_article_url['#title'] }}
-                </div>
-                {# content #}
-                <div{{ attributes.addClass(classes, 'link').removeClass('label') }}>
-                    {{ content.field_hg_article_url }}
-                </div>
-            {% endif %}
-            {# Dateline #}
+        {# Dateline #}
             {% if content.field_hg_dateline|render is not empty %}
                 {# label #}
                 <div{{ attributes.addClass('dateline', classes).removeClass('content', 'link' , 'article-url') }}>
-                    {{ content.field_hg_dateline['#title'] }}
-                </div>
-                {# content #}
-                <div{{ attributes.addClass(classes).removeClass('label') }}>
-                    {{ content.field_hg_dateline[0] }}
+                   {# <h3> {{ content.field_hg_dateline['#title'] }} </h3> #}
+                    {{ node.field_hg_dateline.value|date('M d, Y') }}
                 </div>
             {% endif %}
-            {# Description #}
+        {# Description #}
             {% if content.body|render is not empty %}
                 <div{{ attributes.addClass('description', classes).removeClass('label', 'dateline') }}>
                     {{ content.body[0] }}
                 </div>
             {% endif %}
+            {# Article URL #}
+            <div class="ex-news-details"> 
+            {% if content.field_hg_article_url|render is not empty %}
+                {# label #}
+                <div{{ attributes.addClass('article-url', classes).removeClass('pb-1', 'pt-1') .removeAttribute('id') }}>
+                    <h3>{{ content.field_hg_article_url['#title'] }}</h3>
+                    {{ content.field_hg_article_url[0] }}
+                </div>
+            {% endif %}
             {# Publication #}
             {% if content.field_hg_publication|render is not empty %}
                 {# label #}
-                <div{{ attributes.addClass('publication', classes).removeClass('content', 'description') }}>
-                    {{ content.field_hg_publication['#title'] }}
-                </div>
-                {# content #}
-                <div{{ attributes.addClass(classes).removeClass('label') }}>
-                    {{ content.field_hg_publication[0] }}
+                <div{{ attributes.addClass('publication', classes).removeClass('pb-1', 'pt-1') }}>
+                    <h3>{{ content.field_hg_publication['#title'] }}</h3>
+                    {{ node.field_hg_publication.value }}
                 </div>
             {% endif %}
+            </div>
+
             {# Related Files #}
             {% if content.field_hg_related_files|render is not empty %}
                 {# label #}
-                <div{{ attributes.addClass('related-files', classes).removeClass('content', 'publication') }}>
-                    {{ content.field_hg_related_files['#title'] }}
-                </div>
-                {# content #}
-                <div{{ attributes.addClass(classes, 'link').removeClass('label') }}>
-                    {{ content.field_hg_related_files }}
+                <div{{ attributes.addClass('related-files', classes).removeClass('content', 'publication', 'pb-1', 'pt-1') }}>
+                    <h3>{{ content.field_hg_related_files['#title'] }}</h3>
+                     <div class="related-files-items">
+                        {% for key, item in content.field_hg_related_files %}
+                             {% if key >= 0 %}
+                                {{ item }}
+                            {% endif %}
+                        {% endfor %}
+                        </div>
                 </div>
             {% endif %}
         </div>

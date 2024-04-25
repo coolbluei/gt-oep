@@ -41,7 +41,7 @@ class HgReaderSettingsForm extends ConfigFormBase {
         ->accessCheck(FALSE)
         ->execute();
     // use limited_html if it exists
-    $default_format = array_search('limited_html', $formats) ? 'limited_html' : 'plain_text';
+    $default_format = array_search('basic_html', $formats) ? 'basic_html' : 'plain_text';
     // get the format entities and make a nice set of options
     $storage_handler = \Drupal::entityTypeManager()->getStorage('filter_format');
     $entities = $storage_handler->loadMultiple($formats);

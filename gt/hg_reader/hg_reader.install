@@ -13,8 +13,9 @@ use Symfony\Component\Yaml\Yaml;
 use Drupal\hg_reader\Entity\HgImporter;
 use Drupal\hg_reader\Controller\HgImporterController;
 use Drupal\Core\Datetime\DrupalDateTime;
-use \Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\Core\Datetime\DateFormatInterface;
+use Drupal\Core\KeyValueStore\KeyValueStoreInterface;
 
 /**
  * hg_reader_install
@@ -64,7 +65,11 @@ function hg_reader_schema() {
         'not null' => TRUE,
         'default' => 0,
       ],
-    ]
+    ],
+    'primary key' => [
+      'nid',
+      'timestamp'
+    ],
   ];
 
   return $schema;
@@ -96,7 +101,7 @@ function hg_reader_requirements($phase) {
  *
  */
 function _hg_reader_update_config($configsNames) {
-  $config_path    = drupal_get_path('module', 'hg_reader') . '/config/install';
+  $config_path    = Drupal::service('extension.list.module')->getPath('hg_reader') . '/config/install';
   $source         = new FileStorage($config_path);
   $config_storage = \Drupal::service('config.storage');
   $config_factory = \Drupal::configFactory();
@@ -285,7 +290,7 @@ function hg_reader_update_8003(&$sandbox) {
  * Support for videos in hg_news
  */
 function hg_reader_update_8004(&$sandbox) {
-  $config_path = drupal_get_path('module', 'hg_reader') . '/config/install';
+  $config_path = Drupal::service('extension.list.module')->getPath('hg_reader') . '/config/install';
 	$source = new FileStorage($config_path);
 	$config_storage = \Drupal::service('config.storage');
 	$config_storage->write('core.entity_form_display.node.hg_news.default', $source->read('core.entity_form_display.node.hg_news.default'));
@@ -297,7 +302,7 @@ function hg_reader_update_8004(&$sandbox) {
  * Modifying default events view and event teaser displays
  */
 function hg_reader_update_8005(&$sandbox) {
-  $config_path = drupal_get_path('module', 'hg_reader') . '/config/install';
+  $config_path = Drupal::service('extension.list.module')->getPath('hg_reader') . '/config/install';
 	$source = new FileStorage($config_path);
 	$config_storage = \Drupal::service('config.storage');
   $config_storage->write('core.entity_view_display.node.hg_event.teaser', $source->read('core.entity_view_display.node.hg_event.teaser'));
@@ -312,7 +317,7 @@ function hg_reader_update_8005(&$sandbox) {
 function hg_reader_update_8006(&$sandbox) {
   \Drupal::service('module_installer')->install(['twig_tweak'], TRUE);
 
-  $config_path = drupal_get_path('module', 'hg_reader') . '/config/install';
+  $config_path = Drupal::service('extension.list.module')->getPath('hg_reader') . '/config/install';
 	$source = new FileStorage($config_path);
 	$config_storage = \Drupal::service('config.storage');
   $config_storage->write('core.entity_view_display.node.hg_news.teaser', $source->read('core.entity_view_display.node.hg_news.teaser'));
@@ -329,7 +334,7 @@ function hg_reader_update_8007(&$sandbox) {
   \Drupal::service('module_installer')->install(['media'], TRUE);
   \Drupal::service('module_installer')->install(['media_library'], TRUE);
 
-  $config_path = drupal_get_path('module', 'hg_reader') . '/config/install';
+  $config_path = Drupal::service('extension.list.module')->getPath('hg_reader') . '/config/install';
   $config_manager = Drupal::service('config.manager');
 	$source = new FileStorage($config_path);
 	$config_storage = \Drupal::service('config.storage');
@@ -385,7 +390,7 @@ function hg_reader_update_8007(&$sandbox) {
  * Support for new group field
  */
 function hg_reader_update_8008(&$sandbox) {
-  $config_path = drupal_get_path('module', 'hg_reader') . '/config/install';
+  $config_path = Drupal::service('extension.list.module')->getPath('hg_reader') . '/config/install';
   $config_manager = Drupal::service('config.manager');
 	$source = new FileStorage($config_path);
 	$config_storage = \Drupal::service('config.storage');
@@ -471,8 +476,8 @@ function hg_reader_update_8009(&$sandbox) {
 /**
  * Add new action configurations.
  */
-function example_update_8010() {
-  $config_path = drupal_get_path('module', 'hg_reader') . '/config/install';
+function hg_reader_update_8010() {
+  $config_path = Drupal::service('extension.list.module')->getPath('hg_reader') . '/config/install';
   $config_manager = Drupal::service('config.manager');
   $source = new FileStorage($config_path);
   $config_storage = \Drupal::service('config.storage');
@@ -481,32 +486,11 @@ function example_update_8010() {
   // These are all media fields so we only need to look up the entity type once.
   $entity_type = $config_manager->getEntityTypeIdByName('field.storage.media.field_media_hg_image');
   $storage = $entity_type_manager->getStorage($entity_type);
-  $entity = $storage->createFromStorageRecord($source->read('field.storage.media.field_media_hg_image'))->save();
-  $entity = $storage->createFromStorageRecord($source->read('field.storage.media.field_media_hg_video'))->save();
-
-  // These are all fields so we only need to look up the entity type once.
-  $entity_type = $config_manager->getEntityTypeIdByName('field.storage.node.field_hg_college_school');
-  $storage = $entity_type_manager->getStorage($entity_type);
-  $entity = $storage->createFromStorageRecord($source->read('field.storage.node.field_hg_college_school'))->save();
-  $entity = $storage->createFromStorageRecord($source->read('field.storage.node.field_hg_department'))->save();
-  $entity = $storage->createFromStorageRecord($source->read('field.storage.node.field_hg_expertise'))->save();
-  $entity = $storage->createFromStorageRecord($source->read('field.storage.node.field_hg_linkedin'))->save();
-  $entity = $storage->createFromStorageRecord($source->read('field.storage.node.field_hg_recent_appearances'))->save();
-  $entity = $storage->createFromStorageRecord($source->read('field.storage.node.field_hg_specialty'))->save();
-  $entity = $storage->createFromStorageRecord($source->read('field.storage.node.field_hg_twitter'))->save();
-  $entity = $storage->createFromStorageRecord($source->read('field.storage.node.field_hg_youtube_video'))->save();
+  $entity = $storage->createFromStorageRecord($source->read('field.storage.media.field_hg_media_description'))->save();
+  $entity = $storage->createFromStorageRecord($source->read('field.storage.media.field_mercury_id'))->save();
 
   $configsNames = [
-    'core.entity_form_display.media.hg_image.default',
-    'core.entity_form_display.media.hg_video.default',
-    'core.entity_form_display.media.hg_video.media_library'.
-    'core.entity_form_display.node.hg_event.default',
     'core.entity_form_display.node.hg_profile.default',
-    'core.entity_view_display.media.hg_image.default',
-    'core.entity_view_display.media.hg_video.default',
-    'core.entity_view_display.media.hg_video.media_library',
-    'core.entity_view_display.node.hg_event.default',
-    'core.entity_view_display.node.hg_event.teaser',
     'core.entity_view_display.node.hg_profile.default',
     'core.entity_view_display.node.hg_profile.teaser',
     'field.field.media.hg_image.field_media_hg_image',
@@ -515,21 +499,336 @@ function example_update_8010() {
     'field.field.node.hg_event.field_hg_related_files',
     'field.field.node.hg_external_news.field_hg_related_files',
     'field.field.node.hg_news.field_hg_related_files',
-    'field.field.node.hg_profile.field_hg_college_school',
-    'field.field.node.hg_profile.field_hg_department',
-    'field.field.node.hg_profile.field_hg_expertise',
-    'field.field.node.hg_profile.field_hg_linkedin',
-    'field.field.node.hg_profile.field_hg_media',
-    'field.field.node.hg_profile.field_hg_recent_appearances',
-    'field.field.node.hg_profile.field_hg_related_files',
-    'field.field.node.hg_profile.field_hg_specialty',
-    'field.field.node.hg_profile.field_hg_twitter',
     'media.type.hg_image',
     'media.type.hg_video',
-    'taxonomy.vocabulary.hg_areas_of_expertise'
   ];
 
   _hg_reader_update_config($configsNames);
 
   return 'Added new configurations.';
+}
+
+/**
+ * Configs for phasing out images/videos in favor of media entities.
+ */
+function hg_reader_update_8011() {
+  $config_path = Drupal::service('extension.list.module')->getPath('hg_reader') . '/config/install';
+  $config_manager = Drupal::service('config.manager');
+  $source = new FileStorage($config_path);
+  $config_storage = \Drupal::service('config.storage');
+  $entity_type_manager = Drupal::entityTypeManager();
+
+  // These are all fields so we only need to look up the entity type once.
+
+  $configsNames = [
+    'core.entity_form_display.media.hg_video.media_library',
+    'core.entity_form_display.media.hg_video.default',
+    'core.entity_form_display.media.hg_image.default',
+    'core.entity_form_display.node.hg_event.default',
+    'core.entity_form_display.node.hg_news.default',
+    'core.entity_view_display.media.hg_image.default',
+    'core.entity_view_display.media.hg_video.default',
+    'core.entity_view_display.media.hg_video.media_library',
+    'core.entity_view_display.node.hg_event.teaser',
+    'core.entity_view_display.node.hg_event.default',
+    'core.entity_view_display.node.hg_news.teaser',
+    'core.entity_view_display.node.hg_news.default',
+    'field.field.node.hg_news.field_hg_media',
+    'field.field.node.hg_event.field_hg_media',
+    'field.field.media.hg_video.field_mercury_id',
+    'field.field.media.hg_image.field_mercury_id',
+    'field.field.media.hg_image.field_hg_media_description'
+  ];
+
+  _hg_reader_update_config($configsNames);
+
+  // Add a primary key to the hg_reader_log so the status page will stop griping.
+  $schema = Database::getConnection()->schema();
+  try {
+    $schema->addPrimaryKey('hg_reader_log', ['nid', 'timestamp']);
+    $keymessage = ' Added primary key to hg_reader_log table.';
+  } catch (Exception $e) {
+    $keymessage = ' Log key already exists.';
+  }
+
+  return 'Added new configurations.' . $keymessage;
+}
+
+/**
+ * Rebuilt entity bundle field map since successive updates have munged it to death.
+ */
+function hg_reader_update_8012() {
+  // Add bundle_field mapping for field_hg_media.
+  $map = \Drupal::keyValue('entity.definitions.bundle_field_map');
+
+  // Node fields first.
+  $node_map = $map->get('node');
+
+  $node_map['field_hg_media'] = array(
+    'type' => 'entity_reference',
+    'bundles' => array(
+      'hg_event' => 'hg_event',
+      'hg_news' => 'hg_news',
+      'hg_profile' => 'hg_profile',
+    ),
+  );
+  $node_map['field_hg_college_school'] = array(
+    'type' => 'string',
+    'bundles' => array(
+      'hg_profile' => 'hg_profile',
+    ),
+  );
+  $node_map['field_hg_department'] = array(
+    'type' => 'string',
+    'bundles' => array(
+      'hg_profile' => 'hg_profile',
+    ),
+  );
+  $node_map['field_hg_expertise'] = array(
+    'type' => 'entity_reference',
+    'bundles' => array(
+      'hg_profile' => 'hg_profile',
+    ),
+  );
+  $node_map['field_hg_linkedin'] = array(
+    'type' => 'string',
+    'bundles' => array(
+      'hg_profile' => 'hg_profile',
+    ),
+  );
+  $node_map['field_hg_recent_appearances'] = array(
+    'type' => 'entity_reference',
+    'bundles' => array(
+      'hg_profile' => 'hg_profile',
+    ),
+  );
+  $node_map['field_hg_specialty'] = array(
+    'type' => 'string',
+    'bundles' => array(
+      'hg_profile' => 'hg_profile',
+    ),
+  );
+  $node_map['field_hg_twitter'] = array(
+    'type' => 'string',
+    'bundles' => array(
+      'hg_profile' => 'hg_profile',
+    ),
+  );
+
+  $map->set('node', $node_map);
+
+  // A couple media fields too.
+  $node_map = $map->get('media');
+
+  $node_map['field_hg_media_description'] = array(
+    'type' => 'text_long',
+    'bundles' => array(
+      'hg_image' => 'hg_image',
+    ),
+  );
+  $node_map['field_media_hg_image'] = array(
+    'type' => 'image',
+    'bundles' => array(
+      'hg_image' => 'hg_image',
+    ),
+  );
+  $node_map['field_media_hg_video'] = array(
+    'type' => 'string',
+    'bundles' => array(
+      'hg_image' => 'hg_image',
+    ),
+  );
+  $node_map['field_mercury_id'] = array(
+    'type' => 'entity_reference',
+    'bundles' => array(
+      'hg_image' => 'hg_image',
+    ),
+  );
+
+  $map->set('media', $node_map);
+
+  // Rebuild the persistent map.
+  $entity_bundle_info = \Drupal::service('entity_type.bundle.info');
+  $entity_type_manager = \Drupal::service('entity_type.manager');
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+
+  $map = [];
+  foreach ($entity_type_manager->getDefinitions() as $entity_type_id => $entity_type) {
+    if (!$entity_type->entityClassImplements(FieldableEntityInterface::class)) {
+      continue;
+    }
+    foreach ($entity_bundle_info->getBundleInfo($entity_type_id) as $bundle => $bundle_info) {
+      foreach ($entity_field_manager->getFieldDefinitions($entity_type_id, $bundle) as $field_name => $field_definition) {
+        if (!$field_definition->getFieldStorageDefinition()->isBaseField()) {
+          $map[$entity_type_id][$field_name]['type'] = $field_definition->getType();
+          $map[$entity_type_id][$field_name]['bundles'][$bundle] = $bundle;
+        }
+      }
+    }
+  }
+
+  $persistent_map = \Drupal::keyValue('entity.definitions.bundle_field_map');
+  $persistent_map->setMultiple($map);
+}
+
+/**
+ * Remove all field mappings erroneously added in the previous iteration of 8012
+ *
+ */
+function hg_reader_update_8013() {
+  $map = \Drupal::keyValue('entity.definitions.bundle_field_map');
+
+  // One erroneous node field mapping
+  $node_map = $map->get('node');
+
+  $node_map['field_hg_media'] = array(
+    'type' => 'entity_reference',
+    'bundles' => array (
+        'hg_event' => 'hg_event',
+        'hg_news' => 'hg_news',
+        'hg_profile' => 'hg_profile',
+    ),
+  );
+
+  $map->set('node', $node_map);
+
+  // A whole bunch of erroneous media field mappings
+  $node_map = $map->get('media');
+
+  unset($node_map['field_decade']);
+  unset($node_map['field_year']);
+  unset($node_map['field_link']);
+  unset($node_map['field_hg_summary_sentence']);
+  unset($node_map['field_hg_related_links']);
+  unset($node_map['field_hg_related_files']);
+  unset($node_map['field_hg_location_url']);
+  unset($node_map['field_hg_location_email']);
+  unset($node_map['field_hg_location']);
+  unset($node_map['field_hg_images']);
+  unset($node_map['field_hg_fee']);
+  unset($node_map['field_hg_subtitle']);
+  unset($node_map['field_hg_email']);
+  unset($node_map['field_hg_zip_code']);
+  unset($node_map['field_hg_url']);
+  unset($node_map['field_hg_street_address']);
+  unset($node_map['field_hg_secondary_email']);
+  unset($node_map['field_hg_primary_email']);
+  unset($node_map['field_hg_nickname']);
+  unset($node_map['field_hg_middle_name']);
+  unset($node_map['field_hg_last_name']);
+  unset($node_map['field_hg_job_title']);
+  unset($node_map['field_hg_first_name']);
+  unset($node_map['field_hg_city']);
+  unset($node_map['field_hg_alternate_job_title']);
+  unset($node_map['field_hg_youtube_id']);
+  unset($node_map['field_hg_state']);
+  unset($node_map['field_hg_degree']);
+  unset($node_map['field_hg_event_time']);
+  unset($node_map['field_hg_publication']);
+  unset($node_map['field_hg_dateline']);
+  unset($node_map['field_hg_article_url']);
+  unset($node_map['field_hg_classification']);
+  unset($node_map['field_hg_extras']);
+  unset($node_map['field_hg_categories']);
+  unset($node_map['field_hg_core_research_areas']);
+  unset($node_map['field_hg_event_categories']);
+  unset($node_map['field_hg_invited_audience']);
+  unset($node_map['field_hg_keywords']);
+  unset($node_map['field_hg_news_room_topics']);
+  unset($node_map['field_hg_phone_number']);
+  unset($node_map['field_hg_mobile_phone']);
+  unset($node_map['field_hg_fax_number']);
+  unset($node_map['field_hg_location_phone']);
+  unset($node_map['field_hg_teaching']);
+  unset($node_map['field_hg_summary']);
+  unset($node_map['field_hg_research']);
+  unset($node_map['field_hg_sidebar']);
+  unset($node_map['field_hg_contact']);
+  unset($node_map['field_hg_youtube_video']);
+  unset($node_map['field_hg_media']);
+  unset($node_map['field_hg_college_school']);
+  unset($node_map['field_hg_department']);
+  unset($node_map['field_hg_expertise']);
+  unset($node_map['field_hg_linkedin']);
+  unset($node_map['field_hg_recent_appearances']);
+  unset($node_map['field_hg_specialty']);
+  unset($node_map['field_hg_twitter']);
+  unset($node_map['field_image']);
+  unset($node_map['comment']);
+  unset($node_map['field_tags']);
+  unset($node_map['body']);
+  unset($node_map['layout_builder__layout']);
+  unset($node_map['field_hg_source_updated']);
+  unset($node_map['field_hg_importer']);
+  unset($node_map['field_hg_id']);
+
+  $node_map['field_media_hg_video'] = array(
+    'type' => 'string',
+    'bundles' => array(
+      'hg_video' => 'hg_video',
+    ),
+  );
+  $node_map['field_mercury_id'] = array(
+    'type' => 'string',
+    'bundles' => array(
+      'hg_image' => 'hg_image',
+      'hg_video' => 'hg_video',
+    ),
+  );
+
+  $map->set('media', $node_map);
+}
+
+/**
+ * Remove any erroneously added duplicate taxonomy terms
+ *
+ */
+function hg_reader_update_8014() {
+  $vocabs = ['hg_categories', 'hg_core_research_areas', 'hg_event_categories', 'hg_invited_audience', 'hg_keywords','hg_news_room_topics'];
+  $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+
+  // Loop through vocabs and deal with each one.
+  foreach ($vocabs as $vocab) {
+    // Get an array of terms in which each is the lowest ID'd instance.
+    $query = \Drupal::database()->select('taxonomy_term_field_data', 'tfd');
+    $query->addExpression('MIN(tfd.tid)', 'min');
+    $query->fields('tfd', ['name'])
+          ->condition('tfd.vid', $vocab)
+          ->groupBy('tfd.name');
+    $terms = $query->execute()->fetchAll();
+
+    // Loop through terms and delete all but the lowest instance.
+    foreach ($terms as $term) {
+      $tids = \Drupal::entityQuery('taxonomy_term')
+        ->accessCheck(TRUE)
+        ->condition('vid', $vocab)
+        ->condition('name', $term->name)
+        ->condition('tid', $term->min, '<>')
+        ->execute();
+      $entities = $controller->loadMultiple($tids);
+      $controller->delete($entities);
+      $keepers[] = $term->min;
+    }
+
+    // We also need to delete references to the terms we just deleted.
+    $field = \Drupal::database()
+      ->delete('node__field_' . $vocab)
+      ->condition('field_' . $vocab . '_target_id', $keepers, 'NOT IN')
+      ->execute();
+    $revision = \Drupal::database()
+      ->delete('node_revision__field_' . $vocab)
+      ->condition('field_' . $vocab . '_target_id', $keepers, 'NOT IN')
+      ->execute();
+  }
+}
+
+/**
+ * support for changes to media (videos) and news entity display 
+ */
+function hg_reader_update_8015() {
+  $config_path = Drupal::service('extension.list.module')->getPath('hg_reader') . '/config/install';
+	$source = new FileStorage($config_path);
+	$config_storage = \Drupal::service('config.storage');
+  $config_storage->write('core.entity_form_display.node.hg_news.default', $source->read('core.entity_form_display.node.hg_news.default'));
+  $config_storage->write('core.entity_form_display.node.hg_video.default', $source->read('core.entity_form_display.node.hg_video.default'));
 }

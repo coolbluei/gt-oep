@@ -67,7 +67,7 @@
     <div{{ attributes }}>
         <div{{ title_attributes }}><h4>{{ label }}</h4></div>
         {% if multiple %}
-        <div>
+        <div class="hg-link-container">
             {% endif %}
             {% for item in items %}
                 <div{{ item.attributes.addClass(classes) }}><a class="hg-link"

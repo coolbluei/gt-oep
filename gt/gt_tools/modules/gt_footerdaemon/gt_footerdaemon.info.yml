@@ -2,4 +2,4 @@ name: GT Footer Daemon
 type: module
 description: This module has been deprecated, and what you're looking at is just a stub to prevent errors on legacy installs. Get over it.
 package: GT
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8.8 || ^9 || ^10

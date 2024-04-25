@@ -1,0 +1,23 @@
+uuid: c09f8d87-5948-44ea-84f2-4e3bf985c78f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_mercury_id
+    - media.type.hg_video
+id: media.hg_video.field_mercury_id
+field_name: field_mercury_id
+entity_type: media
+bundle: hg_video
+label: 'Mercury ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

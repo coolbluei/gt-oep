@@ -1,29 +1,26 @@
 # GT Theme
 
-`gt_theme` is the official Georgia Tech theme (https://theme.gatech.edu) for the Drupal 9+ content management system.
-
-The GT theme ^4.0.0 is compatible with Drupal ^9.0.0 and above.
+This is the official Georgia Tech theme (https://theme.gatech.edu) for the Drupal content management system. Version 4.x is compatible with Drupal 9 and above.
 
 ## Bootstrap 5
-The GT theme ^4.0.0 is running Bootstrap v5 and can negativly effect older sites. Make sure to backup your work and test.
-https://getbootstrap.com/docs/5.2/getting-started/introduction/
+The GT theme 4.x uses Bootstrap 5 and can negativly effect subthemes that rely on Bootstrap 4. Make sure to backup your work and test thoroughly. https://getbootstrap.com/docs/5.2/getting-started/introduction/
 
-Internet Explorer is not supported. If you require Internet Explorer support, please use Bootstrap v4.
+Pleas note that Internet Explorer is no longer supported in Bootstrap 5. If you require Internet Explorer support, please use Bootstrap v4.
 
 ## Requirements
 
 The GT Theme requires:
-* [GT Tools (gt_tools)](https://github.gatech.edu/ICWebTeam/gt_tools-8.x)
+* [GT Tools](https://github.gatech.edu/ICWebTeam/gt_tools)
 
 ## Installation
 
-This theme is best installed using the [gt_installer/gt](https://github.gatech.edu/ICWebTeam/gt_installer). Manual installation of this theme may result in degraded functionality.
+This theme is best installed using the [GT Installer](https://github.gatech.edu/ICWebTeam/gt_installer). Manual installation of this theme may result in degraded functionality.
 
 ## GT theme
 The **GT theme contains the most up-to-date Georgia Tech design elements and allows for full page customizations. [The Georgia Tech Theme website](http://theme.gatech.edu/) contains documentation and training videos.
 
 ### Configuration
-As an administrative user, navigate to *'Appearance - GT - Settings* (also located from admin/appearance/settings/gt ).
+As an administrative user, navigate to *'Appearance - GT - Settings* (or go directly to admin/appearance/settings/gt).
 
 On the theme settings page, configure:
 
@@ -31,16 +28,17 @@ On the theme settings page, configure:
 * **Header options**: Enable header and subheader text links.
 * **Breadcrumbs options**: Enable or disable breadcrumbs.
 * **Superfooter options**: Configure the display of the superfooter.
-* **Custom CSS**: Add custom CSS.
+* **Fontawesome options**: Disable the use of the Font Awesome icon library. Don't disable it unless you have the pro version or a replacement coded into your subtheme!
+* **Custom CSS**: Add custom CSS quickly and easily (at the cost of maintainabilty).
 * **Contact information**: Customize the contact address in the footer.
 
-### Extending GT
-GT can be easily extended through a subtheme. See [theme_coe_podcast](https://github.gatech.edu/coe-web/theme_coe_podcast) for an example of a GT subtheme.
+### Extending the theme
+The theme can be easily extended through a subtheme. See [theme_coe_podcast](https://github.gatech.edu/coe-web/theme_coe_podcast) for an example of a GT subtheme.
 
 ## Need help?
 The Georgia Tech community provides the following support:
 
 * [Georgia Tech theme tutorials, training, and videos](http://theme.gatech.edu/)
-* The Georgia Tech web community: Reach out to the Georgia Tech Drupal community via the [listserv](https://drupal.gatech.edu/about-us/gt-drupal-mailing-list) and [Microsoft Team](https://drupal.gatech.edu/about-us/ms-team).
-* Submit bug reports via the [gt_theme issue queue](https://github.gatech.edu/ICWebTeam/gt_theme-8.x/issues).
-* Contact Institute Communications Web Team at webteam@gatech.edu.
+* Reach out to the Georgia Tech Drupal community via the [listserv](https://drupal.gatech.edu/about-us/gt-drupal-mailing-list) and [Microsoft Teams](https://drupal.gatech.edu/about-us/ms-team).
+* Submit bug reports via the [Theme Issue Queue](https://github.gatech.edu/ICWebTeam/gt_theme-8.x/issues).
+* Contact Institute Communications Web Team directly at webteam@gatech.edu.

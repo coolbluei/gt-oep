@@ -2,9 +2,13 @@ hg_reader:
   version: 1.x
   css:
     theme:
-      css/hg-reader.css: {}
+      css/hg-reader.css: {},
+      css/news.css: {},
+      css/external-news.css: {},
+      css/events.css: {},
+      css/img-modal.css: {}
   js:
-    js/hg_reader.js: {}
+    js/hg_reader.js: {},
   dependencies:
     - core/jquery
     - core/jquery.once

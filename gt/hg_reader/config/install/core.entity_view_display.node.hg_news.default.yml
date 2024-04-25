@@ -9,10 +9,12 @@ dependencies:
     - field.field.node.hg_news.field_hg_core_research_areas
     - field.field.node.hg_news.field_hg_dateline
     - field.field.node.hg_news.field_hg_email
+    - field.field.node.hg_news.field_hg_id
     - field.field.node.hg_news.field_hg_images
     - field.field.node.hg_news.field_hg_importer
     - field.field.node.hg_news.field_hg_keywords
     - field.field.node.hg_news.field_hg_location
+    - field.field.node.hg_news.field_hg_media
     - field.field.node.hg_news.field_hg_news_room_topics
     - field.field.node.hg_news.field_hg_related_files
     - field.field.node.hg_news.field_hg_related_links
@@ -22,7 +24,6 @@ dependencies:
     - field.field.node.hg_news.field_hg_summary
     - field.field.node.hg_news.field_hg_summary_sentence
     - field.field.node.hg_news.field_hg_youtube_video
-    - field.field.node.hg_news.field_hg_id
     - node.type.hg_news
   module:
     - datetime
@@ -32,121 +33,129 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: jJsD2d4489E0jHUqTu7j5pGNLnz1ojeAxQ786CaMnLI
+  default_config_hash: tdT8I_8ff21LADZUbc4O86mrE-bWtwzFqUZWwUx6J0E
 id: node.hg_news.default
 targetEntityType: node
 bundle: hg_news
 mode: default
 content:
   body:
-    label: hidden
     type: text_default
-    weight: 1
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 1
     region: content
   field_hg_categories:
-    weight: 16
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 16
     region: content
   field_hg_contact:
-    weight: 7
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 7
     region: content
   field_hg_core_research_areas:
-    weight: 17
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 17
     region: content
   field_hg_dateline:
-    weight: 5
+    type: datetime_default
     label: above
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
-    type: datetime_default
+    weight: 5
     region: content
   field_hg_email:
-    weight: 6
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 6
     region: content
-  field_hg_images:
-    weight: 13
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
-    region: content
-  field_hg_youtube_video:
-    weight: 14
-    label: above
-    settings:
-      responsive: true
-      width: 854
-      height: 480
-      autoplay: true
-    third_party_settings: {  }
-    type: video_embed_field_video
-    region: content
-  field_hg_importer:
-    weight: 12
+  field_hg_id:
+    type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
+    weight: 18
+    region: content
+  field_hg_images:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_hg_importer:
     type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 12
     region: content
   field_hg_keywords:
     type: entity_reference_label
-    weight: 14
-    region: content
     label: above
     settings:
       link: true
     third_party_settings: {  }
+    weight: 14
+    region: content
   field_hg_location:
-    weight: 11
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 11
     region: content
-  field_hg_news_room_topics:
-    weight: 15
+  field_hg_media:
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
+    weight: 20
+    region: content
+  field_hg_news_room_topics:
     type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 15
     region: content
   field_hg_related_files:
-    weight: 9
+    type: file_default
     label: above
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    type: file_default
+    weight: 9
     region: content
   field_hg_related_links:
-    weight: 8
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -155,60 +164,61 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 8
     region: content
   field_hg_sidebar:
-    weight: 10
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 10
     region: content
   field_hg_source_updated:
-    weight: 19
+    type: timestamp
     label: above
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
+      tooltip:
+        date_format: ''
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
     third_party_settings: {  }
-    type: timestamp
+    weight: 19
     region: content
   field_hg_subtitle:
-    weight: 2
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 2
     region: content
   field_hg_summary:
-    weight: 4
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 4
     region: content
   field_hg_summary_sentence:
-    weight: 3
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
-    region: content
-  field_hg_id:
-    weight: 18
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_integer
+    weight: 3
     region: content
   links:
-    weight: 0
-    region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+    weight: 0
+    region: content
+hidden:
+  field_hg_youtube_video: true

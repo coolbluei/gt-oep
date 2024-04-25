@@ -6,7 +6,7 @@
  * @author Office of Communications and Marketing <web@comm.gatech.edu>
  */
 
-define('READER_VERSION', '4.0.2');
+define('READER_VERSION', '4.2.1');
 define('HG_IMAGE_NOT_FOUND', 113741);
 
 use Drupal\hg_reader\Entity\HgImporter;
@@ -123,33 +123,36 @@ function hg_reader_theme() {
       'base hook' => 'node',
     ],
     'node__hg_feature' => [
-       'template' => 'node--hg-feature',
-       'base hook' => 'node',
+      'template' => 'node--hg-feature',
+      'base hook' => 'node',
     ],
     'node__hg_news__full' => [
-       'template' => 'node--hg-news--full',
-       'base hook' => 'node',
+      'template' => 'node--hg-news--full',
+      'base hook' => 'node',
     ],
     'node__hg_news__teaser' => [
-       'template' => 'node--hg-news--teaser',
-       'base hook' => 'node',
+      'template' => 'node--hg-news--teaser',
+      'base hook' => 'node',
     ],
     'node__hg_profile' => [
-       'template' => 'node--hg-profile',
-       'base hook' => 'node',
+      'template' => 'node--hg-profile',
+      'base hook' => 'node',
     ],
     'node__hg_video' => [
-       'template' => 'node--hg-video',
-       'base hook' => 'node',
+      'template' => 'node--hg-video',
+      'base hook' => 'node',
     ],
     'field__field_hg_keywords' => [
-     'base hook' => 'field',
+      'base hook' => 'field',
     ],
     'field__field_hg_youtube_id' => [
-     'base hook' => 'field',
+      'base hook' => 'field',
     ],
     'field__node__field_hg_images' => [
-     'base hook' => 'field',
+      'base hook' => 'field',
+    ],
+    'field__node__field_hg_media' => [
+      'base_hook' => 'field',
     ],
     'field__node__field_hg_categories' => [
       'base hook' => 'field',
@@ -229,10 +232,25 @@ function hg_reader_form_alter(&$form, FormStateInterface $form_state, $form_id) 
  * Implements hook_preprocess_node. Process Mercury images and event times
  */
 function hg_reader_preprocess_node(&$vars) {
-    // set up event_start and event_end vars.
+  // set up event_start and event_end vars.
   if (isset($vars['elements']['field_hg_event_time']['#items'])) {
     $vars['event_start'] = $vars['elements']['field_hg_event_time']['#items']->getValue()[0]['value'];
     $vars['event_end'] = $vars['elements']['field_hg_event_time']['#items']->getValue()[0]['end_value'];
+  }
+
+  $vars['content']['extra_media']['images'] = [];
+  $vars['content']['extra_media']['videos'] = [];
+  foreach ($vars['content']['field_hg_media'] as $key => $element) {
+    if (is_int($key)) {
+      if ($key == 0) { $vars['content']['hero_media'] = $element; }
+      else {
+        if ($element['#media']->hasField('field_media_hg_image')) {
+          $vars['content']['extra_media']['images'][] = $element;
+        } elseif ($element['#media']->hasField('field_media_hg_video')) {
+          $vars['content']['extra_media']['videos'][] = $element;
+        }
+      }
+    }
   }
 }
 

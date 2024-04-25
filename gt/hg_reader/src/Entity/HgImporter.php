@@ -320,7 +320,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
   function pull_updates($last_run) {
     $config = \Drupal::config('hg_reader.settings');
     $hg_url = $config->get('hg_url');
-    // $last_run = 1656082304; // for testing
+    // $last_run = 1686330994; // for testing
     // This is a suck-ass way of doing this because I always forget to comment
     // it back out when I'm done. Perhaps a debugging setting would be better.
     $url = $hg_url . '/uptracker/json/' . $last_run;
@@ -347,6 +347,23 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
   public static function curl_setup($url, $follow = TRUE) {
     $ch = curl_init();
 
+    $config = \Drupal::config('hg_reader.settings');
+    $curl_connect_timeout = $config->get('hg_curl_timeout');
+
+    $options = [
+      CURLOPT_URL => $url,
+      CURLOPT_HEADER => false,
+      CURLOPT_NOBODY => false,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_AUTOREFERER => true,
+      CURLOPT_FORBID_REUSE => false,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_FAILONERROR => true,
+      CURLOPT_CONNECTTIMEOUT => $curl_connect_timeout,
+      CURLOPT_TIMEOUT => 60,
+      CURLOPT_USERAGENT => 'hg_reader / drupal / ' . READER_VERSION . ' / ' . $_SERVER['HTTP_HOST'],
+    ];
     $config = \Drupal::config('hg_reader.settings');
     $curl_connect_timeout = $config->get('hg_curl_timeout');
 
@@ -532,10 +549,52 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     // Then we build the CT-specific parts of each node.
     switch($rawnode['type']) {
       case 'external_news':
-        $elements['field_hg_article_url']      = $rawnode['article_url'];
+        $elements['field_hg_article_url']      = trim($rawnode['article_url']);
         $elements['field_hg_dateline']         = isset($rawnode['dateline']) ? substr($rawnode['dateline'], 0, 10) : '';
         $elements['field_hg_publication']      = $rawnode['publication'];
         $elements['field_hg_related_files']    = isset($rawnode['files']) ? $rawnode['files'] : '';
+        break;
+
+      case 'news':
+        $elements['field_hg_dateline']            = substr($rawnode['dateline'], 0, 10);
+        $elements['field_hg_email']               = isset($rawnode['email']) ? $rawnode['email'] : '';
+        $elements['field_hg_location']            = isset($rawnode['location']) ? $rawnode['location'] : '';
+        $elements['field_hg_related_files']       = isset($rawnode['files']) ? $rawnode['files'] : '';
+        $elements['field_hg_subtitle']            = isset($rawnode['subtitle']) ? $rawnode['subtitle'] : '';
+        $elements['field_hg_summary_sentence']    = isset($rawnode['sentence']) ? $rawnode['sentence'] : '';
+        $elements['field_hg_keywords']            = $this->process_terms($rawnode['keywords'], 'hg_keywords') ?: array();
+        $elements['field_hg_categories']          = $this->process_terms($rawnode['categories'], 'hg_categories') ?: array();
+        if (isset($rawnode['news_room_topics'])) {
+          $elements['field_hg_news_room_topics']  = $this->process_terms($rawnode['news_room_topics'], 'hg_news_room_topics') ?: array();
+        }
+        if (isset($rawnode['core_research_areas'])) {
+          $elements['field_hg_core_research_areas']  = $this->process_terms($rawnode['core_research_areas'], 'hg_core_research_areas') ?: array();
+        }
+        // TODO: Fix this.
+        // $elements['field_hg_core_research_areas'] = $this->process_terms($rawnode['core_research_areas']) ?: array();
+        $elements['field_hg_media']               = $this->process_media($rawnode['hg_media']) ?: array();
+
+        $elements['field_hg_contact']             = [
+          'value' => $rawnode['contact'],
+          'format' => $format,
+        ];
+        $elements['field_hg_summary']             = [
+          'value' => $rawnode['summary'],
+          'format' => $format,
+        ];
+        $elements['field_hg_sidebar']             = [
+          'value' => $rawnode['sidebar'],
+          'format' => $format,
+        ];
+        if (isset($rawnode['related_links']) && is_array($rawnode['related_links'])) {
+          foreach ($rawnode['related_links'] as $link) {
+            $elements['field_hg_related_links'][]     = [
+              'uri' => $link['url'],
+              'title' => $link['title'],
+            ];
+          }
+        }
+
         break;
 
       case 'event':
@@ -549,9 +608,9 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         $elements['field_hg_summary_sentence'] = $rawnode['sentence'];
         $elements['field_hg_keywords']         = $this->process_terms($rawnode['keywords'], 'hg_keywords') ?: array();
         $elements['field_hg_event_categories'] = $this->process_terms($rawnode['categories'], 'hg_event_categories') ?: array();
-        $elements['field_hg_invited_audience'] = $this->process_terms($rawnode['event_audience'], 'hg_invited_audience') ?: array();
-        $elements['field_hg_images']           = $this->process_images($rawnode['hg_media']) ?: array();
+        $elements['field_hg_invited_audience'] = $this->process_terms($rawnode['hg_invited_audience'], 'hg_invited_audience') ?: array();
         $elements['field_hg_event_time']       = $this->process_eventdate($rawnode['start'], $rawnode['end'], null);
+        $elements['field_hg_media']            = $this->process_media($rawnode['hg_media']) ?: array();
 
         // Extras
         foreach ($rawnode['event_extras'] as $extra) {
@@ -606,12 +665,13 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
 
       case 'video':
         $elements['field_hg_youtube_id'] = $rawnode['youtube_id'];
+        $elements['field_hg_vimeo_id'] = $rawnode['vimeo_id'];
         break;
 
       case 'profile':
         $elements['field_hg_alternate_job_title']           = $rawnode['alttitle'];
         $elements['field_hg_city']                          = $rawnode['city'];
-        $elements['field_hg_college_school']                = $rawnode['college_school'];
+        $elements['field_hg_college_school']                = trim($rawnode['college_school']);
         $elements['field_hg_department']                    = $rawnode['department'];
         $elements['field_hg_fax_number']                    = $rawnode['fax'];
         $elements['field_hg_first_name']                    = $rawnode['firstname'];
@@ -625,7 +685,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         $elements['field_hg_primary_email']                 = $rawnode['primaryemail'];
         $elements['field_hg_research']                      = $rawnode['research'];
         $elements['field_hg_secondary_email']               = $rawnode['secondaryemail'];
-        $elements['field_hg_specialty']                     = $rawnode['specialty'];
+        $elements['field_hg_specialty']                     = trim($rawnode['specialty']);
         $elements['field_hg_state']                         = $rawnode['state'];
         $elements['field_hg_street_address']                = $rawnode['address'];
         $elements['field_hg_summary']                       = $rawnode['summary'];
@@ -633,8 +693,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         $elements['field_hg_twitter']                       = $rawnode['twitter'];
         $elements['field_hg_zip_code']                      = $rawnode['zipcode'];
 
-        $elements['field_hg_media']                            = $this->process_media($rawnode['hg_media']) ?: array();
-        // $elements['field_hg_youtube_video']                 = $this->process_media($rawnode['hg_media'], 'remote_video') ?: array();
+        $elements['field_hg_media']                         = $this->process_media($rawnode['hg_media']) ?: array();
 
         $elements['field_hg_related_files']                 = $this->process_files($rawnode['files']) ?: array();
 
@@ -682,49 +741,6 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
             $elements['field_hg_recent_appearances'][] = $new_node->id();
           }
         }
-        break;
-
-      case 'news':
-        $elements['field_hg_dateline']            = substr($rawnode['dateline'], 0, 10);
-        $elements['field_hg_email']               = isset($rawnode['email']) ? $rawnode['email'] : '';
-        $elements['field_hg_location']            = isset($rawnode['location']) ? $rawnode['location'] : '';
-        $elements['field_hg_related_files']       = isset($rawnode['files']) ? $rawnode['files'] : '';
-        $elements['field_hg_subtitle']            = isset($rawnode['subtitle']) ? $rawnode['subtitle'] : '';
-        $elements['field_hg_summary_sentence']    = isset($rawnode['sentence']) ? $rawnode['sentence'] : '';
-        $elements['field_hg_keywords']            = $this->process_terms($rawnode['keywords'], 'hg_keywords') ?: array();
-        $elements['field_hg_categories']          = $this->process_terms($rawnode['categories'], 'hg_categories') ?: array();
-        if (isset($rawnode['news_room_topics'])) {
-          $elements['field_hg_news_room_topics']  = $this->process_terms($rawnode['news_room_topics'], 'hg_news_room_topics') ?: array();
-        }
-        if (isset($rawnode['core_research_areas'])) {
-          $elements['field_hg_core_research_areas']  = $this->process_terms($rawnode['core_research_areas'], 'hg_core_research_areas') ?: array();
-        }
-        // TODO: Fix this.
-        // $elements['field_hg_core_research_areas'] = $this->process_terms($rawnode['core_research_areas']) ?: array();
-        $elements['field_hg_images']              = isset($rawnode['hg_media']) ? $this->process_images($rawnode['hg_media']) : array();
-        $elements['field_hg_youtube_video']       = isset($rawnode['hg_media']) ? $this->process_videos($rawnode['hg_media']) : array();
-
-        $elements['field_hg_contact']             = [
-          'value' => $rawnode['contact'],
-          'format' => $format,
-        ];
-        $elements['field_hg_summary']             = [
-          'value' => $rawnode['summary'],
-          'format' => $format,
-        ];
-        $elements['field_hg_sidebar']             = [
-          'value' => $rawnode['sidebar'],
-          'format' => $format,
-        ];
-        if (isset($rawnode['related_links']) && is_array($rawnode['related_links'])) {
-          foreach ($rawnode['related_links'] as $link) {
-            $elements['field_hg_related_links'][]     = [
-              'uri' => $link['url'],
-              'title' => $link['title'],
-            ];
-          }
-        }
-
         break;
     }
     return $elements;
@@ -797,15 +813,11 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         $node->set('field_hg_summary_sentence', $remote_node['sentence']);
         $node->set('field_hg_keywords', $this->process_terms($remote_node['keywords'], 'hg_keywords') ?: array());
         $node->set('field_hg_event_categories', $this->process_terms($remote_node['event_categories'], 'hg_event_categories') ?: array());
-        $node->set('field_hg_invited_audience', $this->process_terms($remote_node['event_audience'], 'audience') ?: array());
+        $node->set('field_hg_invited_audience', $this->process_terms($remote_node['event_audience'], 'hg_invited_audience') ?: array());
 
-        // Images
-        $images = $this->process_images($remote_node['media']);
-        if (!empty($images)) {
-          foreach ($images as $key => $image) {
-            $node->field_hg_images->set($key, $this->process_images($remote_node['media']) ?: array());
-          }
-        }
+        // Media processing is offloaded to a helper function.
+        $media = $this->process_media($remote_node['hg_media']);
+        $node->field_hg_media = $media;
 
         // Groups
         foreach ($remote_node['groups'] as $key => $group) {
@@ -862,6 +874,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
 
       case 'video':
         $node->set('field_hg_youtube_id', $remote_node['youtube_id']);
+        $node->set('field_hg_vimeo_id', $remote_node['vimeo_id']);
         break;
 
       case 'news':
@@ -878,21 +891,9 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         $node->set('field_hg_core_research_areas', $this->process_terms($remote_node['core_research_areas'], 'hg_core_research_areas') ?: array());
         $node->set('field_hg_news_room_topics', $this->process_terms($remote_node['news_room_topics'], 'hg_news_room_topics') ?: array());
 
-        $images = $this->process_images($remote_node['hg_media']);
-        if (!empty($images)) {
-          $i = 0;
-          foreach ($images as $image) {
-            $node->field_hg_images->set($i, $image);
-          }
-        }
-
-        $videos = $this->process_videos($remote_node['hg_media']);
-        if (!empty($videos)) {
-          $i = 0;
-          foreach ($videos as $video) {
-            $node->field_hg_youtube_video->set($i, $this->process_videos($remote_node['hg_media']) ?: array());
-          }
-        }
+        // Media processing is offloaded to a helper function.
+        $media = $this->process_media($remote_node['hg_media']);
+        $node->field_hg_media = $media;
 
         // Contact
         $node->field_hg_contact->set(0, [
@@ -967,11 +968,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
 
         // Media processing is offloaded to a helper function.
         $media = $this->process_media($remote_node['hg_media']);
-        if (!empty($media)) {
-          foreach ($media as $key => $item) {
-            $node->field_hg_media->set($key, $item);
-          }
-        }
+        $node->field_hg_media = $media;
 
         // Links
         foreach ($remote_node['links'] as $key => $link) {
@@ -1020,50 +1017,92 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
    */
   function process_media($media) {
     $media_list = [];
-    /** @var FileSystemInterface $file_system */
-    $file_system = \Drupal::service('file_system');
-    /** @var FileRepositoryInterface $file_repository */
-    $file_repository = \Drupal::service('file.repository');
 
     foreach ($media as $item) {
-      if ($item['type'] == 'image') {
-        $file_data = file_get_contents($item['image_path']);
-        $directory_uri = 'public://' . date('Y-d');
-        $file_system->prepareDirectory($directory_uri, FileSystemInterface::CREATE_DIRECTORY|FileSystemInterface::MODIFY_PERMISSIONS);
-        $file = $file_repository->writeData($file_data, $directory_uri . '/' . $item['image_name'], FileSystemInterface::EXISTS_REPLACE);
-
-        $media_entity = Media::create([
-          'bundle' => 'hg_image',
-          'field_media_hg_image' => [
-              'target_id' => $file->id(),
-              'alt' => $item['title'],
-              'title' => $item['title'],
-            ],
-          ]);
-        $media_entity->setName($item['title'])
-          ->setPublished(TRUE)
-          ->save();
-
+      // If item already exists, just link to it.
+      $result = \Drupal::entityQuery('media')
+        ->accessCheck(TRUE)
+        ->condition('field_mercury_id', $item['nid'])
+        ->execute();
+      if (count($result) > 0) {
+        $id = array_pop($result);
         $media_list[] = [
-          'target_id' => $media_entity->id(),
+          'target_id' => $id
         ];
-      } else if ($item['type'] == 'video') {
-        $media_entity = Media::create([
-          'bundle' => 'hg_video',
-          'field_media_hg_video' => [
-              'value' => $item['youtube_id'],
-            ],
-          ]);
+      } else {
+        // Item doesn't exist yet. Create it.
+        if ($item['type'] == 'image') {
+          // Store image.
+          if ($file = $this->store_image($item)) {
+            // Create a new image media entity
+            $media_entity = Media::create([
+              'bundle' => 'hg_image',
+              'field_media_hg_image' => [
+                'target_id' => $file->id(),
+                'alt' => $item['title'],
+                'title' => $item['title'],
+              ],
+              'field_hg_media_description' => $item['body'],
+              'field_mercury_id' => $item['nid']
+            ]);
+          } else { continue; }
+        } else if ($item['type'] == 'video') {
+          if(strpos($item['video_url'], "vimeo")){
+            //split string into and array from the base url and recreate a new url to play vimeo videos
+            $url_array = explode('vimeo.com', $item['video_url']);
+            $new_url = $url_array[0] . 'player.vimeo.com/video' . $url_array[1];
+            // Create a new video media entity
+            $media_entity = Media::create([
+              'bundle' => 'hg_video',
+              'field_media_hg_video' => [
+                'value' => $new_url,
+              ],
+              'field_mercury_id' => $item['nid']
+            ]);
+          } else {
+            // Ternary Operator that handles both youtube url instances
+            $url_array = strpos($item['video_url'],'youtu.be') ? explode('youtu.be', $item['video_url']) : explode('www.youtube.com/watch?v=', $item['video_url']);
+            $new_url = $url_array[0] . 'youtu.be/' . $url_array[1];
+            // Create a new video media entity
+            $media_entity = Media::create([
+              'bundle' => 'hg_video',
+              'field_media_hg_video' => [
+                'value' => $new_url,
+              ],
+              'field_mercury_id' => $item['nid']
+            ]);
+          }
+        }
+
+        // Set title, published, and save.
         $media_entity->setName($item['title'])
           ->setPublished(TRUE)
           ->save();
 
+        // Link to it.
         $media_list[] = [
           'target_id' => $media_entity->id(),
         ];
       }
     }
     return $media_list;
+  }
+
+  /**
+   * Helper for process_media
+   *
+   */
+  function store_image($item) {
+    $file_system = \Drupal::service('file_system');
+    $file_repository = \Drupal::service('file.repository');
+
+    if (!empty($item['image_path'])) {
+      $file_data = file_get_contents($item['image_path']);
+      $directory_uri = 'public://hg_media/' . date('Y-d');
+      $file_system->prepareDirectory($directory_uri, FileSystemInterface::CREATE_DIRECTORY|FileSystemInterface::MODIFY_PERMISSIONS);
+      $file = $file_repository->writeData($file_data, $directory_uri . '/' . $item['image_name'], FileSystemInterface::EXISTS_REPLACE);
+      return $file;
+    }
   }
 
   /**
@@ -1162,11 +1201,11 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     $tids = array();
     foreach ($rawterms as $rawterm) {
       if (is_array($rawterm)) { $rawterm = $rawterm[$vid] ?: $rawterm['term'] ; }
-      $terms = \Drupal::entityTypeManager()->getStorage("taxonomy_vocabulary")->loadByProperties(["name" => $rawterm, "vid" => $vid]);
+      $terms = \Drupal::entityTypeManager()->getStorage("taxonomy_term")->loadByProperties(["name" => $rawterm, "vid" => $vid]);
       if ($terms == NULL) {
         $created = $this->create_term($rawterm, $vid);
         if ($created) {
-          $new_terms = \Drupal::entityTypeManager()->getStorage("taxonomy_vocabulary")->loadByProperties(["name" => $rawterm, "vid" => $vid]);
+          $new_terms = \Drupal::entityTypeManager()->getStorage("taxonomy_term")->loadByProperties(["name" => $rawterm, "vid" => $vid]);
           foreach ($new_terms as $key => $term) {
             $tids[] = $key;
           }
@@ -1187,10 +1226,16 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
    * @return [type]                [description]
    */
   function create_term($name, $taxonomy_type) {
-    $term = Term::create([
-      'name' => $name,
-      'vid' => $taxonomy_type,
-    ])->save();
+    try {
+      $term = Term::create([
+        'name' => $name,
+        'vid' => $taxonomy_type,
+      ])->save();
+    }
+    catch (Exception $e) {
+      $this->readerSetMessage('Unable to create taxonomy term.', 'warning');
+      return FALSE;
+    }
     return TRUE;
   }
 

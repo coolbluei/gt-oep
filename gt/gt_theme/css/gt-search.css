@@ -211,7 +211,7 @@ a.gt-search {
 #search-container .absolute {
     position: absolute;
     left: -10rem;
-    top: 0;
+    top: 1rem;
 }
 
 #search-container .form-item, #search-container .form-actions {

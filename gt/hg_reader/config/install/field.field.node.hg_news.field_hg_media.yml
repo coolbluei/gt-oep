@@ -1,0 +1,21 @@
+uuid: 60515128-0f83-42fb-b1c8-ba27ef82207f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hg_media
+    - node.type.hg_news
+id: node.hg_news.field_hg_media
+field_name: field_hg_media
+entity_type: node
+bundle: hg_news
+label: Media
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings: {  }
+field_type: entity_reference

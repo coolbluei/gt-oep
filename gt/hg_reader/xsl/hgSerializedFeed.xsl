@@ -1019,7 +1019,7 @@
             <xsl:text>i:</xsl:text>
             <xsl:value-of select="(position() - 1)"/>
             <xsl:text>;</xsl:text>
-            <xsl:text>a:22:{</xsl:text>
+            <xsl:text>a:23:{</xsl:text>
 
             <xsl:call-template name="general_element">
                 <xsl:with-param name="element_name" select="string('nid')" />
@@ -1043,6 +1043,12 @@
                 <xsl:with-param name="element_name" select="string('body')" />
                 <xsl:with-param name="element_format" select="string('base64')" />
                 <xsl:with-param name="element_value" select="body" />
+            </xsl:call-template>
+
+            <xsl:call-template name="general_element">
+                <xsl:with-param name="element_name" select="string('alt')" />
+                <xsl:with-param name="element_format" select="string('base64')" />
+                <xsl:with-param name="element_value" select="image_alt" />
             </xsl:call-template>
 
             <xsl:call-template name="general_element">
@@ -1149,9 +1155,9 @@
             </xsl:call-template>
 
             <xsl:call-template name="general_element">
-                <xsl:with-param name="element_name" select="string('youtube_id')" />
-                <xsl:with-param name="element_format" select="string('string')" />
-                <xsl:with-param name="element_value" select="youtube_id" />
+                <xsl:with-param name="element_name" select="string('video_url')" />
+                <xsl:with-param name="element_format" select="string('base64')" />
+                <xsl:with-param name="element_value" select="video_url" />
             </xsl:call-template>
 
             <xsl:text>}</xsl:text>
@@ -1410,7 +1416,7 @@
     </xsl:template>
 
     <xsl:template name="event_audience">
-        <xsl:text>s:14:"event_audience";</xsl:text>
+        <xsl:text>s:19:"hg_invited_audience";</xsl:text>
         <xsl:text>a:</xsl:text>
         <xsl:value-of select="count(event_audience/term)"/>
         <xsl:text>:{</xsl:text>

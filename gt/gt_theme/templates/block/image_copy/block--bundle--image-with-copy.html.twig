@@ -84,13 +84,13 @@
     {% elseif fluid_image and content.field_link.0['#url'] is not empty %}
         <div class="card-media">
             <a title="{{ link_title }}" aria-label="{{ link_title }}" href="{{ link_url }}">
-                <img class="{{ image_style }} card-img-top" src="{{ image_path }}" loading="lazy" alt="{{ image_alt }}">
+                <img class="{{ image_style }} card-img-top" src="{{ image_path }}" loading="eager" alt="{{ image_alt }}">
             </a>
         </div>
         {# Image Only #}
     {% elseif fluid_image is not empty and content.field_link.0['#url'] is empty %}
         <div class="card-media">
-            <img class="{{ image_style }} card-img-top" src="{{ image_path }}" loading="lazy" alt="{{ image_alt }}">
+            <img class="{{ image_style }} card-img-top" src="{{ image_path }}" loading="eager" alt="{{ image_alt }}">
         </div>
     {% else %}
     {% endif %}

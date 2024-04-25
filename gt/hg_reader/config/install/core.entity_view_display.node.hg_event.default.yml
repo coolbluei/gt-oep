@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.hg_event.field_hg_location_email
     - field.field.node.hg_event.field_hg_location_phone
     - field.field.node.hg_event.field_hg_location_url
+    - field.field.node.hg_event.field_hg_media
     - field.field.node.hg_event.field_hg_related_files
     - field.field.node.hg_event.field_hg_related_links
     - field.field.node.hg_event.field_hg_sidebar
@@ -175,6 +176,14 @@ content:
     third_party_settings: {  }
     weight: 107
     region: content
+  field_hg_media:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 20
+    region: content
   field_hg_related_files:
     type: file_default
     label: above
@@ -209,6 +218,15 @@ content:
       date_format: medium
       custom_date_format: ''
       timezone: ''
+      tooltip:
+        date_format: ''
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
     third_party_settings: {  }
     weight: 121
     region: content

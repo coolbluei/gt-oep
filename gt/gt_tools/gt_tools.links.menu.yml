@@ -537,6 +537,22 @@ gt-footer-03.commencement:
   url: https://commencement.gatech.edu/
   weight: 700
 
+gt-footer-03.graduate-postdoc:
+  title: 'Graduate and Postdoctoral Education'
+  description: 'Graduate and Postdoctoral Information for Students'
+  parent: system.admin_structure_menu
+  menu_name: gt-footer-03
+  url: https://gradpostdoc.gatech.edu/
+  weight: 750
+
+gt-footer-03.undergrad:
+  title: 'Undergraduate Education'
+  description: 'Undergraduate Information for Students'
+  parent: system.admin_structure_menu
+  menu_name: gt-footer-03
+  url: https://oue.gatech.edu/
+  weight: 775
+
 gt-footer-03.library:
   title: 'Library'
   description: 'Georgia Tech Library services'
@@ -671,6 +687,14 @@ gt-footer-04.faculty-hiring:
   menu_name: gt-footer-04
   url: https://careers.gatech.edu/
   weight: 600
+
+gt-footer-04.postdoc-services:
+  title: 'Postdoctoral Services'
+  description: 'Postdoctoral Services'
+  parent: system.admin_structure_menu
+  menu_name: gt-footer-04
+  url: https://postdocs.gatech.edu/
+  weight: 650
 
 gt-footer-04.human-resources:
   title: 'Human Resources'

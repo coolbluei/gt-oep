@@ -7,20 +7,20 @@
 * - plugin_id: The ID of the block implementation.
 * - label: The configured label of the block if visible.
 * - configuration: A list of the block's configuration values.
-*   - label: The configured label for the block.
-*   - label_display: The display settings for the label.
-*   - provider: The module or other provider that provided this block plugin.
-*   - Block plugin specific settings will also be stored here.
+*  - label: The configured label for the block.
+*  - label_display: The display settings for the label.
+*  - provider: The module or other provider that provided this block plugin.
+*  - Block plugin specific settings will also be stored here.
 * - content: The content of this block.
 * - attributes: array of HTML attributes populated by modules, intended to
-*   be added to the main container tag of this template.
-*   - id: A valid HTML ID and guaranteed unique.
+*  be added to the main container tag of this template.
+*  - id: A valid HTML ID and guaranteed unique.
 * - title_attributes: Same as attributes, except applied to the main title
-*   tag that appears in the template.
+*  tag that appears in the template.
 * - title_prefix: Additional output populated by modules, intended to be
-*   displayed in front of the main title tag that appears in the template.
+*  displayed in front of the main title tag that appears in the template.
 * - title_suffix: Additional output populated by modules, intended to be
-*   displayed after the main title tag that appears in the template.
+*  displayed after the main title tag that appears in the template.
 *
 * @see template_preprocess_block()
 */
@@ -48,82 +48,89 @@
 
 {# Set Background Color #}
 {% if color_background is not empty %}
-    {% set background_class = 'gt-' ~ color_background %}
+  {% set background_class = 'gt-' ~ color_background %}
 {% else %}
-    {% set background_class = '' %}
+  {% set background_class = '' %}
 {% endif %}
 
 {# Set Remove Padding and Margin #}
 {% if remove_padding is not empty %}
-    {% set background_class =  remove_padding %}
+  {% set background_class = remove_padding %}
 {% else %}
-    {% set remove_padding = 'my-3 mb-4' %}
+  {% set remove_padding = 'my-3 mb-4' %}
 {% endif %}
 
 {# Set CSS Block Classes #}
-{% set container_classes  = [
-    'container-fluid',
-    'block',
-    'block-' ~ configuration.provider|clean_class,
-    'block-' ~ plugin_id|clean_class,
-    'call-to-action',
-    background_class,
-    'd-flex',
-    'flex-direction',
-    remove_padding,
-    'clearfix'
+{% set container_classes = [
+  'container-fluid',
+  'block',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+  'call-to-action',
+  background_class,
+  'd-flex',
+  'flex-direction',
+  remove_padding,
+  'clearfix'
 ] %}
 
 {# Set Media CSS classes #}
 {% set media_classes = [
-    'w-50',
-    'mb-2',
+  'w-50',
+  'mb-2',
 ] %}
 
 {# Content #}
 {% block content %}
-    <div{{ attributes.addClass(container_classes) }}>
-        <div class="container">
-            <div class="{{ alignment }} {{ media_classes|join(' ') }}">
-                {# Video #}
-                {% if video is not empty %}
-                    {{ video }}
-                {% endif %}
-                {# Image with Link #}
-                {% if image is not empty and link is not empty %}
-                    <a title="{{ link_title }}" aria-label="{{ link_title }}" href="{{ link_url }}">
-                        <div role="img" aria-label="{{ image_alt }}">
-                            <img class="{{ image_style }} card-img-top" src="{{ image_path }}" loading="lazy" alt="{{ image_alt }}">
-                        </div>
-                    </a>
-                {% endif %}
-                {# Image without Link #}
-                {% if image is not empty and link is empty %}
-                    <div role="img" aria-label="{{ image_alt }}">
-                        <img class="{{ image_style }} card-img-top" src="{{ image_path }}" loading="lazy" alt="{{ image_alt }}">
-                    </div>
-                {% endif %}
+  <div{{ attributes.addClass(container_classes) }}>
+    <div class="container">
+      <div class="{{ alignment }} {{ media_classes|join(' ') }}">
+        {# Video #}
+        {% if video is not empty %}
+          <div class="{{ alignment }}">
+            {{ video }}
+          </div>
+        {% endif %}
+        {# Image with Link #}
+        {% if image is not empty and link is not empty %}
+          <div class="{{ alignment }}">
+            <a title="{{ link_title }}" aria-label="{{ link_title }}" href="{{ link_url }}">
+              <div role="img" aria-label="{{ image_alt }}">
+                <img class="{{ image_style }} card-img-top" src="{{ image_path }}" loading="eager" alt="{{ image_alt }}">
+              </div>
+            </a>
+          </div>
+        {% endif %}
+        {# Image without Link #}
+        {% if image is not empty and link is empty %}
+          <div class="{{ alignment }}">
+            <div role="img" aria-label="{{ image_alt }}">
+              <img class="{{ image_style }} card-img-top" src="{{ image_path }}" loading="eager" alt="{{ image_alt }}">
             </div>
-            {# Copy #}
-            <div class="{{ text_color }}">
-                {{ title_prefix }}
-                {% if label %}
-                    <h3>{{ label }}</h3>
-                {% endif %}
-                {{ title_suffix }}
-                {% if body %}
-                    {{ body }}
-                {% else %}
-                {% endif %}
-            </div>
-            {# Link #}
-            {% if link_title %}
-                <div class="card-footer w-100 mx-3 my-3">
-                    <a class="{{ button }}" title="{{ link_title }}" aria-label="{{ link_title }}"
-                       href="{{ link_url }}">{{ link_title }}</a>
-                </div>
-            {% else %}
-            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+      {# Copy #}
+      <div class="{{ text_color }}">
+        {{ title_prefix }}
+        {% if label %}
+          <h3>{{ label }}</h3>
+        {% endif %}
+        {{ title_suffix }}
+        {% if body %}
+          {{ body }}
+        {% else %}
+        {% endif %}
+      </div>
+      {# Link #}
+      {% if link_title %}
+        <div class="card-footer w-100 mx-3 my-3">
+          <a class="{{ button }}" title="{{ link_title }}" aria-label="{{ link_title }}"
+            href="{{ link_url }}">{{ link_title }}</a>
         </div>
+      {% else %}
+      {% endif %}
     </div>
+  </div>
 {% endblock %}
+

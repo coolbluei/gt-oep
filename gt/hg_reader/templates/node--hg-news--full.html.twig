@@ -2,36 +2,72 @@
 {% set classes = [
   'row',
   'mercury',
+  'mercury-news',
   'news-full',
   'mb-5',
   'clearfix',
 ] %}
 {# Attached Style Sheet #}
 {{ attach_library('hg_reader/hg_reader') }}
-
 {# Content Start #}
 <article{{ attributes.setAttribute('id', 'mercury').addClass(classes) }}>
-
   {# Set Main Container #}
-  <div class="col-md-8 col-sm-12">
+  <div class="col-md-8 col-sm-12 news-main">
 
-    {# Images #}
-    {% if content.field_hg_images|render is not empty %}
-      <div class="image">
-        {{ content.field_hg_images.0 }}
+    {# Summary #}
+    {% if content.field_hg_summary|render is not empty %}
+      <div class="row hg-summary border-0">
+        {# Hero image #}
+        <div class="hg-media hg-media-hero">
+          {% if content.field_hg_images|render is not empty %}
+            <figure class="image">
+              <picture>
+                {{ content.field_hg_images.0 }}
+              </picture>
+              <figcaption class="caption"><i>{{ node.field_hg_images.0.alt }}</i></figcaption>
+            </figure>
+          {% elseif (node.field_hg_media.getvalue | length) >= 0 %}
+            {# Image imported from Mercury #}
+            {% if node.field_hg_media.entity.field_media_hg_image is not empty %}
+              <figure class="hg-media-leftover-image">
+                <picture>
+                  <a href="{{ file_url(node.field_hg_media.entity.field_media_hg_image.entity.uri.value) }}">
+                      {{ drupal_image(node.field_hg_media.entity.field_media_hg_image.entity.uri.value, 'medium', {alt: node.field_hg_media.entity.field_media_hg_image.alt} ) }}
+                  </a>
+                </picture>
+                <figcaption class="hg-media-details">
+                  {{ node.field_hg_media.entity.field_hg_media_description.value | raw }}
+                </figcaption>
+              </figure>
+            {% elseif node.field_hg_media.entity.field_media_hg_video is not empty %}
+              {# Video imported from Mercury #}
+              {{ content.hero_media }}
+            {% endif %}
+          {% elseif node.field_hg_media[0] %}
+            <div class="col-12 col-md-6 media-item">
+              {{ node.field_hg_media[0] }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="hg-media-hero-summary">
+          {{ content.field_hg_summary[0] }}
+        </div>
       </div>
     {% endif %}
 
     {# Dateline #}
     {% if content.field_hg_dateline is not empty %}
-      <div class="dateline">
-        <h6>
+      <div class="dateline py-2">
+        <small>
+          <b>
           {% if content.field_hg_dateline|render is not empty and content.field_hg_location|render is not empty %}
             {{ node.field_hg_dateline.value|date('M d, Y') }} {{ ' - '|t }} {{ content.field_hg_location[0] }}
           {% elseif content.field_hg_location|render is empty %}
             {{ node.field_hg_dateline.value|date('M d, Y') }}
           {% endif %}
-        </h6>
+          </b>
+        </small>
       </div>
     {% endif %}
 
@@ -42,19 +78,55 @@
       </div>
     {% endif %}
 
-    {# Render remaining Images #}
-    {% if content.field_hg_images|render is not empty %}
-      <div class="row">
-        {% for key, item in content.field_hg_images %}
-          {% if key > 0 %}
-            <div class="col-sm-5 event-image-remaining">
+    
+
+
+    {# This handles Remaining videos #}
+    {# First check whether we even have anything to do here: #}
+    {% if content.extra_media | length > 0 %}
+
+      {# Do we have any videos to show? #}
+      {% if content.extra_media.videos | length > 0 %}
+        <div class="youtube mb-4 p-3">
+          <h3>Additional Videos</h3>
+          <div class="news-remaining-videos">
+            {% for video in content.extra_media.videos %}
+              {{ video }}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {# How about images? #}
+      {% if content.extra_media.images | length > 0 %}
+        <div class="news-remaining-images">
+          <h3>Additional Images</h3>
+          <div class="col-sm-5 event-image-remaining">
+            {% for image in content.extra_media.images %}
               <picture>
-                {{ item }}
+                {{ image }}
               </picture>
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {# Old school images? #}
+      {% if (content.field_hg_images.getvalue | length) > 1 %}
+        <div class="news-remaining-images">
+          <h3>Additional Images</h3>
+          <div class="col-sm-5 event-image-remaining">
+            {% for key, item in content.field_hg_images %}
+              {% if key > 0 %}
+                <picture>
+                  {{ item }}
+                </picture>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
     {% endif %}
 
   </div>
@@ -64,66 +136,80 @@
   <div class="col-md-4 col-sm-12 sidebar sidebar-right">
 
     {% if content.field_hg_sidebar|render is not empty %}
-      <div class="card sidebar-content rounded border-0 p-3">
-        {{ content.field_hg_sidebar }}
+      <div class="card sidebar-content border-0">
+        <h3> {{ content.field_hg_sidebar['#title'] }} </h3>
+        {{ content.field_hg_sidebar[0] }}
       </div>
     {% endif %}
 
     {# Contact #}
+    {% if (content.field_hg_contacts|render is not empty) or (content.field_hg_email|render is not empty) or ((content.field_hg_contacts|render is not empty) and (content.field_hg_email|render is not empty)) %}
+    <div class="contact-card">
     {% if content.field_hg_contact|render is not empty %}
-      <div class="card bg-light contact rounded border-0 p-3">
-        {{ content.field_hg_contact }}
+      <div class="contact  border-0 p-3">
+      <h3>{{content.field_hg_contact['#title']}}</h3>
+        {{ content.field_hg_contact[0] }}
       </div>
     {% endif %}
 
     {# Email #}
     {% if content.field_hg_email|render is not empty %}
-      <div class="card bg-light email rounded border-0 p-3">
-        {{ content.field_hg_email }}
+      <div class="email border-0 p-3">
+        <h3>{{content.field_hg_email['#title']}}</h3>
+        <p>{{ content.field_hg_email[0] }}</p>
       </div>
     {% endif %}
+    </div>
+    {% endif %}
+
 
     {# Related Files #}
     {% if content.field_hg_related_files|render is not empty %}
-      <div class="card related-files rounded border-0 p-3">
+
+      <div class="card related-files border-0 p-3">
         {{ content.field_hg_related_files }}
       </div>
     {% endif %}
 
     {# Related Links #}
     {% if content.field_hg_related_links|render is not empty %}
-      <div class="card related-links rounded border-0 p-3">
-        {{ content.field_hg_related_links }}
+      <div class="card related-links border-0 p-3">
+          {{ content.field_hg_related_links }}
       </div>
     {% endif %}
 
     {# Categories #}
     {% if content.field_hg_categories|render is not empty %}
-      <div class="card categories rounded border-0 p-3">
+      <div class="card categories border-0 p-3">
         {{ content.field_hg_categories }}
       </div>
     {% endif %}
 
     {# Core research areas #}
     {% if content.field_hg_core_research_areas|render is not empty %}
-      <div class="card core_research_areas rounded border-0 p-3">
+      <div class="card core_research_areas border-0 p-3">
         {{ content.field_hg_core_research_areas }}
       </div>
     {% endif %}
 
     {# News Rooms Topics #}
     {% if content.field_hg_news_room_topics|render is not empty %}
-      <div class="card news-room-topics rounded border-0 p-3">
+      <div class="card news-room-topics border-0 p-3">
         {{ content.field_hg_news_room_topics }}
       </div>
     {% endif %}
 
     {# Keywords #}
     {% if content.field_hg_keywords|render is not empty %}
-      <div class="card keywords rounded border-0 p-3">
+      <div class="card keywords border-0 p-3">
         {{ content.field_hg_keywords }}
       </div>
     {% endif %}
 
   </div>
 </article>
+<div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modal-image" alt="Image description"/>
+        <div id="caption"></div>
+</div>

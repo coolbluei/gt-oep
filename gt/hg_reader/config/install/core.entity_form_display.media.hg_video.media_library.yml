@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_form_mode.media.media_library
     - field.field.media.hg_video.field_media_hg_video
+    - field.field.media.hg_video.field_mercury_id
     - media.type.hg_video
 id: media.hg_video.media_library
 targetEntityType: media
@@ -14,6 +15,7 @@ content: {  }
 hidden:
   created: true
   field_media_hg_video: true
+  field_mercury_id: true
   name: true
   path: true
   status: true

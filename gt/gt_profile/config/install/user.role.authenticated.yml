@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:   
   module:
-    - contact
     - filter
 id: authenticated
 label: 'Authenticated user'
@@ -12,5 +11,4 @@ is_admin: false
 permissions:
   - 'access content'
   - 'access shortcuts'
-  - 'access site-wide contact form'
   - 'use text format basic_html'

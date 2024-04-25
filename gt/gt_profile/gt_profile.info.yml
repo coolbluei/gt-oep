@@ -10,6 +10,7 @@ dependencies:
   - block_region_permissions
   - breakpoint
   - cas
+  - ckeditor5
   - comment
   - config
   - contextual
@@ -39,6 +40,6 @@ dependencies:
 themes:
   - gt
   - claro
-version: '4.0.4'
-project status url: https://repo.drupal.gatech.edu/release_history/gt_profile/4.x
+version: '4.0.7'
+project status url: https://comm.gatech.edu/release_histories/gt_profile/4.x
 core_version_requirement: ^9.2 || ^10

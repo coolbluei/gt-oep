@@ -5,8 +5,8 @@ description: 'GT Bootstrap 5 theme for Drupal 9/10.'
 core_version_requirement: ^9.2 || ^10
 package: GT
 project: 'gt_theme'
-project status url: https://repo.drupal.gatech.edu/release_history/gt_theme/4.x
-version: '4.0.7'
+project status url: https://comm.gatech.edu/release_histories/gt_theme/4.x
+version: '4.0.13'
 base theme: false
 
 regions:

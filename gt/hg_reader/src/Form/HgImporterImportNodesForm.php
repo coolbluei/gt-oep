@@ -50,4 +50,3 @@ class HgImporterImportNodesForm extends ContentEntityConfirmFormBase {
     $form_state->setRedirectUrl($this->getCancelUrl());
   }
 }
-?>

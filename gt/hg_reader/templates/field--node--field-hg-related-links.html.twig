@@ -45,6 +45,8 @@
     'mb-3 float-left',
 ] %}
 
+
+
 {% if label_hidden %}
     {% if multiple %}
         <div{{ attributes }}>
@@ -71,7 +73,7 @@
             <h4>{{ label }}</h4>
         </div>
         {% if multiple %}
-        <div>
+        <div class="hg-link-container">
             {% endif %}
             {% for item in items %}
                 <div{{ item.attributes.addClass(classes) }}>
